@@ -1,0 +1,65 @@
+.thumbail{
+	padding: 100px;
+	width: 300px;
+}
+.marge-dalt{
+	margin-top: 75px;
+}
+body {
+	margin: 0!important;
+}
+
+.esquerra{
+	float: left;
+	margin-left: 50px;
+}
+.dreta{
+	float: right;
+	margin-right: 30px;
+}
+.marge-dalt{
+	margin-top: 75px;
+}
+
+.navbar{
+	margin-bottom: 0px!important;
+}
+
+.centrar-text{
+	text-align: center;
+}
+.text-normal{
+	text-align: left;
+	margin-left: 25px;
+}
+.ralla {
+	height: 3px;
+	background-color: black;
+	width: 70vw;
+}
+.anunci {
+	width: 100%;
+
+}
+.marge-dalt-petit{
+	margin-top: 25px;
+}
+.google-play{
+	margin-bottom: 15px;
+}
+.efecte-thumbnail{
+	background-color: #FFFFFF;
+
+}
+.efecte-thumbnail:hover{
+	background-color: #fff6d1;
+
+}
+.flota-esquerra{
+	float:left;
+}
+.perfil{
+	height: auto;
+	width: 35%;
+	border: 1px solid black;
+}

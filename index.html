@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PekiWeb</title>
+    <!-- Owl Carousel Assets -->
+    <link href="owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="owl-carousel/owl.theme.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+
+  
+  </head>
+  <body>
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container-fluid">
+            
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                  <img alt="LOGO" src="...">
+                </a>
+                
+              </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
+                <div class="container"> 
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-circle perfil" src="img/schoolboy1.png">
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Perfil d'usuari</a></li>
+                        <li><a href="#">Les meves mascotes</a></li>
+                        <li><a href="#">Configuració</a></li>
+                        <li><a href="#">Tancar sessió</a></li>
+                      </ul>
+                  </li>
+                </ul>                     
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html">Inici</a></li>
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Serveis<span class="caret"></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="educacio_canina.html">Educació canina</a></li>
+                        <li><a href="#">Club esportiu</a></li>
+                        <li><a href="#">Guarderia</a></li>
+                        <li><a href="#">Passeig</a></li>
+                        <li><a href="#">Veterinaris</a></li>
+                        <li><a href="#">Perruqueria</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adopcions<span class="caret"></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="adoptar.html">Adoptar</a></li>
+                        <li><a href="donar_en_adopcio.html">Donar en adopció</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lost&Find<span class="caret"></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="animals_perduts.html">Animals perduts</a></li>
+                        <li><a href="#">Animals trobats</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+
+
+            </div>
+            </div>
+          </div>
+
+        </nav>
+
+        
+
+        <div id="owl-demo" class="owl-carousel">
+
+          <div class="item">
+            
+            <div class="textoverlay">
+              <h1>Serveis per a les teves mascotes</h1>
+              <p>Perque sempre volem el millor per elles<p>
+
+            </div>
+          <img src="img/im1.jpg" alt=".">
+          </div>
+          <div class="item"><img src="img/im2.jpg" alt=","></div>
+          <div class="item"><img src="img/im3.jpg" alt=",e"></div>
+
+        </div>
+        <a href="#portada">
+        <img class="img-circle fletxa owl-carousel textoverlay" src="img/fletxa.png"></a>
+        
+
+        <script src="js/jquery-1.9.1.min.js"></script> 
+        <script src="owl-carousel/owl.carousel.js"></script>
+        <script src="js/bootstrap.min.js"></script> 
+        <script>
+        $(document).ready(function() {
+          $("#owl-demo").owlCarousel({
+            autoPlay : 3000,
+            navigation : false,
+            slideSpeed : 300,
+            paginationSpeed : 400,
+            singleItem : true
+          });
+        });
+        </script>
+        <div class="container" id="portada">
+          <div class="row marge-dalt centrar-text">
+            <h2>Serveis per a les teves mascotes</h2>
+          </div>
+          <div class="row marge-dalt">
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail efecte-thumbnail">
+                <img src="img/educacio_canina.jpg" alt="...">
+                <div class="caption centrar-text">
+                  <h3>Educació canina</h3>
+                  <p class="text-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit facilisis ex, nec hendrerit nulla placerat faucibus. Morbi volutpat justo nec elit eleifend malesuada... </p>
+                  <p><a href="#" class="btn btn-warning" role="button">Llegir més</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail efecte-thumbnail">
+                <img src="img/guarderia_canina.jpg" alt="...">
+                <div class="caption centrar-text">
+                  <h3>Guarderia</h3>
+                  <p class="text-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit facilisis ex, nec hendrerit nulla placerat faucibus. Morbi volutpat justo nec elit eleifend malesuada... </p>
+                 <p><a href="#" class="btn btn-warning" role="button">Llegir més</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail efecte-thumbnail">
+                <img src="img/veterinaria.jpg" alt="...">
+                <div class="caption centrar-text">
+                  <h3>Veterinaria</h3>
+                  <p class="text-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit facilisis ex, nec hendrerit nulla placerat faucibus. Morbi volutpat justo nec elit eleifend malesuada... </p>
+                  <p><a href="#" class="btn btn-warning" role="button">Llegir més</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail efecte-thumbnail">
+                <img src="img/club_esportiu.jpg" alt="...">
+                <div class="caption centrar-text">
+                  <h3>Club esportiu</h3>
+                  <p class="text-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis hendrerit facilisis ex, nec hendrerit nulla placerat faucibus. Morbi volutpat justo nec elit eleifend malesuada... </p>
+                  <p><a href="#" class="btn btn-warning" role="button">Llegir més</a></p>
+                </div>
+              </div>
+            </div>
+
+
+        </div>
+        
+      </div>
+      <div class="container container-diferent">
+        <hr class="ralla"/>
+      </div>
+      
+      <div class="container">       
+        <div class="row centrar-text marge-dalt-petit">
+          <div class="">
+            <div class="thumbnail anunci">
+              <h4>Ja ha sortit la nova PekiApp, per poder accedir a els nostres serveis desde qualsevol lloc!</h4>
+              <br>
+              <img class="google-play" src="img/google_play.png" alt="disponible en google play">
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </body>
+</html>
