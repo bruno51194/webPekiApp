@@ -4,6 +4,9 @@
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+<?php 
+	include '_functions/functions.php'; 
+?>
 <html>
 	<head>
 		<title>PEKKIAPP</title>
@@ -16,7 +19,39 @@
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
 		<!--JS bootstrap CDN-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+		<script src="assets/js/validator.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#enviar_login').click(function(){
+					var resultadoCorrecto = $("#resultadocorrecto");
+					var resultadoCorrecto2 = $("#resultadocorrecto2");
+					var resultadoError = $("#resultadoerror");
+					var resultadoError2 = $("#resultado_error2");
+					$.ajax({
+						url: "resultado_login.php",
+						type: "POST",
+						data: $("#form_login").serialize(),
+						success: function(responseText){
 
+				                var responseTextarray = responseText.split(" ");
+
+				                if(responseTextarray[0] == "1"){
+				                	alert('holi.');
+				                }
+				                else if(responseTextarray[0] == "2"){
+alert('el email no existeix');
+				                }
+				                else if(responseTextarray[0] == "3"){
+				                	resultadoError2.removeClass("hidden");
+				                }else{
+				                    alert('Opss! Ha ocurrido algun problema.');
+				                }
+				        }
+				    });
+					return false;
+				});
+			});
+		</script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
@@ -62,7 +97,7 @@
 					</div>
 					<ul class="actions">
 						<li><button type="button" class="button special" data-toggle="modal" data-target="#login">Accedeix</a></li>
-						<li><button type="button" class="button" data-toggle="modal" data-target="#registro">Registret</button></li>
+						<li><button type="button" class="button" data-toggle="modal" data-target="#registro">Registre't</button></li>
 					</ul>
 				</section>
 
@@ -71,57 +106,79 @@
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
 				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Registro</h4>
+				        <h4 class="modal-title" id="myModalLabel">Registre</h4>
 				      </div>
 				      <div class="modal-body">
 				      <div>
-				      	<form>
+				      	<form id="form_registro" role="form" data-toggle="validator">
 				      	<div class="row">
 				      		<div class="form-group col-md-5 col-md-offset-1" >
 							    <label>Nom</label>
-							    <input type="text" class="form-control" name="nom" placeholder="Nom">
+							    <input type="text" class="form-control" name="nom" placeholder="Nom" required>
 						  	</div>
 						  	<div class="form-group col-md-5">
 							    <label>Cognom</label>
-							    <input type="text" class="form-control" name="cognom" placeholder="Cognom">
+							    <input type="text" class="form-control" name="cognom" placeholder="Cognom" required>
 						  	</div>
 						  	<div class="form-group col-md-10 col-md-offset-1">
 							    <label>Correu</label>
-							    <input type="email" class="form-control" name="correu" placeholder="Correu electronic">
+							    <input type="email" class="form-control" name="correu" placeholder="Correu electronic" required>
 						  	</div>
 						  	<div class="form-group col-md-5 col-md-offset-1" >
 							    <label>Contrasenya</label>
-							    <input type="password" class="form-control" name="contrasenya" placeholder="Contrasenya">
+							    <input type="password" class="form-control" name="contrasenya" placeholder="Contrasenya" required>
 						  	</div>
 						  	<div class="form-group col-md-5">
 							    <label>Repetir contrasenya</label>
-							    <input type="password" class="form-control" name="repetirContrasenya" placeholder="Repetir contrasenya">
+							    <input type="password" class="form-control" name="repetirContrasenya" placeholder="Repetir contrasenya" required>
 						  	</div>
 						  	<div class="form-group col-md-5 col-md-offset-1">
 							    <label>Codi Postal</label>
-							    <input type="text" class="form-control" name="cp" placeholder="Codi Postal">
+							    <input type="text" class="form-control" name="cp" placeholder="Codi Postal" required>
 						  	</div>
 						  	<div class="form-group col-md-5">
 							    <label>Poblacio</label>
-							    <input type="text" class="form-control" name="poblacio" placeholder="Poblacio">
+							    <input type="text" class="form-control" name="poblacio" placeholder="Poblacio" required>
 						  	</div>
 						  	<div class="form-group col-md-10 col-md-offset-1">
 							    <label>Adreça</label>
-							    <input type="text" class="form-control" name="direccio" placeholder="Adreça">
+							    <input type="text" class="form-control" name="direccio" placeholder="Adreça" required>
 						  	</div>
 						  	<div class="form-group col-md-5 col-md-offset-1">
 							    <label>Telefon</label>
-							    <input type="text" class="form-control" name="telefon" placeholder="Telefon">
+							    <input type="text" class="form-control" name="telefon" placeholder="Telefon" required>
 						  	</div>
+
+						  	
+	
 						 </div>
+
+							 <div id="resultado_correcto" class="form-group text-center">
+	  							  	<div class="alert alert-success">
+								  		<strong>Operació exitosa!</strong> T'has registrat a PekiApp.
+									</div>
+							  	</div>
+
+							    <div class="modal-footer">
+								    <div class="form-group">
+								    <div class="checkbox">
+								      <label>
+								        <input type="checkbox" id="terms" data-error="S'han d'acceptar els termes i condicions" required>
+								        <span class="esquerra">Accepto els <a>termes i condicions</a>.</span>
+								      </label>
+								      <div class="help-block with-errors esquerra"></div>
+								    </div>
+								  </div>
+								   
+								<div class="form-group">
+								    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+								    <button type="submit" id="enviar_registro" class="btn btn-primary">Enviar</button>
+								</div>
+							</div>
 				      	</form>
 				      </div>				      	
 				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				        <button type="button" class="btn btn-primary">Enviar</button>
-				      </div>
+				    
 				    </div>
 				  </div>
 				</div>
@@ -135,22 +192,27 @@
 				        <h4 class="modal-title" id="myModalLabel">Accedeix</h4>
 				      </div>
 				      <div class="modal-body">
-				      	<form>
+				      	<form id="form_login" role="form" data-toggle="validator">
 				      	<div class="row">
 					        <div class="form-group col-md-5 col-md-offset-1" >
 							    <label>Email</label>
-							    <input type="email" class="form-control" name="email" placeholder="Email">
+							    <input type="email" class="form-control" name="email_login" placeholder="Email" required>
 						  	</div>
 						  	<div class="form-group col-md-5">
 							    <label>Contrasenya</label>
-							    <input type="password" class="form-control" name="contrasenya" placeholder="Contrasenya">
+							    <input type="password" class="form-control" name="contrasenya_login" placeholder="Contrasenya" required>
 						  	</div>
-						  	</div>
-					  	</form>				      
+						</div>
+					  	</form>			      
 				      </div>
+				  	<div id="resultado_error2" class="form-group text-center hidden">
+						  	<div class="alert alert-danger">
+					  		Format invàlid de email
+						</div>
+					</div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				        <button type="button" class="btn btn-primary">Enviar</button>
+				        <button type="submit" id="enviar_login" class="btn btn-primary">Enviar</button>
 				      </div>
 				    </div>
 				  </div>

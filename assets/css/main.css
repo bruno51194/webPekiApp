@@ -3766,3 +3766,21 @@
 .resum{
 margin-bottom: 30px;
 }
+input[type="checkbox"], input[type="radio"] {
+    -moz-appearance: none;
+    display: block;
+    float: left;
+    margin-right: -2em;
+    opacity: 1;
+    width: 1em;
+    height: 1em;
+    z-index: 0;
+}
+.esquerra{
+	float: left;
+}
+.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"], .radio input[type="radio"], .radio-inline input[type="radio"] {
+    position: absolute;
+    margin-left: -25px;
+    margin-top: 7px;
+}
