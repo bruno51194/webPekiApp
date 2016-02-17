@@ -7,11 +7,15 @@ $email = $_POST['email_login'];
 }else{
 	$email = "";
 }
-if (isset($_POST['contrasenya_login']))
-$pass = $_POST['contrasenya_login'];
+if (isset($_POST['contrasenya_login'])){
+	$pass = $_POST['contrasenya_login'];
+}else{
+	$pass = "";
+}
 
 if(validar_email ($email)){
-	if(email_existeix($email)){
+	if(email_existeix($email) && contrasenya_correcta($pass)){
+		
 		echo "1";
 	}else{
 		echo "2";

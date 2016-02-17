@@ -20,12 +20,10 @@
 		<!--JS bootstrap CDN-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
 		<script src="assets/js/validator.js" type="text/javascript"></script>
-		<script type="text/javascript">
+				<script type="text/javascript">
 			$(document).ready(function(){
 				$('#enviar_login').click(function(){
-					var resultadoCorrecto = $("#resultadocorrecto");
 					var resultadoCorrecto2 = $("#resultadocorrecto2");
-					var resultadoError = $("#resultadoerror");
 					var resultadoError2 = $("#resultado_error2");
 					$.ajax({
 						url: "resultado_login.php",
@@ -36,14 +34,51 @@
 				                var responseTextarray = responseText.split(" ");
 
 				                if(responseTextarray[0] == "1"){
-				                	alert('holi.');
+				                	window.location.href = "/scripts/webPekiApp/";
 				                }
 				                else if(responseTextarray[0] == "2"){
-alert('el email no existeix');
+				                	resultadoError2.removeClass("hidden");
+				                	resultadoError2.html("<div class='alert alert-danger'>Email o contrasenya incorrectes</div>");
+
 				                }
 				                else if(responseTextarray[0] == "3"){
 				                	resultadoError2.removeClass("hidden");
+				                	resultadoError2.html("<div class='alert alert-danger'>Format invàlid de email</div>");
 				                }else{
+				                    alert('Opss! Ha ocurrido algun problema.');
+				                }
+				        }
+				    });
+					return false;
+				});
+				$('#enviar_registro').click(function(){
+					var resultadoCorrecto = $("#resultadocorrecto");
+					var resultadoError = $("#resultadoerror");
+					$.ajax({
+						url: "resultado_registro.php",
+						type: "POST",
+						data: $("#form_registro").serialize(),
+						success: function(responseText){
+
+				                var responseTextarray = responseText.split(" ");
+
+				                if(responseTextarray[0] == "1"){
+				                	$("#form_registro").html("<div id='resultado_correcto' class='form-group text-center'><div class='alert alert-success'><strong>Operació exitosa!</strong>T'has registrat a PekiApp.</div></div>");
+				                }
+				                else if(responseTextarray[0] == "2"){
+				                	resultadoError.removeClass("hidden");
+				                	resultadoError.html("<div class='alert alert-danger'>Aquest email ja existeix</div>");
+
+				                }
+				                else if(responseTextarray[0] == "3"){
+				                	resultadoError.removeClass("hidden");
+				                	resultadoError.html("<div class='alert alert-danger'>Format invàlid de email</div>");
+				                }
+				                else if(responseTextarray[0] == "4"){
+				                	resultadoError.removeClass("hidden");
+				                	resultadoError.html("<div class='alert alert-danger'>Hi ha camps sense completar</div>");
+				                }else{
+				                	alert(responseTextarray[0]);
 				                    alert('Opss! Ha ocurrido algun problema.');
 				                }
 				        }
@@ -52,6 +87,8 @@ alert('el email no existeix');
 				});
 			});
 		</script>
+
+
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
@@ -74,14 +111,16 @@ alert('el email no existeix');
 										<a href="#">Serveis</a>
 										<ul>
 											<li><a href="#">Perruqueries</a></li>
-											<li><a href="#">Option Two</a></li>
-											<li><a href="#">Option Three</a></li>
-											<li><a href="#">Option Four</a></li>
+											<li><a href="#">Passejadors</a></li>
+											<li><a href="#">Veterinaris</a></li>
+											<li><a href="#">Clubs esportius</a></li>
+											<li><a href="#">Educadors canins</a></li>
+											<li><a href="#">Guarderies caninesr</a></li>
 										</ul>
 									</li>
 								</ul>
 							</li>
-							<li><a href="#" class="button">Entrar</a></li>
+							<li><button type="button" class="button" data-toggle="modal" data-target="#login">Accedeix</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -97,7 +136,7 @@ alert('el email no existeix');
 					</div>
 					<ul class="actions">
 						<li><button type="button" class="button special" data-toggle="modal" data-target="#login">Accedeix</a></li>
-						<li><button type="button" class="button" data-toggle="modal" data-target="#registro">Registre't</button></li>
+						<li><button type="button" class="button" data-toggle="modal" data-target="#registro">Registra't</button></li>
 					</ul>
 				</section>
 
@@ -153,11 +192,8 @@ alert('el email no existeix');
 	
 						 </div>
 
-							 <div id="resultado_correcto" class="form-group text-center">
-	  							  	<div class="alert alert-success">
-								  		<strong>Operació exitosa!</strong> T'has registrat a PekiApp.
-									</div>
-							  	</div>
+							 <div id="resultadoerror" class="form-group text-center hidden">
+							 </div>
 
 							    <div class="modal-footer">
 								    <div class="form-group">
@@ -249,11 +285,11 @@ alert('el email no existeix');
 						  <!-- Controls -->
 						  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
 						    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-						    <span class="sr-only">Previous</span>
+						    <span class="sr-only">Anterior</span>
 						  </a>
 						  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
 						    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-						    <span class="sr-only">Next</span>
+						    <span class="sr-only">Següent</span>
 						  </a>
 						</div>
  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->						
@@ -301,10 +337,10 @@ alert('el email no existeix');
 						<div class="6u 12u(narrower)">
 							<section class="box special">
 								<span class="image featured"><img src="images/pic02.jpg" alt="" /></span>
-								<h3>Sed lorem adipiscing</h3>
-								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+								<h3>Lost & Find</h3>
+								<p>Ajuda a les persones que han perdut les seves mascotes, si t'has trobat amb alguna mascota sense propietari accedeix aqui per ajudar-la.</p>
 								<ul class="actions">
-									<li><a href="#" class="button special">Learn More</a></li>
+									<li><a href="#" class="button special">Entrar</a></li>
 								</ul>
 							</section>
 
@@ -312,10 +348,10 @@ alert('el email no existeix');
 						<div class="6u 12u(narrower)">
 							<section class="box special">
 								<span class="image featured"><img src="images/pic03.jpg" alt="" /></span>
-								<h3>Accumsan integer</h3>
-								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+								<h3>Adopta'ls</h3>
+								<p>Tant si vols donar en adopció com si vols adoptar algun animal, entra aqui per poder ajudar als animals sense llar i ajudar en la seva reincerció.</p>
 								<ul class="actions">
-									<li><a href="#" class="button special">Learn More</a></li>
+									<li><a href="#" class="button special">Entrar</a></li>
 								</ul>
 							</section>
 
