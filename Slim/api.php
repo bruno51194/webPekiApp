@@ -40,11 +40,11 @@ $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=u
 ////////////////////////////////////////////
  
 $app->get('/', function() {
-            http_redirect("http://pekiapp.azurewebsites.net");
+            echo "hola api";
         });
  
 // Cuando accedamos por get a la ruta /usuarios ejecutará lo siguiente:
-$app->get('api/usuarios', function() use($db) {
+$app->get('/usuarios', function() use($db) {
             // Si necesitamos acceder a alguna variable global en el framework
             // Tenemos que pasarla con use() en la cabecera de la función. Ejemplo: use($db)
             // Va a devolver un objeto JSON con los datos de usuarios.
