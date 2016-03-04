@@ -80,7 +80,7 @@ $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
 //obtenim un animal en concret
 $app->get('/animales/:idanimal', function($animalID) use($db) {
 
-            $consulta = $db->prepare("select * from animales where id_USUARIOS=:param1");
+            $consulta = $db->prepare("select * from animales where id_ANIMALES=:param1");
  
             $consulta->execute(array(':param1' => $animalID));
  
