@@ -43,42 +43,49 @@ $app->get('/', function() {
             echo "hola api";
         });
  
-// Cuando accedamos por get a la ruta /usuarios ejecutará lo siguiente:
+//obtenim tots els usuaris
 $app->get('/usuarios', function() use($db) {
-            // Si necesitamos acceder a alguna variable global en el framework
-            // Tenemos que pasarla con use() en la cabecera de la función. Ejemplo: use($db)
-            // Va a devolver un objeto JSON con los datos de usuarios.
-            // Preparamos la consulta a la tabla.
+
             $consulta = $db->prepare("select * from usuarios");
             $consulta->execute();
-            // Almacenamos los resultados en un array asociativo.
+            
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            // Devolvemos ese array asociativo como un string JSON.
+            
             echo json_encode($resultados);
         });
- 
- 
-// Accedemos por get a /usuarios/ pasando un id de usuario. 
-// Por ejemplo /usuarios/veiga
-// Ruta /usuarios/id
-// Los parámetros en la url se definen con :parametro
-// El valor del parámetro :idusuario se pasará a la función de callback como argumento
+
+//obtenim tots els animals
+$app->get('/animales', function() use($db) {
+
+            $consulta = $db->prepare("select * from animales");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+        });
+
+//obtenim un susuario en concret
 $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
-            // Va a devolver un objeto JSON con los datos de usuarios.
-            // Preparamos la consulta a la tabla.
-            // En PDO los parámetros para las consultas se pasan con :nombreparametro (casualmente 
-			// coincide con el método usado por Slim).
-			// No confundir con el parámetro :idusuario que si queremos usarlo tendríamos 
-			// que hacerlo con la variable $usuarioID
-            $consulta = $db->prepare("select * from usuaris where nom=:param1");
- 
-            // En el execute es dónde asociamos el :param1 con el valor que le toque.
+
+            $consulta = $db->prepare("select * from usuarios where id_USUARIOS=:param1");
+
             $consulta->execute(array(':param1' => $usuarioID));
  
-            // Almacenamos los resultados en un array asociativo.
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
  
-            // Devolvemos ese array asociativo como un string JSON.
+            echo json_encode($resultados);
+        });
+
+//obtenim un animal en concret
+$app->get('/animales/:idanimal', function($animalID) use($db) {
+
+            $consulta = $db->prepare("select * from animales where id_USUARIOS=:param1");
+ 
+            $consulta->execute(array(':param1' => $animalID));
+ 
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+ 
             echo json_encode($resultados);
         });
  
