@@ -9,18 +9,13 @@
 ?>
 <html>
 	<head>
-		<title>PEKKIAPP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<script src="assets/js/jquery.min.js" type="text/javascript"></script>
+		<?php 
+			$titol = "Pekiapp";
+			$actiu = 1;
+			include 'head.php';
+		?>
 
-		<!--CSS bootstrap CDN-->
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
-		<!--JS bootstrap CDN-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
-		<script src="assets/js/validator.js" type="text/javascript"></script>
-				<script type="text/javascript">
+		<script type="text/javascript">
 			$(document).ready(function(){
 				$('#enviar_login').click(function(){
 					var resultadoCorrecto2 = $("#resultadocorrecto2");
@@ -34,7 +29,7 @@
 				                var responseTextarray = responseText.split(" ");
 
 				                if(responseTextarray[0] == "1"){
-				                	window.location.href = "/scripts/webPekiApp/";
+				                	window.location.href = "/";
 				                }
 				                else if(responseTextarray[0] == "2"){
 				                	resultadoError2.removeClass("hidden");
@@ -87,17 +82,18 @@
 				});
 			});
 		</script>
-
-
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
 	<body class="landing">
 		<div id="page-wrapper">
 
 			<!-- Header -->
 				<header id="header" class="alt">
-					<?php include 'topmenu.php'; ?>
+					<?php 
+					if(true){
+						include 'topmenu.php';
+					}else{
+						include 'topmenu_val.php';
+					} ?>
 				</header>
 
 			<!-- Banner -->

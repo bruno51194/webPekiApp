@@ -13,10 +13,10 @@
 				<li><a href="/scripts/webPekiApp/serveis.php">Veterinaris</a></li>
 				<li><a href="/scripts/webPekiApp/serveis.php">Clubs esportius</a></li>
 				<li><a href="/scripts/webPekiApp/serveis.php">Educadors canins</a></li>
-				<li><a href="/scripts/webPekiApp/serveis.php">Guarderies canines</a></li>
+				<li><a href="/scripts/webPekiApp/serveis.php">Guarderies caninesr</a></li>
 			</ul>
 		</li>
 		<li <?php switch ($actiu) { case 5: echo 'class="actiu"'; break; }?>><a href="/scripts/webPekiApp/contacte.php">Contacte</a></li>
-		<li><button type="button" class="button" data-toggle="modal" data-target="#login">Accedeix</button></li>
+		<li <?php switch ($actiu) { case 6: echo 'class="actiu"'; break; }?>><a href="/scripts/webPekiApp/mi-cuenta-php">La meva conta</a></li>
 	</ul>
 </nav>

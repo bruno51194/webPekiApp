@@ -3,40 +3,27 @@
 @session_start();
  
 require 'Slim/Slim.php';
-// El framework Slim tiene definido un namespace llamado Slim
-// Por eso aparece \Slim\ antes del nombre de la clase.
+
 \Slim\Slim::registerAutoloader();
  
 // Creamos la aplicación.
 $app = new \Slim\Slim();
  
-// Configuramos la aplicación. http://docs.slimframework.com/#Configuration-Overview
-// Se puede hacer en la línea anterior con:
-// $app = new \Slim\Slim(array('templates.path' => 'vistas'));
-// O bien con $app->config();
 $app->config(array(
     'templates.path' => 'vistas',
 ));
  
-// Indicamos el tipo de contenido y condificación que devolvemos desde el framework Slim.
 $app->contentType('text/html; charset=utf-8');
  
-// Definimos conexion de la base de datos.
-// Lo haremos utilizando PDO con el driver mysql.
 define('BD_SERVIDOR', 'eu-cdbr-azure-north-d.cloudapp.net');
 define('BD_NOMBRE', 'pekiappbbdd');
 define('BD_USUARIO', 'b509fbe59f7e43');
 define('BD_PASSWORD', '69edfef4');
  
-// Hacemos la conexión a la base de datos con PDO.
-// Para activar las collations en UTF8 podemos hacerlo al crear la conexión por PDO
-// o bien una vez hecha la conexión con
-// $db->exec("set names utf8");
 $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=utf8', BD_USUARIO, BD_PASSWORD);
  
 ////////////////////////////////////////////
-// Definición de rutas en la aplicación:
-// Ruta por defecto de la aplicación /
+/////////////////// GETS ///////////////////
 ////////////////////////////////////////////
  
 $app->get('/', function() {
@@ -89,23 +76,24 @@ $app->get('/animales/:idanimal', function($animalID) use($db) {
             echo json_encode($resultados);
         });
  
-// Alta de usuarios en la API REST
-$app->post('/usuarios',function() use($db,$app) {
-    // Para acceder a los datos recibidos del formulario
+// Insertar usuari
+$app->post('/insertarUsuarios',function() use($db,$app) {
+    
     $datosform=$app->request;
  
-    // Los datos serán accesibles de esta forma:
-    // $datosform->post('apellidos')
- 
-    // Preparamos la consulta de insert.
-    $consulta=$db->prepare("insert into usuaris(nombre,apellido,contrasenya) 
-					values (:nombre,:apellido,:password)");
+    $consulta=$db->prepare("INSERT INTO usuaris(password_USUARIOS,email_USUARIOS,direccion_USUARIOS,poblacion_USUARIOS,CP_USUARIOS,telefono_USUARIOS,nombre_USUARIOS,apellido_USUARIOS) 
+					VALUES(:password,:correu,:password,:direccio,:poblacio,:codiPostal,:telefon,:nom,:cognom)");
  
     $estado=$consulta->execute(
             array(
-                ':nombre'=> $datosform->post('nombre'),
-                ':apellido'=> $datosform->post('apellido'),
-                ':password'=> $datosform->post('password')
+                ':nom'=> $datosform->post('nom'),
+                ':cognom'=> $datosform->post('cognom'),
+                ':password'=> $datosform->post('contrasenya'),
+                ':correu' => $datosform->post('correu'),
+                ':poblacio' => $datosform->post('poblacio'),
+                ':codiPostal' => $datosform->post('cp'),
+                ':direccio' => $datosform->post('direccio'),
+                ':telefon' => $datosform->post('telefon')
                 )
             );
     if ($estado)
@@ -114,15 +102,15 @@ $app->post('/usuarios',function() use($db,$app) {
         echo json_encode(array('estado'=>false,'mensaje'=>'Error al insertar datos en la tabla.'));
 });
  
-// Programamos la ruta de borrado en la API REST (DELETE)
-$app->delete('/usuarios/:nombre',function($nombre) use($db)
+// DELETE un usuari per el seu id
+$app->delete('/usuarios/:id',function($id) use($db)
 {
-   $consulta=$db->prepare("delete from usuaris where nombre=:nombre");
+   $consulta=$db->prepare(" DELETE FROM usuarios WHERE id_USUARIOS=:id");
  
-   $consulta->execute(array(':nombre'=>$nombre));
+   $consulta->execute(array(':id'=>$id));
  
 if ($consulta->rowCount() == 1)
-   echo json_encode(array('estado'=>true,'mensaje'=>'El usuario '.$nombre.' ha sido borrado correctamente.'));
+   echo json_encode(array('estado'=>true,'mensaje'=>'El usuario con el id '.$id.' ha sido borrado correctamente.'));
  else
    echo json_encode(array('estado'=>false,'mensaje'=>'ERROR: ese registro no se ha encontrado en la tabla.'));
  
