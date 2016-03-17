@@ -1,9 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Alpha by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <?php 
 	include '_functions/functions.php'; 
 ?>
@@ -14,74 +10,6 @@
 			$actiu = 1;
 			include 'head.php';
 		?>
-
-		<script type="text/javascript">
-			$(document).ready(function(){
-				$('#enviar_login').click(function(){
-					var resultadoCorrecto2 = $("#resultadocorrecto2");
-					var resultadoError2 = $("#resultado_error2");
-					$.ajax({
-						url: "resultado_login.php",
-						type: "POST",
-						data: $("#form_login").serialize(),
-						success: function(responseText){
-
-				                var responseTextarray = responseText.split(" ");
-
-				                if(responseTextarray[0] == "1"){
-				                	window.location.href = "/";
-				                }
-				                else if(responseTextarray[0] == "2"){
-				                	resultadoError2.removeClass("hidden");
-				                	resultadoError2.html("<div class='alert alert-danger'>Email o contrasenya incorrectes</div>");
-
-				                }
-				                else if(responseTextarray[0] == "3"){
-				                	resultadoError2.removeClass("hidden");
-				                	resultadoError2.html("<div class='alert alert-danger'>Format invàlid de email</div>");
-				                }else{
-				                    alert('Opss! Ha ocurrido algun problema.');
-				                }
-				        }
-				    });
-					return false;
-				});
-				$('#enviar_registro').click(function(){
-					var resultadoCorrecto = $("#resultadocorrecto");
-					var resultadoError = $("#resultadoerror");
-					$.ajax({
-						url: "resultado_registro.php",
-						type: "POST",
-						data: $("#form_registro").serialize(),
-						success: function(responseText){
-
-				                var responseTextarray = responseText.split(" ");
-
-				                if(responseTextarray[0] == "1"){
-				                	$("#form_registro").html("<div id='resultado_correcto' class='form-group text-center'><div class='alert alert-success'><strong>Operació exitosa!</strong>T'has registrat a PekiApp.</div></div>");
-				                }
-				                else if(responseTextarray[0] == "2"){
-				                	resultadoError.removeClass("hidden");
-				                	resultadoError.html("<div class='alert alert-danger'>Aquest email ja existeix</div>");
-
-				                }
-				                else if(responseTextarray[0] == "3"){
-				                	resultadoError.removeClass("hidden");
-				                	resultadoError.html("<div class='alert alert-danger'>Format invàlid de email</div>");
-				                }
-				                else if(responseTextarray[0] == "4"){
-				                	resultadoError.removeClass("hidden");
-				                	resultadoError.html("<div class='alert alert-danger'>Hi ha camps sense completar</div>");
-				                }else{
-				                	alert(responseTextarray[0]);
-				                    alert('Opss! Ha ocurrido algun problema.');
-				                }
-				        }
-				    });
-					return false;
-				});
-			});
-		</script>
 	</head>
 	<body class="landing">
 		<div id="page-wrapper">
@@ -89,7 +17,7 @@
 			<!-- Header -->
 				<header id="header" class="alt">
 					<?php 
-					if(true){
+					if(!isset($_SESSION['email'])){
 						include 'topmenu.php';
 					}else{
 						include 'topmenu_val.php';
@@ -105,126 +33,17 @@
 					<p>Mantindrà organitzada tota la informació que li donis sobre la teva mascota i hi podràs accedir des de qualsevol lloc.
 					<br>En el cas de pérdua de la teva mascota Pekiapp ofereix un serivei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota, també facilitara la reincerció de mascotes amb el nostre servei d'adopció.</p>
 					</div>
-					<ul class="actions">
-						<li><button type="button" class="button special" data-toggle="modal" data-target="#login">Accedeix</a></li>
-						<li><button type="button" class="button" data-toggle="modal" data-target="#registro">Registra't</button></li>
-					</ul>
+					<?php if (!isset($_SESSION['email'])) :?>
+						<ul class="actions">
+							<li><a class="button special" href="login.php">Accedeix</a></li>
+							<li><a class="button"  href="registro.php">Registra't</a></li>
+						</ul>
+					<?php else : ?>
+						<div style="padding: 20px"/>
+					<?php endif ?>
 				</section>
 
-				<!-- Modal Registro -->
-				<div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				  <div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h4 class="modal-title" id="myModalLabel">Registre</h4>
-				      </div>
-				      <div class="modal-body">
-				      <div>
-				      	<form id="form_registro" role="form" data-toggle="validator">
-				      	<div class="row">
-				      		<div class="form-group col-md-5 col-md-offset-1" >
-							    <label>Nom</label>
-							    <input type="text" class="form-control" name="nom" placeholder="Nom" required>
-						  	</div>
-						  	<div class="form-group col-md-5">
-							    <label>Cognom</label>
-							    <input type="text" class="form-control" name="cognom" placeholder="Cognom" required>
-						  	</div>
-						  	<div class="form-group col-md-10 col-md-offset-1">
-							    <label>Correu</label>
-							    <input type="email" class="form-control" name="correu" placeholder="Correu electronic" required>
-						  	</div>
-						  	<div class="form-group col-md-5 col-md-offset-1" >
-							    <label>Contrasenya</label>
-							    <input type="password" class="form-control" name="contrasenya" placeholder="Contrasenya" required>
-						  	</div>
-						  	<div class="form-group col-md-5">
-							    <label>Repetir contrasenya</label>
-							    <input type="password" class="form-control" name="repetirContrasenya" placeholder="Repetir contrasenya" required>
-						  	</div>
-						  	<div class="form-group col-md-5 col-md-offset-1">
-							    <label>Codi Postal</label>
-							    <input type="text" class="form-control" name="cp" placeholder="Codi Postal" required>
-						  	</div>
-						  	<div class="form-group col-md-5">
-							    <label>Poblacio</label>
-							    <input type="text" class="form-control" name="poblacio" placeholder="Poblacio" required>
-						  	</div>
-						  	<div class="form-group col-md-10 col-md-offset-1">
-							    <label>Adreça</label>
-							    <input type="text" class="form-control" name="direccio" placeholder="Adreça" required>
-						  	</div>
-						  	<div class="form-group col-md-5 col-md-offset-1">
-							    <label>Telefon</label>
-							    <input type="text" class="form-control" name="telefon" placeholder="Telefon" required>
-						  	</div>
-
-						  	
-	
-						 </div>
-
-							 <div id="resultadoerror" class="form-group text-center hidden">
-							 </div>
-
-							    <div class="modal-footer">
-								    <div class="form-group">
-								    <div class="checkbox">
-								      <label>
-								        <input type="checkbox" id="terms" data-error="S'han d'acceptar els termes i condicions" required>
-								        <span class="esquerra">Accepto els <a>termes i condicions</a>.</span>
-								      </label>
-								      <div class="help-block with-errors esquerra"></div>
-								    </div>
-								  </div>
-								   
-								<div class="form-group">
-								    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-								    <button type="submit" id="enviar_registro" class="btn btn-primary">Enviar</button>
-								</div>
-							</div>
-				      	</form>
-				      </div>				      	
-				      </div>
-				    
-				    </div>
-				  </div>
-				</div>
-
-				<!-- Modal Login -->
-				<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				  <div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Accedeix</h4>
-				      </div>
-				      <div class="modal-body">
-				      	<form id="form_login" role="form" data-toggle="validator">
-				      	<div class="row">
-					        <div class="form-group col-md-5 col-md-offset-1" >
-							    <label>Email</label>
-							    <input type="email" class="form-control" name="email_login" placeholder="Email" required>
-						  	</div>
-						  	<div class="form-group col-md-5">
-							    <label>Contrasenya</label>
-							    <input type="password" class="form-control" name="contrasenya_login" placeholder="Contrasenya" required>
-						  	</div>
-						</div>
-					  	</form>			      
-				      </div>
-				  	<div id="resultado_error2" class="form-group text-center hidden">
-						  	<div class="alert alert-danger">
-					  		Format invàlid de email
-						</div>
-					</div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				        <button type="submit" id="enviar_login" class="btn btn-primary">Enviar</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-
+				
 			<!-- Main -->
 				<section id="main" class="container">
 
@@ -334,16 +153,16 @@
 			<!-- CTA -->
 				<section id="cta">
 
-					<h2>Sign up for beta access</h2>
-					<p>Blandit varius ut praesent nascetur eu penatibus nisi risus faucibus nunc.</p>
+					<h2>Subscriu-te</h2>
+					<p>Subscriu-te al nostre butlletí per poder rebre totes les novetats de la nostra web!</p>
 
 					<form>
 						<div class="row uniform 50%">
 							<div class="8u 12u(mobilep)">
-								<input type="email" name="email" id="email" placeholder="Email Address" />
+								<input type="email" name="email" id="email" placeholder="Email" value="<?php if(isset($_SESSION['email'])) echo $_SESSION['email'];?>"/>
 							</div>
 							<div class="4u 12u(mobilep)">
-								<input type="submit" value="Sign Up" class="fit" />
+								<input type="submit" value="Subscripció" class="fit" />
 							</div>
 						</div>
 					</form>

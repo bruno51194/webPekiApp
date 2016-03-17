@@ -68,8 +68,8 @@
     disable: true,
     custom: {},
     errors: {
-      match: 'Does not match',
-      minlength: 'Not long enough'
+      match: 'No coincideixen',
+      minlength: 'Massa curta'
     },
     feedback: {
       success: 'glyphicon-ok',

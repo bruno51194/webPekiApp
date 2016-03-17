@@ -1,6 +1,6 @@
 <?php
 	function conexion (){
-		$conn = new mysqli('127.0.0.1', 'root', '', 'pa_db');
+		$conn = new mysqli('eu-cdbr-azure-north-d.cloudapp.net', 'b509fbe59f7e43', '69edfef4', 'pekiappbbdd');
 		mysqli_query ($conn, "SET NAMES 'utf8'");
 		if ($conn->connect_errno) {
 			echo "Falló la conexión con MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
@@ -11,6 +11,15 @@
 	function email_existeix($email){
 		$conn=conexion();
 		$resultado = $conn->query("SELECT email_USUARIOSl FROM usuarios WHERE email_USUARIOSl = '" . $email . "'");
+		if ($resultado->fetch_assoc()) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function contrasenya_correcta($pass){
+		$conn=conexion();
+		$resultado = $conn->query("SELECT password_USUARIOS FROM usuarios WHERE password_USUARIOS = '" . $pass . "'");
 		if ($resultado->fetch_assoc()) {
 			return true;
 		}else{
