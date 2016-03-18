@@ -18,8 +18,10 @@
 			<!-- Main -->
 				<section id="main" class="container">
 			        <div class="container">
-			        <h2>Àrea de configuració</h2> 
-			        <div class="menuConfiguracio">
+			        <div class="centrar-text">
+			        	<h2>Àrea de configuració</h2>
+			        </div>		         
+			        <div class="menuConfiguracio col-md-4">
 			        	<ul>
 						  <li><a role="button" data-toggle="collapse" data-parent="#accordion" href="#laMevaCompte" aria-expanded="true" aria-controls="laMevaCompte">El meu perfil</a></li>
 						  <li><a href="#">Els meus animals</a></li>
@@ -29,13 +31,42 @@
 						  <li><a href="#">Compras</a></li>
 						</ul>
 			        </div>
-			          <div class="centrar-text">
-			            	<div id="laMevaCompte" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-						      <div class="panel-body">
-						        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-						      </div>
-						    </div>
-			          </div>
+		            	<div id="laMevaCompte" class="panel-collapse collapse in col-md-8" role="tabpanel" aria-labelledby="headingOne">
+					      <div class="panel-body">
+						      <h3>El meu perfil</h3>
+						      <form>
+						      		<div class="form-group col-md-3">
+										<label>Nom:</label>
+										<input type="text" class="form-control" id="nom_nou" name="nom_nou">
+									</div>
+									<div class="form-group col-md-3">
+										<label>Cognom:</label>
+										<input type="text" class="form-control" id="cognom_nou" name="cognom_nou">
+									</div>
+									<div class="form-group col-md-6">
+										<label>Correu electrònic:</label>
+										<input type="text" class="form-control" id="correu_nou" name="correu_nou">
+									</div>
+									<div class="form-group col-md-4">
+										<label>Població:</label>
+										<input type="text" class="form-control" id="poblacio_nou" name="poblacio_nou">
+									</div>
+									<div class="form-group col-md-4">
+										<label>Codi Postal:</label>
+										<input type="text" class="form-control" id="cp_nou" name="cp_nou">
+									</div>
+									<div class="form-group col-md-4">
+										<label>Telèfon:</label>
+										<input type="text" class="form-control" id="telefon_nou" name="telefon_nou">
+									</div>
+									<div class="form-group col-md-12">
+										<label>Descripció:</label>
+										<textarea class="form-control" rows="4" id="descripcio_nou" name="descripcio_nou"></textarea>
+									</div>
+									<button type="button" id="enviar" class="button">Actualitzar</button>
+						      </form>
+					      </div>
+					    </div>
 			        </div>
 				</section>
 
