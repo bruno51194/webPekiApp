@@ -8,9 +8,17 @@
 .centrar-text{
 	text-align: center;
 }
+	.centrar-text h2{
+	text-align: center;
+	margin-bottom: 50px;
+	}
 
 .marge-dalt{
-	margin-top: 75px;
+	margin-top: 50px;
+}
+
+.marge-abaix{
+	margin-bottom: 50px;
 }
 
 #animal {
@@ -80,3 +88,24 @@ a{
 .panel-title{
 	font-size: 20px;
 }
+
+.menuConfiguracio{
+	list-style: none;
+}
+
+.colorPanel{
+	background-color: transparent;
+	border: 0px; 
+}
+
+#enviar{
+	margin-top: 10px;
+	margin-left: 15px;
+}
+
+#map {
+	height: 75%; 
+	width: 80%; 
+	margin-left: 10% 
+}
+

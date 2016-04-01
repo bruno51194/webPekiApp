@@ -50,7 +50,7 @@ $app->get('/animales', function() use($db) {
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             
-            echo json_encode($resultados);
+            return $resultados;
         });
 
 //obtenim un susuario en concret
