@@ -8,6 +8,7 @@
 			$titol = "Lost&Find";
 			$actiu = 2;
 			include 'head.php';
+			include '_functions/functions.php';
 		?>
 		<link rel="stylesheet" href="assets/css/custom.css" />
   </head>
@@ -15,10 +16,24 @@
 
 <!-- Head -->
   	<header id="header">
-		<?php include 'topmenu.php'; ?>
+		<?php include 'topmenu.php';?>	 
 	</header>
 
   <!-- Google Maps -->
+	<?php  
+		$ch = curl_init();  
+		curl_setopt($ch, CURLOPT_URL, "http://maps.googleapis.com/maps/api/geocode/json?address=cabrils");    
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
+		$data = json_decode(curl_exec($ch),true);  
+		
+		//print_r($data);
+		$latitud = $data['results'][0]['geometry']['location']['lat'];
+		$longitud = $data['results'][0]['geometry']['location']['lng'];
+
+		
+		curl_close($ch);
+
+	 ?>  
 
   	<div id="map"></div>
     <script type="text/javascript">
