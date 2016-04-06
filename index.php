@@ -17,7 +17,7 @@
 			<!-- Header -->
 				<header id="header" class="alt">
 					<?php 
-					if(!isset($_SESSION['email'])){
+					if(!isset($_COOKIE['id'])){
 						include 'topmenu.php';
 					}else{
 						include 'topmenu_val.php';
@@ -33,7 +33,7 @@
 					<p>Mantindrà organitzada tota la informació que li donis sobre la teva mascota i hi podràs accedir des de qualsevol lloc.
 					<br>En el cas de pérdua de la teva mascota Pekiapp ofereix un serivei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota, també facilitara la reincerció de mascotes amb el nostre servei d'adopció.</p>
 					</div>
-					<?php if (!isset($_SESSION['email'])) :?>
+					<?php if (!isset($_COOKIE['id'])) :?>
 						<ul class="actions">
 							<li><a class="button special" href="login.php">Accedeix</a></li>
 							<li><a class="button"  href="registro.php">Registra't</a></li>
@@ -126,7 +126,7 @@
 					<div class="row">
 						<div class="6u 12u(narrower)">
 							<section class="box special">
-								<span class="image featured"><img src="images/pic02.jpg" alt="" /></span>
+								<span class="image featured"><img src="images/lost&find.jpg" alt="perduts i trobats" /></span>
 								<h3>Lost & Find</h3>
 								<p>Ajuda a les persones que han perdut les seves mascotes, si t'has trobat amb alguna mascota sense propietari accedeix aqui per ajudar-la.</p>
 								<ul class="actions">
@@ -137,7 +137,7 @@
 						</div>
 						<div class="6u 12u(narrower)">
 							<section class="box special">
-								<span class="image featured"><img src="images/pic03.jpg" alt="" /></span>
+								<span class="image featured"><img src="images/adoptals.jpg" alt="adopta'ls" /></span>
 								<h3>Adopta'ls</h3>
 								<p>Tant si vols donar en adopció com si vols adoptar algun animal, entra aqui per poder ajudar als animals sense llar i ajudar en la seva reincerció.</p>
 								<ul class="actions">
@@ -159,7 +159,7 @@
 					<form>
 						<div class="row uniform 50%">
 							<div class="8u 12u(mobilep)">
-								<input type="email" name="email" id="email" placeholder="Email" value="<?php if(isset($_SESSION['email'])) echo $_SESSION['email'];?>"/>
+								<input type="email" name="email" id="email" placeholder="Email" value="<?php if(isset($_COOKIE['email'])) echo $_COOKIE['email'];?>"/>
 							</div>
 							<div class="4u 12u(mobilep)">
 								<input type="submit" value="Subscripció" class="fit" />

@@ -56,7 +56,7 @@ $app->get('/animales', function() use($db) {
 //obtenim un susuario en concret
 $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
 
-            $consulta = $db->prepare("select * from usuarios where id_USUARIOS=:param1");
+            $consulta = $db->prepare("SELECT * from usuarios where id_USUARIOS=:param1");
 
             $consulta->execute(array(':param1' => $usuarioID));
  
@@ -70,7 +70,7 @@ $app->post('/usuarios/existe', function() use($db, $app) {
             $datosform=$app->request();
             $email= $datosform->post('lg_username');
             $pass= $datosform->post('lg_password');
-            $consulta = $db->prepare("select * from usuarios where email_USUARIOSl=:param1 AND password_USUARIOS=:param2");
+            $consulta = $db->prepare("SELECT id_USUARIOS from usuarios where email_USUARIOSl=:param1 AND password_USUARIOS=:param2");
             $consulta->bindParam("param1", $email);
             $consulta->bindParam("param2", $pass);
             $consulta->execute();
@@ -78,8 +78,19 @@ $app->post('/usuarios/existe', function() use($db, $app) {
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
  
             if (json_encode($resultados) != "[]"){
-                $_SESSION['email'] = $email;
-                echo 1;
+                $hash_id = hash('sha256', $resultados[0]['id_USUARIOS']);
+                $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+                $sql = "UPDATE usuarios SET token_USUARIOS='" . $hash_id . "' WHERE id_USUARIOS=" . $resultados[0]['id_USUARIOS'];
+                if ($conn->query($sql) === FALSE) {
+                    echo "Error updating record: " . $conn->error;
+                }else{
+
+            /*    $consulta2 = $db->prepare("UPDATE usuarios SET token_USUARIOS=:param3 WHERE id_USUARIOS=:param4");
+                $consulta2->bindParam("param3", $hash_id);
+                $consulta2->bindParam("param4", $resultados[0]['id_USUARIOS']);
+                $consulta2->execute(); */
+                    echo "1 " . $hash_id . " " . $email;
+                }
             }else{
                 echo 0;
             }
@@ -87,7 +98,7 @@ $app->post('/usuarios/existe', function() use($db, $app) {
 //obtenim una contrasenya per correu
 $app->get('/usuarios/password/:correu', function($email) use($db) {
 
-            $consulta = $db->prepare("select password_USUARIOS from usuarios where email_USUARIOSl=:param1");
+            $consulta = $db->prepare("SELECT password_USUARIOS from usuarios where email_USUARIOSl=:param1");
 
             $consulta->execute(array(':param1' => $email));
  
@@ -108,7 +119,18 @@ $app->get('/animales/:idanimal', function($animalID) use($db) {
  
             echo json_encode($resultados);
         });
+
+//obtenim tots els animals 
+$app->get('/animales/:idanimal', function($animalID) use($db) {
+
+            $consulta = $db->prepare("SELECT * from animales where id_ANIMALES=:param1");
+
+            $consulta->execute(array(':param1' => $animalID));
  
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+ 
+            echo json_encode($resultados);
+        });
 // Insertar usuari
 $app->post('/insertarUsuarios',function() use($db,$app) {
 
@@ -126,7 +148,7 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
     
 
     $consulta=$db->prepare("INSERT INTO usuarios(password_USUARIOS,email_USUARIOSl,direccion_USUARIOS,poblacion_USUARIOS,CP_USUARIOS,telefono_USUARIOS,tipo_USUARIOS, nombre_USUARIOS,apellido_USUARIOS) 
-					VALUES(:password,:correu,:direccio,:poblacio,:codiPostal,:telefon,:tipo,:nom,:cognom)");
+                    VALUES(:password,:correu,:direccio,:poblacio,:codiPostal,:telefon,:tipo,:nom,:cognom)");
     if(validar_email($email)){
 
             if(email_existeix($email)){
@@ -183,8 +205,8 @@ $app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
     // $datosform->post('apellidos')
  
     // Preparamos la consulta de update.
-    $consulta=$db->prepare("update usuaris set nombre=:nombre, apellido=:apellido, password=:password 
-							where nombre=:nombre");
+    $consulta=$db->prepare("UPDATE usuaris set nombre=:nombre, apellido=:apellido, password=:password 
+                            where nombre=:nombre");
  
     $estado=$consulta->execute(
             array(
@@ -199,7 +221,7 @@ $app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
       echo json_encode(array('estado'=>true,'mensaje'=>'Datos actualizados correctamente.'));
     else
       echo json_encode(array('estado'=>false,'mensaje'=>'Error al actualizar datos, datos 
-						no modificados o registro no encontrado.'));
+                        no modificados o registro no encontrado.'));
 });
  
 

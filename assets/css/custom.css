@@ -108,4 +108,17 @@ a{
 	width: 80%; 
 	margin-left: 10% 
 }
+.btn-afegir{
+	border: 1px solid orange;
+	background-color: white;
+	color: orange;
+	transition: background-color 0.3s linear, color 0.3s linear;
+}
+.btn-afegir:hover{
+	color: white;
+	background-color: orange;
+}
+.obligatori{
+	color: red;
+}
 

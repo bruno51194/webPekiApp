@@ -77,11 +77,51 @@
 
     <div class="container">		    
       <div class="marge-dalt marge-abaix centrar-text">
-        <button class="btn button">AFEGIR ANIMAL PERDUT</button>
+        <button class="btn btn-afegir" id="afegir-animal">AFEGIR ANIMAL PERDUT</button>
+      </div>
+      <div id="div-afegir" class="col-md-4 center-text" style="display: none">
+      	<form>
+      		<div class="form-controls">
+      			<label>Nom <span class="obligatori">*</span></label>
+      			<input type="text" name="" required>
+      		</div>
+      		<div class="form-controls">
+      			<label>Chip</label>
+      			<input type="text" name="">
+      		</div>
+      		<div class="form-controls">
+      			<label>Tipus <span class="obligatori">*</span></label>
+      			<select name="example">
+				    <option value="A">A</option>
+				    <option value="B">A</option>
+				    <option value="-">Other</option>
+				</select>
+      		</div>
+      		<div class="form-controls">
+      			<label>Estat <span class="obligatori">*</span></label>
+  				<select name="example">
+				    <option value="A">A</option>
+				    <option value="B">A</option>
+				    <option value="-">Other</option>
+				</select>
+      		</div>
+      		<div class="form-controls">
+      			<button id="enviar-animal" type="submit">Enviar</button>
+      		</div>
+      	</form>
       </div>
     </div>
 
     <footer id="footer">
+    <script type="text/javascript">
+    	var div_afegir = $("#div-afegir");
+    	$("#afegir-animal").click(function(){
+    		div_afegir.removeAttr('style');
+    	});
+    	$("#enviar-animal").click(function(){
+    		div_afegir.attr('style', 'display:none');
+    	})
+	</script>
 		<ul class="icons">
 			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
