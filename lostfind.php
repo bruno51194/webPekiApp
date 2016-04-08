@@ -19,22 +19,43 @@
 		<?php include 'topmenu.php';?>	 
 	</header>
 
-  <!-- Google Maps -->
 	<?php  
+	//obtener latidud a traves de una direccion
+	function latitud($direccio){
+		
 		$ch = curl_init();  
-		curl_setopt($ch, CURLOPT_URL, "http://maps.googleapis.com/maps/api/geocode/json?address=cabrils");    
+		curl_setopt($ch, CURLOPT_URL, "http://maps.googleapis.com/maps/api/geocode/json?address=" . $direccio);    
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
 		$data = json_decode(curl_exec($ch),true);  
 		
 		//print_r($data);
 		$latitud = $data['results'][0]['geometry']['location']['lat'];
-		$longitud = $data['results'][0]['geometry']['location']['lng'];
-
+		//$longitud = $data['results'][0]['geometry']['location']['lng'];
 		
 		curl_close($ch);
+		return $latitud;
+	}
+	//obtener longitud a traves de una direccion
+	function longitud($direccio){
+		
+		$ch = curl_init();  
+		curl_setopt($ch, CURLOPT_URL, "http://maps.googleapis.com/maps/api/geocode/json?address=" . $direccio);    
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
+		$data = json_decode(curl_exec($ch),true);  
+		
+		//print_r($data);
+		//$latitud = $data['results'][0]['geometry']['location']['lat'];
+		$longitud = $data['results'][0]['geometry']['location']['lng'];
+		return $longitud;
 
-	 ?>  
+		curl_close($ch);
+	}
 
+	$idUsuari = $_COOKIE['id'];
+
+	?>  
+
+	<!-- Google Maps -->
   	<div id="map"></div>
     <script type="text/javascript">
 
@@ -80,36 +101,103 @@
         <button class="btn btn-afegir" id="afegir-animal">AFEGIR ANIMAL PERDUT</button>
       </div>
       <div id="div-afegir" class="col-md-4 center-text" style="display: none">
-      	<form>
-      		<div class="form-controls">
-      			<label>Nom <span class="obligatori">*</span></label>
-      			<input type="text" name="" required>
-      		</div>
-      		<div class="form-controls">
-      			<label>Chip</label>
-      			<input type="text" name="">
-      		</div>
-      		<div class="form-controls">
-      			<label>Tipus <span class="obligatori">*</span></label>
-      			<select name="example">
-				    <option value="A">A</option>
-				    <option value="B">A</option>
-				    <option value="-">Other</option>
+      <strong></strong><h4>Informació de l'animal</h4></strong>
+      	<form class="form-horizontal" id="form-animalPerdut">
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Nom:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="nom" placeholder="Nom de l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Chip:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="chip" placeholder="Chip de l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Tipo:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      	<select class="form-control" id="tipos">
+					<option>gat</option>
+				    <option>gos</option>
+				    <option>Altres</option>
 				</select>
-      		</div>
-      		<div class="form-controls">
-      			<label>Estat <span class="obligatori">*</span></label>
-  				<select name="example">
-				    <option value="A">A</option>
-				    <option value="B">A</option>
-				    <option value="-">Other</option>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Sexe:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      	<select class="form-control" id="sexe">
+					<option>Mascle</option>
+				    <option>Famella</option>
 				</select>
-      		</div>
-      		<div class="form-controls">
-      			<button id="enviar-animal" type="submit">Enviar</button>
-      		</div>
-      	</form>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Tamany:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="tamany" placeholder="Mides aproximades de l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Raça:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="raça" placeholder="Raça de l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Edat:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="edat" placeholder="Edat de l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Color:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="color" placeholder="Color de l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Vacunes:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="vacunes" placeholder="Introdueix les vacunes de l'animal">
+		    </div>
+		  </div>
+		  <strong><h4>Informació sobre l'última localització de l'animal</h4></strong>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Ciutat:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="ciutat" placeholder="Última ciutat on s'ha vist l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Direcció:</label>
+		    <div class="col-sm-10 col-sm-offset-1">
+		      <input type="text" class="form-control" id="direccio" placeholder="Última direcció on s'ha vist l'animal">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-1 control-label">Recompensa:</label>
+		    <div class="col-sm-9 col-sm-offset-2">
+		      <input type="text" class="form-control" id="recompensa" placeholder="Afegir una recompensa és opcional">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">Descripció:</label>
+		    <div class="col-sm-12">
+		      <textarea class="form-control" rows="5" id="descripcio" placeholder="Afegeix una descripció de com es l'animal"></textarea>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-10">
+		      <button type="submit" class="btn btn-default">Afegir</button>
+		    </div>
+		  </div>
+		</form>
       </div>
+      <!-- end:Main Form -->
+	<script src="assets/js/forms.js"></script>
     </div>
 
     <footer id="footer">
