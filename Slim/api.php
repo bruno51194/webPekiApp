@@ -28,7 +28,7 @@ $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=u
 ////////////////////////////////////////////
  
 $app->get('/', function() {
-            echo "hola api";
+            echo "Has entrar a l'arrel de la API";
         });
  
 //obtenim tots els usuaris
@@ -50,6 +50,7 @@ $app->get('/animales', function() use($db) {
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             
+            echo json_encode($resultados);
             return $resultados;
         });
 
@@ -200,9 +201,6 @@ if ($consulta->rowCount() == 1)
 $app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
     // Para acceder a los datos recibidos del formulario
     $datosform=$app->request;
- 
-    // Los datos serán accesibles de esta forma:
-    // $datosform->post('apellidos')
  
     // Preparamos la consulta de update.
     $consulta=$db->prepare("UPDATE usuaris set nombre=:nombre, apellido=:apellido, password=:password 
