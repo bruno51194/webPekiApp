@@ -106,19 +106,19 @@
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Nom:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="nom" placeholder="Nom de l'animal">
+		      <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom de l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Chip:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="chip" placeholder="Chip de l'animal">
+		      <input type="text" class="form-control" id="chip" name="chip" placeholder="Chip de l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Tipo:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      	<select class="form-control" id="tipos">
+		      	<select class="form-control" id="tipos" name="tipos">
 					<option>gat</option>
 				    <option>gos</option>
 				    <option>Altres</option>
@@ -128,7 +128,7 @@
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Sexe:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      	<select class="form-control" id="sexe">
+		      	<select class="form-control" id="sexe" name="sexe">
 					<option>Mascle</option>
 				    <option>Famella</option>
 				</select>
@@ -137,61 +137,61 @@
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Tamany:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="tamany" placeholder="Mides aproximades de l'animal">
+		      <input type="text" class="form-control" id="tamany" name="tamany" placeholder="Mides aproximades de l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Raça:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="raça" placeholder="Raça de l'animal">
+		      <input type="text" class="form-control" id="raça" name="raça" placeholder="Raça de l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Edat:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="edat" placeholder="Edat de l'animal">
+		      <input type="text" class="form-control" id="edat" name="edat" placeholder="Edat de l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Color:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="color" placeholder="Color de l'animal">
+		      <input type="text" class="form-control" id="color" name="color" placeholder="Color de l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Vacunes:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="vacunes" placeholder="Introdueix les vacunes de l'animal">
+		      <input type="text" class="form-control" id="vacunes" name="vacunes" placeholder="Introdueix les vacunes de l'animal">
 		    </div>
 		  </div>
 		  <strong><h4>Informació sobre l'última localització de l'animal</h4></strong>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Ciutat:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="ciutat" placeholder="Última ciutat on s'ha vist l'animal">
+		      <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Última ciutat on s'ha vist l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Direcció:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="direccio" placeholder="Última direcció on s'ha vist l'animal">
+		      <input type="text" class="form-control" id="direccio" name="direccio" placeholder="Última direcció on s'ha vist l'animal">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Recompensa:</label>
 		    <div class="col-sm-9 col-sm-offset-2">
-		      <input type="text" class="form-control" id="recompensa" placeholder="Afegir una recompensa és opcional">
+		      <input type="text" class="form-control" id="recompensa" name="recompensa" placeholder="Afegir una recompensa és opcional">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-3 control-label">Descripció:</label>
 		    <div class="col-sm-12">
-		      <textarea class="form-control" rows="5" id="descripcio" placeholder="Afegeix una descripció de com es l'animal"></textarea>
+		      <textarea class="form-control" rows="5" id="descripcio" name="descripcio" placeholder="Afegeix una descripció de com es l'animal"></textarea>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-10">
-		      <button type="submit" class="btn btn-default">Afegir</button>
+		      <button type="submit" class="btn btn-default">Afegir Animal</button>
 		    </div>
 		  </div>
 		</form>
