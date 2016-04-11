@@ -114,7 +114,6 @@ $app->post('/usuarios/existe', function() use($db, $app) {
                     echo "Error updating record: " . $conn->error;
                 }else{
                     echo "1 " . $hash_id . " " . $email;
-                    return "1 " . $hash_id . " " . $email;
                 }
             }else{
                 echo 0;
