@@ -119,9 +119,9 @@
 		    <label class="col-sm-1 control-label">Tipo:</label>
 		    <div class="col-sm-10 col-sm-offset-1">
 		      	<select class="form-control" id="tipos" name="tipos">
-					<option>gat</option>
-				    <option>gos</option>
-				    <option>Altres</option>
+					<option value="perro">gat</option>
+				    <option value="gato">gos</option>
+				    <option value="especial">Altres</option>
 				</select>
 		    </div>
 		  </div>
@@ -191,25 +191,45 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-10">
-		      <button type="submit" class="btn btn-default">Afegir Animal</button>
+		      <button type="submit" id="enviar-animal" class="btn btn-default">Afegir Animal</button>
 		    </div>
 		  </div>
 		</form>
       </div>
-      <!-- end:Main Form -->
-	<script src="assets/js/forms.js"></script>
     </div>
 
     <footer id="footer">
-    <script type="text/javascript">
+    	<script type="text/javascript">
     	var div_afegir = $("#div-afegir");
+    	var form = $("#form-animalPerdut");
+
     	$("#afegir-animal").click(function(){
     		div_afegir.removeAttr('style');
     	});
     	$("#enviar-animal").click(function(){
-    		div_afegir.attr('style', 'display:none');
+    		$.ajax({
+		      url: "Slim/api.php/insertarAnimales",
+		      type: "POST",
+		      data: form.serialize(),
+		      success: function(responseText){
+		                  var responseTextarray = responseText.split(" ");
+
+		                  if(responseTextarray[0] == "1"){
+		                    div_afegir.attr('style', 'display:none');
+		                  }
+		                  else if(responseTextarray[0] == "0"){
+		                  	
+		                  }
+		                  else{
+		                      alert(responseText);
+		                  }
+		          }
+		    });
+		  	return false;
+
+    		
     	})
-	</script>
+    	</script>
 		<ul class="icons">
 			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>

@@ -17,11 +17,8 @@
 			<!-- Header -->
 				<header id="header" class="alt">
 					<?php 
-					if(!isset($_COOKIE['id'])){
 						include 'topmenu.php';
-					}else{
-						include 'topmenu_val.php';
-					} ?>
+					?>
 				</header>
 
 			<!-- Banner -->

@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 // Activamos las sesiones para el funcionamiento de flash['']
 @session_start();
  
@@ -28,13 +29,24 @@ $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=u
 ////////////////////////////////////////////
  
 $app->get('/', function() {
-            echo "Has entrar a l'arrel de la API";
+            echo "hola api";
         });
  
 //obtenim tots els usuaris
 $app->get('/usuarios', function() use($db) {
 
             $consulta = $db->prepare("select * from usuarios");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+        });
+
+//obtenim tots els animals perduts
+$app->get('/perdidos', function() use($db) {
+
+            $consulta = $db->prepare("select * from pierde");
             $consulta->execute();
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +62,6 @@ $app->get('/animales', function() use($db) {
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             
-            echo json_encode($resultados);
             return $resultados;
         });
 
@@ -85,11 +96,6 @@ $app->post('/usuarios/existe', function() use($db, $app) {
                 if ($conn->query($sql) === FALSE) {
                     echo "Error updating record: " . $conn->error;
                 }else{
-
-            /*    $consulta2 = $db->prepare("UPDATE usuarios SET token_USUARIOS=:param3 WHERE id_USUARIOS=:param4");
-                $consulta2->bindParam("param3", $hash_id);
-                $consulta2->bindParam("param4", $resultados[0]['id_USUARIOS']);
-                $consulta2->execute(); */
                     echo "1 " . $hash_id . " " . $email;
                 }
             }else{
@@ -182,6 +188,49 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
     }
     
 });
+// Insertar animal
+$app->post('/insertarAnimales',function() use($db,$app) {
+
+    $app->request();
+    $datosform=$app->request();
+    $nom= $datosform->post('nom');
+    $chip= $datosform->post('chip');
+    $tipus= $datosform->post('tipos');
+    $sexe = $datosform->post('sexe');
+    $tamany = $datosform->post('tamany');
+    $raça = $datosform->post('rasa');
+    $edat = $datosform->post('edat');
+    $color = $datosform->post('color');
+    $vacunes = $datosform->post('vacunes');
+    $ciutat = $datosform->post('ciutat');
+    $direccio = $datosform->post('direccio');
+    $recompensa = $datosform->post('recompensa');
+    $descripcio = $datosform->post('descripcio');
+    $estat = "perdido";
+    $adopcio = "NO";
+
+    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES) 
+                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes')";
+    if ($conn->query($sql) === FALSE) {
+        echo "Error insertin' record: " . $conn->error;
+    }else{
+        echo "1" . " ";
+        $idanimal = mysqli_insert_id($conn);
+    }
+    $sql3 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $_COOKIE['id'] . "'";
+    $result = $conn->query($sql3);
+    $idusuario = $result->fetch_assoc();
+
+    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,descripcion_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES) 
+                    VALUES('$ciutat','$direccio','$recompensa','$descripcio'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ")";
+    if ($conn->query($sql2) === FALSE) {
+        echo "Error insertin' record: " . $conn->error;
+    }else{
+        echo "1";
+    }
+ 
+});
 // DELETE un usuari per el seu id
 $app->delete('/usuarios/:id',function($id) use($db)
 {
@@ -201,6 +250,9 @@ if ($consulta->rowCount() == 1)
 $app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
     // Para acceder a los datos recibidos del formulario
     $datosform=$app->request;
+ 
+    // Los datos serán accesibles de esta forma:
+    // $datosform->post('apellidos')
  
     // Preparamos la consulta de update.
     $consulta=$db->prepare("UPDATE usuaris set nombre=:nombre, apellido=:apellido, password=:password 
@@ -229,3 +281,7 @@ $app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
  
 $app->run();
 ?>
+api.php
+Abrir con
+Elemento 1 de 2
+api.phptopmenu.phpMostrando api.php.
