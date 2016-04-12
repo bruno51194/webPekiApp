@@ -71,6 +71,17 @@ $app->get('/perdidos', function() use($db) {
             echo json_encode($resultados);
         });
 
+//obtenim la cantitat d'animals perduts
+$app->get('/cantidadPerdidos', function() use($db) {
+
+            $consulta = $db->prepare("select COUNT(id_PIERDE) from pierde");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+        });
+
 //obtenim tots els animals
 $app->get('/animales', function() use($db) {
 
