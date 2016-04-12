@@ -82,6 +82,17 @@ $app->get('/cantidadPerdidos', function() use($db) {
             echo json_encode($resultados);
         });
 
+//obtenim les direccions dels animals perduts
+$app->get('/direcciones', function() use($db) {
+
+            $consulta = $db->prepare("select direccion_PIERDE from pierde");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($resultados);
+        });
+
+
 //obtenim tots els animals
 $app->get('/animales', function() use($db) {
 
