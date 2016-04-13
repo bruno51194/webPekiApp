@@ -71,30 +71,6 @@ $app->get('/perdidos', function() use($db) {
             echo json_encode($resultados);
         });
 
-//obtenim la cantitat d'animals perduts
-$app->get('/cantidadPerdidos', function() use($db) {
-
-            $consulta = $db->prepare("select COUNT(id_PIERDE) from pierde");
-            $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
-            echo json_encode($resultados);
-        });
-
-//obtenim les direccions dels animals perduts
-$app->get('/direcciones', function() use($db) {
-
-            $consulta = $db->prepare("select direccion_PIERDE, ciudad_PIERDE from pierde");
-            $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode($resultados);
-            return json_encode($resultados);
-
-        });
-
-
 //obtenim tots els animals
 $app->get('/animales', function() use($db) {
 
@@ -116,6 +92,17 @@ $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
  
             echo json_encode($resultados);
+            return $resultados;
+        });
+$app->get('/usuariosToken/:tokenusuario', function($usuarioToken) use($db) {
+
+            $consulta = $db->prepare("SELECT * from usuarios where token_USUARIOS=:param1");
+
+            $consulta->execute(array(':param1' => $usuarioToken));
+ 
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+ 
+            return $resultados;
         });
 //comprobem si existeix un correu
 $app->post('/usuarios/existe', function() use($db, $app) {
@@ -230,7 +217,7 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
     
 });
 // Insertar animal
-$app->post('/insertarAnimales',function() use($db,$app) {
+$app->post('/insertarAnimalPerdut',function() use($db,$app) {
 
     $app->request();
     $datosform=$app->request();
@@ -249,6 +236,7 @@ $app->post('/insertarAnimales',function() use($db,$app) {
     $descripcio = $datosform->post('descripcio');
     $estat = "perdido";
     $adopcio = "NO";
+    $fecha = time();
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
     $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES) 
@@ -263,14 +251,14 @@ $app->post('/insertarAnimales',function() use($db,$app) {
     $result = $conn->query($sql3);
     $idusuario = $result->fetch_assoc();
 
-    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,descripcion_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES) 
-                    VALUES('$ciutat','$direccio','$recompensa','$descripcio'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ")";
+    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,descripcion_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE) 
+                    VALUES('$ciutat','$direccio','$recompensa','$descripcio'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", $fecha)";
     if ($conn->query($sql2) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
         echo "1";
     }
- 
+
 });
 // DELETE un usuari per el seu id
 $app->delete('/usuarios/:id',function($id) use($db)

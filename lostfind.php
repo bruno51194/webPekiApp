@@ -58,154 +58,190 @@
 	<!-- Google Maps -->
   	<div id="map"></div>
     <script type="text/javascript">
+    	//Marcador
+    	var marker;
+		//Animacio de la marca quan la cliquem
+        var direcciones = [];
+        $(document).ready(function() {
+          $.getJSON('http://pekiapp.azurewebsites.net/Slim/api.php/direcciones',
+              function(datos) {
+                $.each(datos, function(i, field){
+                    direcciones[i] = field.ciudad_PIERDE + "," + field.direccion_PIERDE;
+                    $.each(direcciones, function(i, direccion){
+                        $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + direccion,
+                        	function(resultado) {
+                        		$.each(resultado.results, function(i, geometria){
+                        			//localització marcador
+                        			marker = new google.maps.Marker({
+										position: {lat: geometria.geometry.location.lat, lng: geometria.geometry.location.lng},
+										map: map,
+										draggable: false,
+										animation: google.maps.Animation.DROP
+									});
+                        		});
+                    	});
+                    });                    
+                });
+            });            
+        });
+
 
 		var map;
 		function initMap() {
-
-		//Mapa
-		map = new google.maps.Map(document.getElementById('map'), {
-	    	center: {lat: 41.5259339, lng: 2.3632897},
-		    zoom: 14
-		});
-
-		//Localitzacio de la marca
-		var localizacion = {lat: 41.5259339, lng: 2.3632897};
-
-		//Marcador
-		var marker = new google.maps.Marker({
-			position: localizacion,
-			map: map,
-			draggable: true,
-			animation: google.maps.Animation.DROP,
-			title: 'Cabrils'
-		});
-		//Listener quan es clica el marcador
-	  	marker.addListener('click', toggleBounce);
-
-		//Animacio de la marca quan la cliquem
-		function toggleBounce() {
-			if (marker.getAnimation() !== null) {
-			    marker.setAnimation(null);
-			} else {
-			    marker.setAnimation(google.maps.Animation.BOUNCE);
-			}
+			//Mapa
+			map = new google.maps.Map(document.getElementById('map'), {
+		    	center: {lat: 41.5259339, lng: 2.3632897},
+			    zoom: 14
+			});
 		}
-	}
     </script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhzbq-PRPtTR-tkVSAKZmsTM-wYAm-vBY&callback=initMap">
     </script>
 
-    <div class="container">		    
-      <div class="marge-dalt marge-abaix centrar-text">
-        <button class="btn btn-afegir" id="afegir-animal">AFEGIR ANIMAL PERDUT</button>
-      </div>
-      <div id="div-afegir" class="col-md-4 center-text" style="display: none">
-      <strong></strong><h4>Informació de l'animal</h4></strong>
-      	<form class="form-horizontal" id="form-animalPerdut">
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Nom:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom de l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Chip:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="chip" name="chip" placeholder="Chip de l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Tipo:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      	<select class="form-control" id="tipos" name="tipos">
-					<option value="perro">gat</option>
-				    <option value="gato">gos</option>
-				    <option value="especial">Altres</option>
-				</select>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Sexe:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      	<select class="form-control" id="sexe" name="sexe">
-					<option>Mascle</option>
-				    <option>Famella</option>
-				</select>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Tamany:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="tamany" name="tamany" placeholder="Mides aproximades de l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Raça:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="raça" name="raça" placeholder="Raça de l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Edat:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="edat" name="edat" placeholder="Edat de l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Color:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="color" name="color" placeholder="Color de l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Vacunes:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="vacunes" name="vacunes" placeholder="Introdueix les vacunes de l'animal">
-		    </div>
-		  </div>
-		  <strong><h4>Informació sobre l'última localització de l'animal</h4></strong>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Ciutat:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Última ciutat on s'ha vist l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Direcció:</label>
-		    <div class="col-sm-10 col-sm-offset-1">
-		      <input type="text" class="form-control" id="direccio" name="direccio" placeholder="Última direcció on s'ha vist l'animal">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Recompensa:</label>
-		    <div class="col-sm-9 col-sm-offset-2">
-		      <input type="text" class="form-control" id="recompensa" name="recompensa" placeholder="Afegir una recompensa és opcional">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-3 control-label">Descripció:</label>
-		    <div class="col-sm-12">
-		      <textarea class="form-control" rows="5" id="descripcio" name="descripcio" placeholder="Afegeix una descripció de com es l'animal"></textarea>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-10">
-		      <button type="submit" id="enviar-animal" class="btn btn-default">Afegir Animal</button>
-		    </div>
-		  </div>
-		</form>
-      </div>
+    <div class="container">
+        <div class="marge-dalt marge-abaix centrar-text">
+            <button class="btn btn-afegir" id="afegir-animal-perdut">AFEGIR ANIMAL PERDUT</button>
+        </div>
+        <div class="col-md-12 center-text" id="div-afegir" style="display: none">
+            <div class="col-md-4 col-md-offset-2">
+                <strong><h4>Informació de l'animal</h4></strong> 
+                <form class="form-horizontal" id="form-animalPerdut" name="form-animalPerdut">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Nom:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <input class="form-control" id="nom" name="nom" placeholder="Nom de l'animal" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Chip:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <input class="form-control" id="chip" name="chip" placeholder="Chip de l'animal" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Tipo:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <select class="form-control" id="tipos" name="tipos">
+                                <option value="perro">Gat</option>
+                                <option value="gato">Gos</option>
+                                <option value="especial">Altres</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Sexe:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <select class="form-control" id="sexe" name="sexe">
+                                <option>Mascle</option>
+                                <option>Famella</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Tamany:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <input class="form-control" id="tamany" name="tamany" placeholder="Mides aproximades de l'animal" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Raça:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <input class="form-control" id="raça" name="raça" placeholder="Raça de l'animal" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Edat:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <input class="form-control" id="edat" name="edat" placeholder="Edat de l'animal" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Color:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <input class="form-control" id="color" name="color" placeholder="Color de l'animal" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Vacunes:</label>
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <input class="form-control" id="vacunes" name="vacunes" placeholder="Introdueix les vacunes de l'animal" type="text">
+                        </div>
+                    </div>
+	            </div>
+	            <div class="col-md-4">
+	                <strong></strong>
+	                <h4><strong>Informació sobre l'última localització de l'animal</strong></h4>
+	                <div class="form-group">
+	                    <label class="col-sm-1 control-label">Ciutat:</label>
+	                    <div class="col-sm-10 col-sm-offset-1">
+	                        <input class="form-control" id="ciutat" name="ciutat" placeholder="Última ciutat on s'ha vist l'animal" type="text">
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-1 control-label">Direcció:</label>
+	                    <div class="col-sm-10 col-sm-offset-1">
+	                        <input class="form-control" id="direccio" name="direccio" placeholder="Última direcció on s'ha vist l'animal" type="text">
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-1 control-label">Recompensa:</label>
+	                    <div class="col-sm-9 col-sm-offset-2">
+	                        <input class="form-control" id="recompensa" name="recompensa" placeholder="Afegir una recompensa és opcional" type="text">
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="col-sm-3 control-label">Descripció:</label>
+	                    <div class="col-sm-12">
+	                        <textarea class="form-control" id="descripcio" name="descripcio" placeholder="Afegeix una descripció de com es l'animal" rows="5"></textarea>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <div class="col-md-12 centrar-text marge-abaix">
+	                    <button class="btn btn-default" id="enviar-animal" type="submit">Afegir Animal</button>
+	                </div>
+	            </div>
+        	</form>
+        </div>
+        <div class="col-md-12">
+            <div class="marge-dalt marge-abaix centrar-text">
+	            <button class="btn btn-afegir" id="afegir-animal-trobat">AFEGIR ANIMAL TROBAT</button>
+	        </div>
+	    </div>
+        </div>
     </div>
 
     <footer id="footer">
     	<script type="text/javascript">
     	var div_afegir = $("#div-afegir");
+    	var div_afegir2 = $("#div-afegir2");
     	var form = $("#form-animalPerdut");
+    	var form2 = $("#form-animalPerdut");
+    	var obert = false;
+    	var obert2 = false;
 
-    	$("#afegir-animal").click(function(){
-    		div_afegir.removeAttr('style');
+    	$("#afegir-animal-perdut").click(function(){
+    		if(obert){
+				div_afegir.attr('style', 'display:none');
+				obert = false;
+    		}else{
+    			div_afegir.removeAttr('style');
+    			obert = true;
+    		}	
     	});
+
+    	$("#afegir-animal-trobat").click(function(){
+    		if(obert){
+				div_afegir.attr('style', 'display:none');
+				obert = false;
+    		}else{
+    			div_afegir.removeAttr('style');
+    			obert = true;
+    		}	
+    	});
+    	
+    	
     	$("#enviar-animal").click(function(){
     		$.ajax({
 		      url: "Slim/api.php/insertarAnimales",
@@ -215,7 +251,7 @@
 		                  var responseTextarray = responseText.split(" ");
 
 		                  if(responseTextarray[0] == "1"){
-		                    div_afegir.attr('style', 'display:none');
+		                    
 		                  }
 		                  else if(responseTextarray[0] == "0"){
 		                  	
