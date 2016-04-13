@@ -104,7 +104,7 @@ $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
              echo json_encode($resultados);
              return json_encode($resultados);
  
- -       });
+        });
 
 $app->get('/usuariosToken/:tokenusuario', function($usuarioToken) use($db) {
 
