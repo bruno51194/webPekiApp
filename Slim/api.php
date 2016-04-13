@@ -94,6 +94,18 @@ $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
             echo json_encode($resultados);
             return $resultados;
         });
+//obtenim les direccions dels animals perduts
+ -$app->get('/direcciones', function() use($db) {
+ -
+ -            $consulta = $db->prepare("select direccion_PIERDE, ciudad_PIERDE from pierde");
+ -            $consulta->execute();
+ -            
+ -            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+ -            echo json_encode($resultados);
+ -            return json_encode($resultados);
+ -
+ -        });
+
 $app->get('/usuariosToken/:tokenusuario', function($usuarioToken) use($db) {
 
             $consulta = $db->prepare("SELECT * from usuarios where token_USUARIOS=:param1");
