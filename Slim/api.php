@@ -89,7 +89,6 @@ $app->get('/direcciones', function() use($db) {
             $consulta->execute();
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
             echo json_encode($resultados);
             return json_encode($resultados);
 
