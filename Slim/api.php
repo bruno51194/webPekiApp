@@ -101,7 +101,7 @@ $app->get('/usuariosToken/:tokenusuario', function($usuarioToken) use($db) {
             $consulta->execute(array(':param1' => $usuarioToken));
  
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
- 
+            echo json_encode($resultados);
             return $resultados;
         });
 //comprobem si existeix un correu
