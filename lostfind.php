@@ -73,6 +73,7 @@
                         		$.each(resultado.results, function(i, geometria){
                         			//localització marcador
                         			marker = new google.maps.Marker({
+
 										position: {lat: geometria.geometry.location.lat, lng: geometria.geometry.location.lng},
 										map: map,
 										draggable: false,
@@ -90,8 +91,8 @@
 		function initMap() {
 			//Mapa
 			map = new google.maps.Map(document.getElementById('map'), {
-		    	center: {lat: 41.5259339, lng: 2.3632897},
-			    zoom: 14
+		    	center: {lat: 41.5231301, lng: 2.4042101},
+			    zoom: 12
 			});
 		}
     </script>
@@ -169,18 +170,17 @@
                         </div>
                     </div>
 	            </div>
-	            <div class="col-md-4">
-	                <strong></strong>
-	                <h4><strong>Informació sobre l'última localització de l'animal</strong></h4>
+	            <div class="col-sm-6">
+	                <h4>Informació sobre l'última localització de l'animal</h4>
 	                <div class="form-group">
 	                    <label class="col-sm-1 control-label">Ciutat:</label>
-	                    <div class="col-sm-10 col-sm-offset-1">
+	                    <div class="col-sm-8 col-sm-offset-1">
 	                        <input class="form-control" id="ciutat" name="ciutat" placeholder="Última ciutat on s'ha vist l'animal" type="text">
 	                    </div>
 	                </div>
 	                <div class="form-group">
-	                    <label class="col-sm-1 control-label">Direcció:</label>
-	                    <div class="col-sm-10 col-sm-offset-1">
+	                    <label class="control-label">Direcció:</label>
+	                    <div class="col-sm-8 col-sm-offset-1">
 	                        <input class="form-control" id="direccio" name="direccio" placeholder="Última direcció on s'ha vist l'animal" type="text">
 	                    </div>
 	                </div>
@@ -244,7 +244,7 @@
     	
     	$("#enviar-animal").click(function(){
     		$.ajax({
-		      url: "Slim/api.php/insertarAnimales",
+		      url: "Slim/api.php/insertarAnimalPerdut",
 		      type: "POST",
 		      data: form.serialize(),
 		      success: function(responseText){
