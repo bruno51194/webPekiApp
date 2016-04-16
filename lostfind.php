@@ -71,13 +71,14 @@
                         $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + direccion,
                         	function(resultado) {
                         		$.each(resultado.results, function(i, geometria){
-                        			//localització marcador
+                        			//localització marcador  
+                                    var imgRoja = new google.maps.MarkerImage("images/googleMapsIcons/pets_rojo.png");                                 
                         			marker = new google.maps.Marker({
-
 										position: {lat: geometria.geometry.location.lat, lng: geometria.geometry.location.lng},
 										map: map,
 										draggable: false,
-										animation: google.maps.Animation.DROP
+										animation: google.maps.Animation.DROP,
+                                        icon: imgRoja
 									});
                         		});
                     	});
@@ -101,7 +102,7 @@
     </script>
 
     <div class="container">
-        <div class="marge-dalt marge-abaix centrar-text">
+        <div class="marge-dalt marge-abaixPlus centrar-text">
             <button class="btn btn-afegir" id="afegir-animal-perdut">AFEGIR ANIMAL PERDUT</button>
         </div>
         <div class="col-md-12 center-text" id="div-afegir" style="display: none">
@@ -205,7 +206,7 @@
         	</form>
         </div>
         <div class="col-md-12">
-            <div class="marge-dalt marge-abaix centrar-text">
+            <div class="marge-abaix centrar-text">
 	            <button class="btn btn-afegir" id="afegir-animal-trobat">AFEGIR ANIMAL TROBAT</button>
 	        </div>
 	    </div>

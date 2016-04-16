@@ -1,4 +1,4 @@
-<h1><a href="index.html">Pekiapp</a> by Lost&Find</h1>
+<h1><a href="index.php">Pekiapp</a> by Lost&Find</h1>
 <nav id="nav">
 	<ul>
 
