@@ -105,25 +105,26 @@
         <div class="marge-dalt marge-abaixPlus centrar-text">
             <button class="btn btn-afegir" id="afegir-animal-perdut">AFEGIR ANIMAL PERDUT</button>
         </div>
-        <div class="col-md-12 center-text" id="div-afegir" style="display: none">
-            <div class="col-md-4 col-md-offset-2">
-                <strong><h4>Informació de l'animal</h4></strong> 
+            <div class="col-md-9 col-md-offset-3">
+            <h2 class="centrar-text">Animal Perdut</h2>
+            <div class="linea"></div>
+                <h4>Informació de l'animal</h4> 
                 <form class="form-horizontal" id="form-animalPerdut" name="form-animalPerdut">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Nom:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="nom" name="nom" placeholder="Nom de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Chip:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="chip" name="chip" placeholder="Chip de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Tipo:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <select class="form-control" id="tipos" name="tipos">
                                 <option value="perro">Gat</option>
                                 <option value="gato">Gos</option>
@@ -133,7 +134,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Sexe:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <select class="form-control" id="sexe" name="sexe">
                                 <option>Mascle</option>
                                 <option>Famella</option>
@@ -142,64 +143,61 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Tamany:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="tamany" name="tamany" placeholder="Mides aproximades de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Raça:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="raça" name="raça" placeholder="Raça de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Edat:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="edat" name="edat" placeholder="Edat de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Color:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="color" name="color" placeholder="Color de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Vacunes:</label>
-                        <div class="col-sm-10 col-sm-offset-1">
+                        <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="vacunes" name="vacunes" placeholder="Introdueix les vacunes de l'animal" type="text">
                         </div>
                     </div>
-	            </div>
-	            <div class="col-sm-6">
 	                <h4>Informació sobre l'última localització de l'animal</h4>
 	                <div class="form-group">
 	                    <label class="col-sm-1 control-label">Ciutat:</label>
-	                    <div class="col-sm-8 col-sm-offset-1">
+	                    <div class="col-sm-4 col-sm-offset-1">
 	                        <input class="form-control" id="ciutat" name="ciutat" placeholder="Última ciutat on s'ha vist l'animal" type="text">
 	                    </div>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label">Direcció:</label>
-	                    <div class="col-sm-8 col-sm-offset-1">
+	                    <label class="col-sm-1 control-label">Direcció:</label>
+	                    <div class="col-sm-4 col-sm-offset-1">
 	                        <input class="form-control" id="direccio" name="direccio" placeholder="Última direcció on s'ha vist l'animal" type="text">
 	                    </div>
 	                </div>
 	                <div class="form-group">
 	                    <label class="col-sm-1 control-label">Recompensa:</label>
-	                    <div class="col-sm-9 col-sm-offset-2">
+	                    <div class="col-sm-4 col-sm-offset-1">
 	                        <input class="form-control" id="recompensa" name="recompensa" placeholder="Afegir una recompensa és opcional" type="text">
 	                    </div>
 	                </div>
 	                <div class="form-group">
-	                    <label class="col-sm-3 control-label">Descripció:</label>
-	                    <div class="col-sm-12">
+	                    <label class="col-sm-1 control-label">Descripció:</label>
+	                    <div class="col-sm-4 col-sm-offset-1">
 	                        <textarea class="form-control" id="descripcio" name="descripcio" placeholder="Afegeix una descripció de com es l'animal" rows="5"></textarea>
 	                    </div>
 	                </div>
-	            </div>
 	            <div class="form-group">
-	                <div class="col-md-12 centrar-text marge-abaix">
+	                <div class="col-md-1 centrar-text marge-abaix">
 	                    <button class="btn btn-default" id="enviar-animal" type="submit">Afegir Animal</button>
 	                </div>
 	            </div>
