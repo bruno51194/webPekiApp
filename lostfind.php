@@ -105,10 +105,10 @@
         <div class="marge-dalt marge-abaixPlus centrar-text">
             <button class="btn btn-afegir" id="afegir-animal-perdut">AFEGIR ANIMAL PERDUT</button>
         </div>
-            <div class="col-md-9 col-md-offset-3">
+            <div class="col-md-12" id="div-afegir" style="display:none">
             <h2 class="centrar-text">Animal Perdut</h2>
-            <div class="linea"></div>
-                <h4>Informació de l'animal</h4> 
+            <div class="linea marge-abaixPlus"></div>
+                <h4 >Informació de l'animal</h4>
                 <form class="form-horizontal" id="form-animalPerdut" name="form-animalPerdut">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Nom:</label>
@@ -203,10 +203,28 @@
 	            </div>
         	</form>
         </div>
-        <div class="col-md-12">
-            <div class="marge-abaix centrar-text">
-	            <button class="btn btn-afegir" id="afegir-animal-trobat">AFEGIR ANIMAL TROBAT</button>
-	        </div>
+        <div class="marge-abaix centrar-text">
+            <button class="btn btn-afegir" id="afegir-animal-trobat">AFEGIR ANIMAL TROBAT</button>
+        </div>
+        <div class="col-md-12" id="div-afegir2" style="display:none">
+            <table class="table table-striped">
+                <tr>
+                    <th><strong>Nom</strong></th>
+                    <th><strong>Tipus</strong></th>
+                    <th><strong>Sexe</strong></th>
+                    <th><strong>Mides</strong></th>
+                    <th><strong>Raça</strong></th>
+                    <th><strong>Edat</strong></th>
+                    <th><strong>Color</strong></th>
+                    <th><strong>Vacunes</strong></th>
+                </tr>
+                <tr>
+                    <td>hola</td>
+                    <td>adeu</td>
+                    <td>adeu</td>
+                    <td>adeu</td>
+                </tr>
+            </table>
 	    </div>
         </div>
     </div>
@@ -232,12 +250,16 @@
 
     	$("#afegir-animal-trobat").click(function(){
     		if(obert){
-				div_afegir.attr('style', 'display:none');
+				div_afegir2.attr('style', 'display:none');
 				obert = false;
     		}else{
-    			div_afegir.removeAttr('style');
+    			div_afegir2.removeAttr('style');
     			obert = true;
     		}	
+
+            $.ajax({
+
+            })
     	});
     	
     	
