@@ -81,6 +81,34 @@ $app->get('/animales', function() use($db) {
             
             return $resultados;
         });
+//obtenim tots els animals PERDUTS
+$app->get('/animalesPerdidos', function() use($db) {
+
+            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
+
+//obtenim tots els animals PERDUTS d'un USUARI
+$app->get('/animalesPerdidos/:tokenusuario', function($tokenusuario) use($db) {
+            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+            $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $tokenusuario . "'";
+            $result = $conn->query($sql);
+
+            $idusuario = $result->fetch_assoc();
+            
+            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE USUARIOS_id_USUARIOS = " . $idusuario['id_USUARIOS']);
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
 
 //obtenim un susuario en concret
 $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
@@ -167,17 +195,6 @@ $app->get('/animales/:idanimal', function($animalID) use($db) {
             echo json_encode($resultados);
         });
 
-//obtenim tots els animals 
-$app->get('/animales/:idanimal', function($animalID) use($db) {
-
-            $consulta = $db->prepare("SELECT * from animales where id_ANIMALES=:param1");
-
-            $consulta->execute(array(':param1' => $animalID));
- 
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
- 
-            echo json_encode($resultados);
-        });
 // Insertar usuari
 $app->post('/insertarUsuarios',function() use($db,$app) {
 

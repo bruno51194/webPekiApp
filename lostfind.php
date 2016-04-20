@@ -150,7 +150,7 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Raça:</label>
                         <div class="col-sm-4 col-sm-offset-1">
-                            <input class="form-control" id="raça" name="raça" placeholder="Raça de l'animal" type="text">
+                            <input class="form-control" id="rasa" name="rasa" placeholder="Raça de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
@@ -207,8 +207,8 @@
             <button class="btn btn-afegir" id="afegir-animal-trobat">AFEGIR ANIMAL TROBAT</button>
         </div>
         <div class="col-md-12" id="div-afegir2" style="display:none">
-            <table class="table table-striped">
-                <tr>
+            <table class="table table-striped" id="taula_animals">
+                <tr >
                     <th><strong>Nom</strong></th>
                     <th><strong>Tipus</strong></th>
                     <th><strong>Sexe</strong></th>
@@ -218,12 +218,6 @@
                     <th><strong>Color</strong></th>
                     <th><strong>Vacunes</strong></th>
                 </tr>
-                <tr>
-                    <td>hola</td>
-                    <td>adeu</td>
-                    <td>adeu</td>
-                    <td>adeu</td>
-                </tr>
             </table>
 	    </div>
         </div>
@@ -231,6 +225,15 @@
 
     <footer id="footer">
     	<script type="text/javascript">
+        var taula_animals = $("#taula_animals");
+
+        $.getJSON("Slim/api.php/animalesPerdidos", function(datos){
+            $.each(datos, function(i, campos){
+                taula_animals.append("<tr><td>" + campos.nombre_ANIMALES + "</td><td>" + campos.tipo_ANIMALES + "</td><td>" + campos.sexo_ANIMALES + "</td><td>" + campos.medida_ANIMALES + "</td><td>" + campos.raza_ANIMALES + "</td><td>" + campos.edad_ANIMALES + "</td><td>" + campos.color_ANIMALES + "</td><td>" + campos.vacunes_ANIMALES + "</td></tr>");
+            });
+        });
+
+
     	var div_afegir = $("#div-afegir");
     	var div_afegir2 = $("#div-afegir2");
     	var form = $("#form-animalPerdut");
