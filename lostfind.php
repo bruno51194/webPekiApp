@@ -137,7 +137,7 @@
                         <div class="col-sm-4 col-sm-offset-1">
                             <select class="form-control" id="sexe" name="sexe">
                                 <option>Mascle</option>
-                                <option>Famella</option>
+                                <option>Femella</option>
                             </select>
                         </div>
                     </div>
