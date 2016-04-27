@@ -9,20 +9,6 @@
 		<link rel="stylesheet" href="assets/css/custom.css" />
 	</head>
 	<body>
-
-	<!-- AJAX Functions -->
-	<script type="text/javascript">
-		$('#btn_animals').click(function () {
-			$.getJSON('/functions.php', { get_param: 'value' }, function(data) {
-			    $.each(data, function(index, element) {
-			        $('body').append($('<div>', {
-			            text: element.name
-			        }));
-			    });
-			});
-		  });
-	</script>
-	
 		<div id="page-wrapper">
 			<!-- Header -->
 				<header id="header">
@@ -32,65 +18,70 @@
 			<!-- Main -->
 				<section id="main" class="container">
 			        <div class="container">
-			        <div class="centrar-text">
-			        	<h2>Àrea de configuració</h2>
-			        </div>		         
-			        <div class="menuConfiguracio col-md-4">
-			        	<ul>
-						  <li><a role="button" data-toggle="collapse" data-parent="#accordion" href="#laMevaCompte" aria-controls="laMevaCompte">El meu perfil</a></li>
-						  <li><a role="button" data-toggle="collapse" data-parent="#accordion" href="#animals" aria-expanded="false" aria-controls="animals">Els meus animals</a></li>
-						  <li><a href="#">Serveis</a></li>
-						  <li><a href="#">Lost and Find</a></li>
-						  <li><a href="#">Adopcions</a></li>
-						  <li><a href="#">Compras</a></li>
-						</ul>
-			        </div>
-			        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-			        	<div class="panel colorPanel">
-				        	<div id="laMevaCompte" class="panel-collapse collapse in col-md-8" role="tabpanel" aria-labelledby="headingOne">
-						      <div class="panel-body">
-							      <h3>El meu perfil</h3>
-							      <form>
-							      		<div class="form-group col-md-3">
-											<label>Nom:</label>
-											<input type="text" class="form-control" id="nom_nou" name="nom_nou">
-										</div>
-										<div class="form-group col-md-3">
-											<label>Cognom:</label>
-											<input type="text" class="form-control" id="cognom_nou" name="cognom_nou">
-										</div>
-										<div class="form-group col-md-6">
-											<label>Correu electrònic:</label>
-											<input type="text" class="form-control" id="correu_nou" name="correu_nou">
-										</div>
-										<div class="form-group col-md-4">
-											<label>Població:</label>
-											<input type="text" class="form-control" id="poblacio_nou" name="poblacio_nou">
-										</div>
-										<div class="form-group col-md-4">
-											<label>Codi Postal:</label>
-											<input type="text" class="form-control" id="cp_nou" name="cp_nou">
-										</div>
-										<div class="form-group col-md-4">
-											<label>Telèfon:</label>
-											<input type="text" class="form-control" id="telefon_nou" name="telefon_nou">
-										</div>
-										<div class="form-group col-md-12">
-											<label>Descripció:</label>
-											<textarea class="form-control" rows="4" id="descripcio_nou" name="descripcio_nou"></textarea>
-										</div>
-										<button type="button" id="enviar" class="button">Actualitzar</button>
-							      </form>
-						      </div>
-						    </div>
+				        <div class="centrar-text">
+				        	<h2>Àrea de configuració</h2>
+				        </div>		         
+				        <div class="menuConfiguracio col-md-4">
+				        	<ul class="nav nav-pills nav-stacked">
+				                <li role="presentation"><a href="#" id="btn_perfil">Perfil</a></li>
+				                <li role="presentation"><a href="#" id="btn_animals">Animals perduts</a></li>
+				                <li role="presentation"><a href="#" id="btn_serveis">Serveis?</a></li>
+				            	<li role="presentation"><a href="#" id="btn_adopcions">Adopcions?</a></li>
+				                <li role="presentation"><a href="index.php" id="btn_logout">Tancar Sessió</a></li>
+			              	</ul>
+				        </div>
+			        
+						<section id="perfil" class="col-md-8">
+					      <h3>El meu perfil</h3>
+					      <form>
+					      		<div class="form-group col-md-3">
+									<label>Nom:</label>
+									<input type="text" class="form-control" id="nom_nou" name="nom_nou">
+								</div>
+								<div class="form-group col-md-3">
+									<label>Cognom:</label>
+									<input type="text" class="form-control" id="cognom_nou" name="cognom_nou">
+								</div>
+								<div class="form-group col-md-6">
+									<label>Correu electrònic:</label>
+									<input type="text" class="form-control" id="correu_nou" name="correu_nou">
+								</div>
+								<div class="form-group col-md-4">
+									<label>Població:</label>
+									<input type="text" class="form-control" id="poblacio_nou" name="poblacio_nou">
+								</div>
+								<div class="form-group col-md-4">
+									<label>Codi Postal:</label>
+									<input type="text" class="form-control" id="cp_nou" name="cp_nou">
+								</div>
+								<div class="form-group col-md-4">
+									<label>Telèfon:</label>
+									<input type="text" class="form-control" id="telefon_nou" name="telefon_nou">
+								</div>
+								
+								<button type="button" id="enviar" class="button">Actualitzar</button>
+					      </form>
+					    </section>
+					    <section id="animals" class="col-md-8">
+					    	<h3>Els meus animals perduts</h3>	    
+				            <table class="table table-striped" id="taula_animals">
+				                <tr>
+				                    <th><strong>Nom</strong></th>
+				                    <th><strong>Tipus</strong></th>
+				                    <th><strong>Sexe</strong></th>
+				                </tr>
+				            </table>
+				        </section>
 
-						    <div id="animals" class="panel-collapse collapse col-md-8" role="tabpanel" aria-labelledby="headingOne">
-								hola
-							</div>
-			        	</div>						
-			        </div>
-		            	
-			        </div>
+				        <section id="serveis" class="col-md-8">
+				        	<h3>Els meus serveis</h3>
+
+				        </section>
+				        <section id="adopcions" class="col-md-8">
+				        	<h3>Les meves peticions d'adopció</h3>	
+				        </section>
+
+				</div>
 				</section>
 
 				
