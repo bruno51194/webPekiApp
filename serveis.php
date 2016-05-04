@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Alpha by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<?php 
@@ -21,28 +16,68 @@
 					<?php include 'topmenu.php'; ?>
 				</header>
 
+				<?php $tipos = $_GET["tipos"]; ?>
+
 			<!-- Main -->
 				<section id="main" class="container">
+					<div class="centrar-text">
 					<header>
-						<h2>Generic</h2>
-						<p>A generic page for every non-generic situation.</p>
-					</header>
-					<div class="box">
-						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-						<h3>This is a subheading</h3>
-						<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
-						<div class="row">
-							<div class="6u 12u(mobilep)">
-								<h3>And now a subheading</h3>
-								<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-							</div>
-							<div class="6u 12u(mobilep)">
-								<h3>And another subheading</h3>
-								<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-							</div>
-						</div>
+						<h2><?php echo $tipos ?></h2>				
+						<?php 
+							switch ($tipos) {
+								case 'Perruqueries':
+									echo "<p>Les millors perruqueries per portar a les teves mascotes.</p>";
+									echo "</header>";
+									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									break;
+								case 'Passejadors':
+									echo "<p>Troba als millors passejadors per deixar als teus animals.</p>";
+									echo "</header>";
+									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									break;
+								case 'Veterinaris':
+									echo "<p>Els millors profesionals licenciats en veterinaria</p>";
+									echo "</header>";
+									echo "<span class='image featured'><img src='images/seveis/veterinari-servei.jpg' alt='' /></span>";
+									break;
+								case 'Clubs Esportius':
+									echo "<p>Porta les teves mascotes als clubs esportius més selectes</p>";
+									echo "</header>";
+									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									break;
+								case 'Educadors Canins':
+									echo "<p>Els millors professionals en el sector de l'educació canina</p>";
+									echo "</header>";
+									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									break;
+								case 'Guarderies Canines':
+									echo "<p>Deixa els teus animals a les nostres guarderies amb la máxima tranquilitat</p>";
+									echo "</header>";
+									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									break;
+								default:
+									break;
+							}
+						?>
 					</div>
 				</section>
+
+				<section class="container">
+					<h2>Llistat de profesionals:</h2>
+				</section>
+
+				<?php //fer petició curl per obtenir els serveis despres maquetar-los amb panels del bootstrap ?>
+
+				<section id="banner_serveis">
+					<?php //posar un if per controlar que nomes aparegui al accedir amb un usuari que sigui una empresa ?>
+					<div class="centrar-text">
+						<span class='image featured'><a href="afegirServei.php?tipos=<?php echo $tipos ?>"><img src='images/afegeix-servei.png' alt='afegir servei' /></a></span>
+					</div>
+					
+				</section>
+
+
+
 
 			<!-- Footer -->
 				<footer id="footer">
