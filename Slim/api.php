@@ -164,7 +164,10 @@ $app->post('/usuarios/existe', function() use($db, $app) {
                 if ($conn->query($sql) === FALSE) {
                     echo "Error updating record: " . $conn->error;
                 }else{
-                    echo "1 " . $hash_id . " " . $email;
+                    $sql3 = "SELECT tipo_USUARIOS FROM usuarios WHERE token_USUARIOS = '$hash_id'";
+                    $result = $conn->query($sql3);
+                    $tipo = $result->fetch_assoc();
+                    echo "1 " . $hash_id . " " . $email . " " . $tipo['tipo_USUARIOS'];
                 }
             }else{
                 echo 0;
@@ -265,11 +268,12 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $descripcio = $datosform->post('descripcio');
     $estat = "perdido";
     $adopcio = "NO";
+    $url = "images/nofoto.png";
     $fecha = time();
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
-    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES) 
-                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes')";
+    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES) 
+                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url')";
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
@@ -313,7 +317,7 @@ $app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
     // $datosform->post('apellidos')
  
     // Preparamos la consulta de update.
-    $consulta=$db->prepare("UPDATE usuaris set nombre=:nombre, apellido=:apellido, password=:password 
+    $consulta=$db->prepare("UPDATE usuarios set nombre=:nombre, apellido=:apellido, password=:password 
                             where nombre=:nombre");
  
     $estado=$consulta->execute(
@@ -332,6 +336,19 @@ $app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
                         no modificados o registro no encontrado.'));
 });
  
+$app->post('/animales/actualizarFoto', function() use($app){
+    $datosform=$app->request;
+    $foto = $datosform->post('foto');
+    //var_dump($_POST);
+    //var_dump($_FILES);
+    actualitzarFoto("animales", "url_ANIMALES", $foto);
+});
+    
+
+$app->post('/usuarios/actualizarFoto', function(){
+    actualitzarFoto("usuarios", "url_USUARIOS");
+});
+    
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // Al final de la aplicación terminamos con $app->run();
