@@ -125,7 +125,8 @@
                   var responseTextarray = responseText.split(" ");
 
                   if(responseTextarray[0] == "1"){
-                    registre.html("<div id='resultado_correcto' class='form-group text-center'><div class='alert alert-success'><strong>Operació exitosa!</strong>T'has registrat a PekiApp.</div></div>");
+                    registre.html("<div id='resultado_correcto' class='form-group text-center'><div class='alert alert-success'><strong>Operació exitosa!</strong> T'has registrat a PekiApp.</div></div>");
+                    window.location.href = "index.php";
                   }
                   else if(responseTextarray[0] == "2"){
                     email_existeix(registre);

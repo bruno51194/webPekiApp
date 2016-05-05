@@ -7,6 +7,7 @@
 }
 .centrar-text{
 	text-align: center;
+	float: none;
 }
 	.centrar-text h2{
 	text-align: center;
@@ -15,6 +16,10 @@
 
 .marge-dalt{
 	margin-top: 50px;
+}
+
+.marge-daltPlus{
+	margin-top: 30px;
 }
 
 .marge-abaix{
@@ -122,6 +127,16 @@ a{
 	color: white;
 	background-color: orange;
 }
+.btn-servei{
+	border: 1px solid orange;
+	background-color: orange;
+	color: white;
+	transition: background-color 0.3s linear, color 0.3s linear;
+}
+.btn-servei:hover{
+	color: orange;
+	background-color: white;
+}
 .obligatori{
 	color: red;
 }
@@ -129,4 +144,7 @@ a{
 .linea{
 	background-color: black; 
   	height: 1px;
+}
+#banner_serveis {
+	background-color: #E4E4E4;
 }
