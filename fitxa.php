@@ -50,7 +50,11 @@
 				        </div>
 				        <div class="row">
 				        	<div class="text-center marge-dalt">
-				        		<button class="button btn-afegir">L'he vist!</button>
+				        		<?php if($animal['adopcion_ANIMALES'] == "NO") : ?>
+				        		<button class="button btn-afegir" id="btn_animal_trobat" value="<?php echo $animal['id_ANIMALES']; ?>">L'he vist!</button>
+				        		<?php else : ?>
+				        		<button class="button btn-afegir" id="btn_animal_adoptar">Adopta</button>
+			        			<?php endif; ?>
 				        	</div>
 				        </div>
 
@@ -80,6 +84,7 @@
 			<script src="/scripts/webPekiApp/assets/js/jquery.scrollgress.min.js"></script>
 			<script src="/scripts/webPekiApp/assets/js/skel.min.js"></script>
 			<script src="/scripts/webPekiApp/assets/js/util.js"></script>
+			<script src="/scripts/webPekiApp/assets/js/fitxa.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="/scripts/webPekiApp/assets/js/main.js"></script>
 

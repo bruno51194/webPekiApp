@@ -204,9 +204,24 @@ $app->get('/animales/:idanimal', function($animalID) use($db) {
             $consulta->execute(array(':param1' => $animalID));
  
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
- 
+        
             echo json_encode($resultados);
         });
+//obtenim l'EMAIL del USUARI que ha perdut un ANIMAL
+$app->get('/animales/animalesPerdidos/email/:idanimal', function($animalID) use($db) {
+
+            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);   
+            $sql = "SELECT email_USUARIOSl FROM usuarios WHERE id_USUARIOS = (SELECT USUARIOS_id_USUARIOS FROM pierde WHERE ANIMALES_id_ANIMALES = '$animalID')";
+            $result = $conn->query($sql);
+            $email = $result->fetch_assoc();
+            
+            if(mail($email['email_USUARIOSl'], "Pekiapp: S'ha trobat el teu animal!", "El dia 1010012 a les 10:20:20 al carrer: pepito, 33", 'From: xavier.ortega@mataro.epiaedu.cat')){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        });
+
 
 // Insertar usuari
 $app->post('/insertarUsuarios',function() use($db,$app) {
