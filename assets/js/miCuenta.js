@@ -74,6 +74,8 @@ $( document ).ready(function() {
 
     //ANIMALS PERDUTS
     var taula_animals = $("#taula_animals");
+    var forms = [];
+ 
 
     $.getJSON("Slim/api.php/animalesPerdidos/" + getCookie("id"), 
       function(datos){
@@ -81,11 +83,46 @@ $( document ).ready(function() {
             seccioAnimals.html('<h3>Els meus animals perduts</h3><div class="alert alert-success" role="alert">No tens animals perduts.</div>');
         }else{
           $.each(datos, function(i, campos){
-            taula_animals.append("<tr><td>" + campos.nombre_ANIMALES + "</td><td>" + campos.tipo_ANIMALES + "</td><td>" + campos.sexo_ANIMALES + "</td></tr>");
+            taula_animals.append('<tr><td><a id="eliminarAnimal_' + campos.ANIMALES_id_ANIMALES + '" href="miCuenta.php"><span class="glyphicon glyphicon-remove eliminar"></span></a></td><td><img src="' + campos.url_ANIMALES + '" alt="fotoAnimal"><td>' + campos.nombre_ANIMALES + "</td><td>" + campos.tipo_ANIMALES + "</td><td>" + campos.sexo_ANIMALES + '</td><td><form id="formAnimal' + campos.ANIMALES_id_ANIMALES + '" enctype="multipart/form-data"><input name="foto" type="file"><input name="prueba" type="text" value="asd"><button type="submit">Enviar</button></form></td></tr>');
+            var form = $("#formAnimal" + campos.ANIMALES_id_ANIMALES);
+            submitForms(form);
           });
         }
 
     });
+
+
+    function submitForms(form){
+        form.submit(function(){
+          alert(form.serialize());
+            $.ajax({
+              url: "Slim/api.php/animales/actualizarFoto",
+              //contentType: false,
+              type: "POST",
+              enctype: "multipart/form-data",
+              //data: form.serialize(),
+              data : new FormData( this ),
+              processData: false,
+              success: function(responseText){
+                  var responseTextarray = responseText.split(" ");
+
+                  if(responseTextarray[0] == "1"){
+                    alert('correcte');
+                  }
+                  else if(responseTextarray[0] == "0"){
+                    alert('incorrecte');
+                  }
+                  else if(responseTextarray[0] == "2"){
+                    alert('arxiu malfet');
+                  }
+                  else{
+                      alert(responseText);
+                  }
+              }
+            });
+            return false;
+        });
+    }
 
     //TANCAR SESSIÓ
     var btn_logout = $("#btn_logout");

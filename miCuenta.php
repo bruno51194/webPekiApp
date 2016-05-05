@@ -24,9 +24,22 @@
 				        <div class="menuConfiguracio col-md-4">
 				        	<ul class="nav nav-pills nav-stacked">
 				                <li role="presentation"><a href="#" id="btn_perfil">Perfil</a></li>
-				                <li role="presentation"><a href="#" id="btn_animals">Animals perduts</a></li>
-				                <li role="presentation"><a href="#" id="btn_serveis">Serveis?</a></li>
-				            	<li role="presentation"><a href="#" id="btn_adopcions">Adopcions?</a></li>
+
+				                <?php 
+								if(isset($_COOKIE['tipo'])):
+				                switch ($_COOKIE['tipo']) {
+				                	case 'normal': ?>
+										<li role="presentation"><a href="#" id="btn_animals">Animals perduts</a></li>
+				                	<?php break;
+				                	case 'empresa': ?>
+				                		<li role="presentation"><a href="#" id="btn_serveis">Serveis</a></li>
+				                	<?php break;
+				                	case 'protectora': ?>
+				                		<li role="presentation"><a href="#" id="btn_adopcions">Adopcions</a></li>	
+				            	<?php 
+				            			break;
+				                	}
+				            	endif; ?>
 				                <li role="presentation"><a href="index.php" id="btn_logout">Tancar Sessió</a></li>
 			              	</ul>
 				        </div>
@@ -66,9 +79,12 @@
 					    	<h3>Els meus animals perduts</h3>	    
 				            <table class="table table-striped" id="taula_animals">
 				                <tr>
+				                	<th></th>
+				                	<th></th>
 				                    <th><strong>Nom</strong></th>
 				                    <th><strong>Tipus</strong></th>
 				                    <th><strong>Sexe</strong></th>
+				                    <th><strong>Actualitzar foto</strong></th>
 				                </tr>
 				            </table>
 				        </section>

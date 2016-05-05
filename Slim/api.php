@@ -109,7 +109,17 @@ $app->get('/animalesPerdidos/:tokenusuario', function($tokenusuario) use($db) {
             echo json_encode($resultados);
             return $resultados;
         });
-
+//Obtenim UN animal PERDUT segons ID
+$app->get('/animalPerdido/:id', function($idanimal) use($db) {
+            
+            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE id_ANIMALES = " . $idanimal);
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
 //obtenim un susuario en concret
 $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
 

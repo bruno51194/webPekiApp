@@ -7,7 +7,6 @@
 }
 .centrar-text{
 	text-align: center;
-	float: none;
 }
 	.centrar-text h2{
 	text-align: center;
@@ -16,10 +15,7 @@
 
 .marge-dalt{
 	margin-top: 50px;
-}
-
-.marge-daltPlus{
-	margin-top: 30px;
+	float: none;
 }
 
 .marge-abaix{
@@ -144,6 +140,16 @@ a{
 .linea{
 	background-color: black; 
   	height: 1px;
+}
+.displayInline {
+    display: inline!important;
+}
+.eliminar{
+	color: #777;
+	transition: color 0.3s linear;
+}
+.eliminar:hover{
+	color: red;
 }
 #banner_serveis {
 	background-color: #E4E4E4;
