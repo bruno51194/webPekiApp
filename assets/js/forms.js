@@ -44,6 +44,7 @@
                     form_success(login);
                     document.cookie="id="+responseTextarray[1];
                     document.cookie="email="+responseTextarray[2];
+                    document.cookie="tipo="+responseTextarray[3];
                     window.location.href = "index.php";
                   }
                   else if(responseTextarray[0] == "0"){
