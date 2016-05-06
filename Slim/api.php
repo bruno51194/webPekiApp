@@ -217,7 +217,7 @@ $app->get('/animales/animalesPerdidos/email/:idanimal', function($animalID) use(
             $result = $conn->query($sql);
             $email = $result->fetch_assoc();
 
-            $mail = new PHPMAiler;
+            $mail = new PHPMailer;
             $mail­->IsSMTP();
             //permite modo debug para ver mensajes de las cosas que van ocurriendo
             $mail­->SMTPDebug = 2;
