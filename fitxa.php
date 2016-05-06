@@ -4,7 +4,7 @@
 		//CRIDA DADES ANIMAL
 		function animal($id){
 			$ch = curl_init();  
-			curl_setopt($ch, CURLOPT_URL, "http://localhost/scripts/webPekiApp/Slim/api.php/animalPerdido/" . $id);    
+			curl_setopt($ch, CURLOPT_URL, "http://pekiapp.azurewebsites.net/Slim/api.php/animalPerdido/" . $id);    
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
 			$data = json_decode(curl_exec($ch), true);
 
@@ -79,14 +79,14 @@
 		</div>
 
 		<!-- Scripts -->
-			<script src="/scripts/webPekiApp/assets/js/jquery.min.js"></script>
-			<script src="/scripts/webPekiApp/assets/js/jquery.dropotron.min.js"></script>
-			<script src="/scripts/webPekiApp/assets/js/jquery.scrollgress.min.js"></script>
-			<script src="/scripts/webPekiApp/assets/js/skel.min.js"></script>
-			<script src="/scripts/webPekiApp/assets/js/util.js"></script>
-			<script src="/scripts/webPekiApp/assets/js/fitxa.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/fitxa.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="/scripts/webPekiApp/assets/js/main.js"></script>
+			<script src="assets/js/main.js"></script>
 
 	</body>
 </html>
