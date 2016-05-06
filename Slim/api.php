@@ -23,7 +23,7 @@
  
 require 'Slim/Slim.php';
 require '../_functions/functions.php';
-require'../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+
 
 \Slim\Slim::registerAutoloader();
  
@@ -211,6 +211,8 @@ $app->get('/animales/:idanimal', function($animalID) use($db) {
         });
 //obtenim l'EMAIL del USUARI que ha perdut un ANIMAL
 $app->get('/animales/animalesPerdidos/email/:idanimal', function($animalID) use($db) {
+
+    require '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);   
             $sql = "SELECT email_USUARIOSl, nombre_USUARIOS FROM usuarios WHERE id_USUARIOS = (SELECT USUARIOS_id_USUARIOS FROM pierde WHERE ANIMALES_id_ANIMALES = '$animalID')";
