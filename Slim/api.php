@@ -23,7 +23,7 @@
  
 require 'Slim/Slim.php';
 require '../_functions/functions.php';
-require'/vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+require'../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
 \Slim\Slim::registerAutoloader();
  
