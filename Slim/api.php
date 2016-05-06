@@ -1,4 +1,7 @@
 <?php
+
+require("/vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
+
 // Allow from any origin
     if (isset($_SERVER['HTTP_ORIGIN'])) {
         header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
@@ -210,16 +213,43 @@ $app->get('/animales/:idanimal', function($animalID) use($db) {
 //obtenim l'EMAIL del USUARI que ha perdut un ANIMAL
 $app->get('/animales/animalesPerdidos/email/:idanimal', function($animalID) use($db) {
 
-            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);   
-            $sql = "SELECT email_USUARIOSl FROM usuarios WHERE id_USUARIOS = (SELECT USUARIOS_id_USUARIOS FROM pierde WHERE ANIMALES_id_ANIMALES = '$animalID')";
+    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);   
+            $sql = "SELECT email_USUARIOSl, nombre_USUARIOS FROM usuarios WHERE id_USUARIOS = (SELECT USUARIOS_id_USUARIOS FROM pierde WHERE ANIMALES_id_ANIMALES = '$animalID')";
             $result = $conn->query($sql);
             $email = $result->fetch_assoc();
-            
+
+            $mail = new PHPMAiler;
+            $mail­->IsSMTP();
+            //permite modo debug para ver mensajes de las cosas que van ocurriendo
+            $mail­->SMTPDebug = 2;
+            //Debo de hacer autenticación SMTP
+            $mail­->SMTPAuth = true;
+            $mail­->SMTPSecure = "ssl";
+            //indico el servidor de Gmail para SMTP
+            $mail­->Host = "smtp.gmail.com";
+            //indico el puerto que usa Gmail
+            $mail­->Port = 465;
+            //indico un usuario / clave de un usuario de gmail
+            $mail­->Username = "infopekiapp@gmail.com";
+            $mail­->Password = "123123pekiapp";
+            $mail­->SetFrom('infopekiapp@gmail.com', 'Pekiapp Informa');
+            $mail­->AddReplyTo('infopekiapp@gmail.com', 'Pekiapp Informa');
+            $mail­->Subject = "Pekiapp: S'ha trobat el teu animal!";
+            $mail­->MsgHTML("El dia 1010012 a les 10:20:20 al carrer: pepito, 33");
+            //indico destinatario
+            $address = $email['email_USUARIOSl'];
+            $mail­->AddAddress($address, $email['nombre_USUARIOS']);
+            if(!$mail­->Send()) {
+            echo "0 " . $mail­->ErrorInfo;
+            } else {
+            echo "1";
+            }  
+/*            
             if(mail($email['email_USUARIOSl'], "Pekiapp: S'ha trobat el teu animal!", "El dia 1010012 a les 10:20:20 al carrer: pepito, 33", 'From: xavier.ortega@mataro.epiaedu.cat')){
                 echo 1;
             }else{
                 echo 0;
-            }
+            }*/
         });
 
 
