@@ -63,11 +63,15 @@
 				</section>
 
 				<section class="container">
-					<h2>Llistat de profesionals:</h2>
 
-					<div id="panell-professionals" class="panel panel-default marge-abaix">
-					  
+					<div class="centrar-text"><h2>Llistat de profesionals:</h2></div>
+				
+					<div class="col-md-offset-2 col-md-8">
+						<div id="panell-professionals" class="panel panel-info marge-abaix"></div>
 					</div>
+					
+					  
+					
 
 				</section>			
 
