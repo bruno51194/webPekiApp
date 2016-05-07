@@ -26,7 +26,7 @@
 				</div>
 					<h3><strong><?php echo $tipos?></strong></h3>
 				<div class="centrar-text">
-					<form class="form-horizontal">
+					<form class="form-horizontal" id="form-solicitudServei" name="form-solicitudServei">
 					  <div class="form-group">
 					  <label class="col-md-2 col-md-offset-2 control-label">Nom:</label>
 					    <div class="col-md-4">
@@ -95,6 +95,7 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/afegirServei.js"></script>
 
 	</body>
 </html>

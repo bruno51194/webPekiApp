@@ -304,6 +304,31 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
     }
     
 });
+
+$app->post('/afegirServei',function() use($db,$app) {
+
+    $app->request();
+    $datosform=$app->request();
+    $nom= $datosform->post('nom');
+    $ciutat= $datosform->post('ciutat');
+    $direccio= $datosform->post('direccio');
+    $horari= $datosform->post('horari');
+    $descripcio= $datosform->post('descripcio');
+
+    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+
+    $sql = "INSERT INTO servicios(nombre_SERVICIOS,ciudad_SERVICIOS,direccion_SERVICIOS,horario_SERVICIOS,descripcion_SERVICIOS) VALUES ('$nom','$ciutat','$direccio','$horari','$descripcio')";
+
+    if ($conn->query($sql) === FALSE) {
+        echo "Error insertin' record: " . $conn->error;
+    }else{
+        echo "1" . " ";
+    }
+});
+
+
+
+
 // Insertar animal
 $app->post('/insertarAnimalPerdut',function() use($db,$app) {
 
