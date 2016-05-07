@@ -17,29 +17,56 @@
 				</header>
 
 				<?php $tipos = $_GET["tipos"]; ?>
-				<div class="centrar-text marge-daltPlus">
+				<div class="col-md-offset-5 marge-dalt marge-abaix">
 					<h2>Afegir un Servei</h2>
 				</div>
 				<div class="container">
+				<div class="col-md-offset-3 col-md-3">
+					<h3>Tipos de Servei:</h3>
+				</div>
+					<h3><strong><?php echo $tipos?></strong></h3>
+				<div class="centrar-text">
 					<form class="form-horizontal">
 					  <div class="form-group">
-					    <label class="col-sm-2 control-label">Email</label>
-					    <div class="col-sm-4">
-					      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+					  <label class="col-md-2 col-md-offset-2 control-label">Nom:</label>
+					    <div class="col-md-4">
+					      <input type="text" class="form-control" id="nom" name="nom" placeholder="Afegeix el nom del servei">
 					    </div>
 					  </div>
 					  <div class="form-group">
-					    <label class="col-sm-2 control-label">Password</label>
-					    <div class="col-sm-4">
-					      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+					  <label class="col-md-2 col-md-offset-2 control-label">Ciutat:</label>
+					    <div class="col-md-4">
+					      <input type="text" class="form-control" id="ciutat" name="ciutat" placeholder="Afegeix la ciutat del servei">
 					    </div>
 					  </div>
 					  <div class="form-group">
-					    <div class="col-sm-offset-2 col-sm-4">
+					  <label class="col-md-2 col-md-offset-2 control-label">Direcció:</label>
+					    <div class="col-md-4">
+					      <input type="text" class="form-control" id="direccio" name="direccio" placeholder="Afegeix la direcció del servei">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					  <label class="col-md-2 col-md-offset-2 control-label">Horari:</label>
+					    <div class="col-md-4">
+					      <textarea class="form-control" id="horari" name="horari" rows="2" placeholder="Afegeix l'horari d'apertura i de tancament"></textarea>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					  <label class="col-md-2 col-md-offset-2 control-label">Descripció:</label>
+					    <div class="col-md-4">
+					      <textarea class="form-control" id="descripcio" name="descripcio" rows="6" placeholder="Afegeix una descripció sobre els serveis que ofereix"></textarea>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-4 col-sm-4">
 					      <button type="submit" class="btn btn-default">Enviar Solicitud</button>
 					    </div>
 					  </div>
-					</form>	
+					</form>
+					<div class="marge-abaix"><h6>Quan enviïs la solicitud del servei, ens posarem en contacte mitjançant correu electrònic en un plaç aproximat de 24 a 48 hores.</h6></div>
+						
+				</div>
+					
 				</div>
 				
 
