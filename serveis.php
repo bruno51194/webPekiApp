@@ -64,9 +64,12 @@
 
 				<section class="container">
 					<h2>Llistat de profesionals:</h2>
-				</section>
 
-				<?php //fer petició curl per obtenir els serveis despres maquetar-los amb panels del bootstrap ?>
+					<div id="panell-professionals" class="panel panel-default marge-abaix">
+					  
+					</div>
+
+				</section>			
 
 				<section id="banner_serveis">
 					<?php //posar un if per controlar que nomes aparegui al accedir amb un usuari que sigui una empresa ?>
