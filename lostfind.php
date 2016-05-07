@@ -144,7 +144,11 @@
                     <div class="form-group">
                         <label class="col-sm-1 control-label">Tamany:</label>
                         <div class="col-sm-4 col-sm-offset-1">
-                            <input class="form-control" id="tamany" name="tamany" placeholder="Mides aproximades de l'animal" type="text">
+                            <select class="form-control" id="tamany" name="tamany">
+                                <option value="petit">Petit</option>
+                                <option value="mitja">Mitjà</option>
+                                <option value="gran">Gran</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
