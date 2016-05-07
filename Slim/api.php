@@ -198,6 +198,22 @@ $app->get('/usuarios/password/:correu', function($email) use($db) {
 
         });
 
+
+//obtenim els professionals segons el servei
+$app->get('/profesionales/:tipus', function($tipus) use($db) {
+
+            $consulta = $db->prepare("SELECT * FROM servicios WHERE tipus_SERVICIOS=:param1 AND  activo_SERVICIOS = 1");
+
+            $consulta->execute(array(':param1' => $tipus));
+ 
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        
+            echo json_encode($resultados);
+            return $resultados;
+        });
+
+
+
 //obtenim un animal en concret
 $app->get('/animales/:idanimal', function($animalID) use($db) {
 
@@ -314,10 +330,11 @@ $app->post('/afegirServei',function() use($db,$app) {
     $direccio= $datosform->post('direccio');
     $horari= $datosform->post('horari');
     $descripcio= $datosform->post('descripcio');
+    $tipus= $datosform->post('tipus');
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
 
-    $sql = "INSERT INTO servicios(nombre_SERVICIOS,ciudad_SERVICIOS,direccion_SERVICIOS,horario_SERVICIOS,descripcion_SERVICIOS) VALUES ('$nom','$ciutat','$direccio','$horari','$descripcio')";
+    $sql = "INSERT INTO servicios(nombre_SERVICIOS,ciudad_SERVICIOS,direccion_SERVICIOS,horario_SERVICIOS,descripcion_SERVICIOS,tipus_SERVICIOS) VALUES ('$nom','$ciutat','$direccio','$horari','$descripcio','$tipus')";
 
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;

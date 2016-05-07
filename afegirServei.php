@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<?php 
-			$titol = "Serveis";
+			$titol = "Afegir Servei";
 			$actiu = 4;
 			include 'head.php';
 
@@ -22,7 +22,7 @@
 				</div>
 				<div class="container">
 				<div class="col-md-offset-3 col-md-3">
-					<h3>Tipos de Servei:</h3>
+					<h3>Tipus de Servei:</h3>
 				</div>
 					<h3><strong><?php echo $tipos?></strong></h3>
 				<div class="centrar-text">
@@ -57,6 +57,7 @@
 					      <textarea class="form-control" id="descripcio" name="descripcio" rows="6" placeholder="Afegeix una descripció sobre els serveis que ofereix"></textarea>
 					    </div>
 					  </div>
+					  <input type="hidden" class="form-control" id="tipus" name="tipus" value="<?php echo $tipos?>">
 					  <div class="form-group">
 					    <div class="col-sm-offset-4 col-sm-4">
 					      <button type="submit" class="btn btn-default">Enviar Solicitud</button>
@@ -66,7 +67,7 @@
 					<div class="marge-abaix"><h6>Quan enviïs la solicitud del servei, ens posarem en contacte mitjançant correu electrònic en un plaç aproximat de 24 a 48 hores.</h6></div>
 						
 				</div>
-					
+				
 				</div>
 				
 
