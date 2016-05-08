@@ -71,7 +71,37 @@
 					</div>
 					
 					  
-					
+					<!-- Modal -->
+					<div class="modal fade" id="modalCita" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="myModalLabel">Solicitar Cita</h4>
+					      </div>
+					      <div class="modal-header">
+						      <form id="formCita">
+						      		<div class="form-group col-md-6">
+									    <label>Data:</label>
+									    <input type="date" class="form-control" id="data">
+									</div>
+									<div class="form-group col-md-6">
+									    <label>Hora:</label>
+									    <input type="time" class="form-control" id="hora">
+									</div>
+									<div class="form-group col-md-12">
+									    <label>Descripcio:</label>
+									    <textarea class="form-control" id="descripcio" placeholder="Explica breument en que consisteix la teva visita" rows="3"></textarea>
+									</div>
+								</form>
+					      </div>					       
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
+					        <button type="button" id="solicitar" name="solicitar" onclick="enviarCita()" class="btn btn-primary">Solicitar</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 
 				</section>			
 

@@ -344,6 +344,30 @@ $app->post('/afegirServei',function() use($db,$app) {
 });
 
 
+$app->post('/insertarCita',function() use($db,$app) {
+
+    $app->request();
+    $datosform=$app->request();
+    $dia = $datosform->post('data');
+    $hora = $datosform->post('hora');
+    $descripcio = $datosform->post('descripcio');
+
+    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+
+    $sql1 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $_COOKIE['id'] . "'";
+    $result = $conn->query($sql1);
+    $idusuario = $result->fetch_assoc();
+    $idServei = $_COOKIE['idServei'];
+
+    $sql2 = "INSERT INTO citas(fk_usuario_CITAS, fk_servicio_CITAS,dia_CITAS,hora_CITAS, descripcion_CITAS) 
+                    VALUES(" . $idusuario['id_USUARIOS'] . "," . $idServei . ", '$dia','$hora','$descripcio')";
+    if ($conn->query($sql2) === FALSE) {
+        echo "Error insertin' record: " . $conn->error;
+    }else{
+        echo "1";
+    } 
+});
+
 
 
 // Insertar animal

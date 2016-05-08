@@ -14,6 +14,7 @@ $(document).ready(function() {
 			   return get;
 			}
 
+
 			var get = getGET();
 
 			var tipus = get.tipos;
@@ -22,10 +23,35 @@ $(document).ready(function() {
 			$.getJSON('Slim/api.php/profesionales/' + tipus,
 		      function(datos) {
 		        $.each(datos, function(i, dato){
-		          panell_professionals.append('<div class="panel-heading"> <h3 id="titol" class="panel-title">' + dato.nombre_SERVICIOS + '</h3> </div>');
-		          panell_professionals.append(' <div class="panel-body"> ' + '<strong>Ciutat:</strong><br> ' +dato.ciudad_SERVICIOS + ' <br><strong>Direcció:</strong><br>' + dato.direccion_SERVICIOS + ' <br><strong>Horari:</strong><br>' + dato.horario_SERVICIOS + ' <br><strong>Descripció:</strong><br>' + dato.descripcion_SERVICIOS + '</div>');
+		          panell_professionals.append('<div class="panel-heading"> <h3 id="titol" class="panel-title centrar-text"> ' + dato.nombre_SERVICIOS + '</h3> </div>');
+		          panell_professionals.append('<div class="panel-body"> ' + '<strong>Ciutat:</strong><br> ' + dato.ciudad_SERVICIOS + ' <br><strong>Direcció:</strong><br>' + dato.direccion_SERVICIOS + ' <br><strong>Horari:</strong><br>' + dato.horario_SERVICIOS + ' <br><strong>Descripció:</strong><br>' + dato.descripcion_SERVICIOS + '<div class="izquierda"><button onclick="funcioCita(' + dato.id_SERVICIOS + ')" type="button" value=' + dato.id_SERVICIOS + ' data-toggle="modal" data-target="#modalCita" id="cita" name="cita" class="btn btn-primary">Solicitar Cita</button></div> </div>');
 		        });
 		    });
 
 		return false;
+
 });
+
+function funcioCita(id){
+
+	document.cookie = "idServei = " + id;
+
+}
+
+function enviarCita(){
+
+	var formCita = $("#formCita");
+
+      $.ajax({
+      url: "Slim/api.php/insertarCita",
+      type: "POST",
+      data: formCita.serialize(),
+      success: function(responseText){
+                  var responseTextarray = responseText.split(" ");
+
+                  if(responseTextarray[0] != "1"){
+                      alert(responseText);
+                  }
+          }
+      });
+    }
