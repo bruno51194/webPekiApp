@@ -76,7 +76,7 @@ $app->get('/perdidos', function() use($db) {
 //obtenim tots els animals
 $app->get('/animales', function() use($db) {
 
-            $consulta = $db->prepare("select * from animales");
+            $consulta = $db->prepare("select * from animales INNER JOIN perdidos ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN adopta ON id_ANIMALES = ANIMALES_id_ANIMALES");
             $consulta->execute();
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -145,15 +145,7 @@ $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
              return json_encode($resultados);
  
         });
- //Agafem els animals en adopcio amb un limit per paginar
- $app->get('/animalesAdopcion/:limit', function($limit) use($db) {
 
-            $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI' " . $limit);
-            $consulta->execute();
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode($resultados);
-            return $resultados;
-        });
   //Agafem TOTS els animals en adopcio
  $app->get('/animalesAdopcion', function() use($db) {
 
@@ -233,7 +225,7 @@ $app->get('/profesionales/:tipus', function($tipus) use($db) {
 //obtenim un animal en concret
 $app->get('/animales/:idanimal', function($animalID) use($db) {
 
-            $consulta = $db->prepare("select * from animales where id_ANIMALES=:param1");
+            $consulta = $db->prepare("select * from animales INNER JOIN perdidos ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN adopta ON id_ANIMALES = ANIMALES_id_ANIMALES where id_ANIMALES=:param1");
 
             $consulta->execute(array(':param1' => $animalID));
  

@@ -110,7 +110,7 @@
 				                  <p class="text-normal"><strong>Edat:</strong> <?php echo $animal['edad_ANIMALES']; ?></p>
 				                  <p class="text-normal"><strong>Sexe:</strong> <?php echo $animal['sexo_ANIMALES']; ?></p>
 				                  <p class="text-normal"><strong>Mesura:</strong> <?php echo $animal['medida_ANIMALES']; ?></p>
-				                  <p><a href="adopta/gossos/lucas-1.php" class="btn btn-warning" role="button">Més informació</a></p>
+				                  <p><a href="fitxa.php?animal=<?php echo $animal['id_ANIMALES']; ?>" class="btn btn-warning" role="button">Més informació</a></p>
 				                </div>
 				              </div>
 				            </div>
