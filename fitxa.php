@@ -4,7 +4,7 @@
 		//CRIDA DADES ANIMAL
 		function animal($id){
 			$ch = curl_init();  
-			curl_setopt($ch, CURLOPT_URL, "http://pekiapp.azurewebsites.net/Slim/api.php/animalPerdido/" . $id);    
+			curl_setopt($ch, CURLOPT_URL, "http://pekiapp.azurewebsites.net/Slim/api.php/animales/" . $id);    
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
 			$data = json_decode(curl_exec($ch), true);
 
@@ -33,7 +33,7 @@
 			          	<h2 class="centrar-text">
 		          		<?php echo $animal['nombre_ANIMALES']; ?>
 						</h2>
-			          	<div class="centrar-text"><img src="<?php echo $animal['url_ANIMALES']; ?>" class="img-circle img-animal"></div>
+			          	<div class="centrar-text"><img src="<?php echo $animal['urlGran_ANIMALES']; ?>" class="img-circle img-animal"></div>
 			          	<div class="marge-dalt">
 				          	<div class="col-md-3 col-md-offset-1">
 				          		<p><b>Nom:</b> <?php echo $animal['nombre_ANIMALES']; ?></p>
