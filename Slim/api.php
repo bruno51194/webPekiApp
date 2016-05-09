@@ -434,7 +434,7 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $descripcio = $datosform->post('descripcio');
     $estat = "perdido";
     $adopcio = "NO";
-    //var_dump($possibleRuta = penjarFoto());
+    $possibleRuta = penjarFoto();
 
     $url = $possibleRuta[0];
     $urlGran = $possibleRuta[1];
