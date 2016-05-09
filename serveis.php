@@ -9,6 +9,39 @@
 		?>
 	</head>
 	<body>
+
+		<?php
+
+			if(isset($_POST['solicitar'])){
+
+				define('BD_SERVIDOR', 'eu-cdbr-azure-north-d.cloudapp.net');
+				define('BD_NOMBRE', 'pekiappbbdd');
+				define('BD_USUARIO', 'b509fbe59f7e43');
+				define('BD_PASSWORD', '69edfef4'); 
+			
+				$dia = $_POST['data'];
+			    $hora = $_POST['hora'];
+			    $descripcio = $_POST['descripcio'];
+
+			    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+
+			    $sql1 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $_COOKIE['id'] . "'";
+			    $result = $conn->query($sql1);
+			    $idusuario = $result->fetch_assoc();
+			    $idServei = $_COOKIE['idServei'];
+
+			    $sql2 = "INSERT INTO citas(fk_usuario_CITAS, fk_servicio_CITAS,dia_CITAS,hora_CITAS, descripcion_CITAS) 
+			                    VALUES('" . $idusuario['id_USUARIOS'] . "','" . $idServei . "','". $dia . "','". $hora . "','" . $descripcio ."')";
+			    if ($conn->query($sql2) === FALSE) {
+			        echo "Error insertin' record: " . $conn->error;
+			    }else{
+			        echo "1";
+			    } 
+
+			}
+
+		?>
+
 		<div id="page-wrapper">
 
 			<!-- Header -->
@@ -80,24 +113,24 @@
 					        <h4 class="modal-title" id="myModalLabel">Solicitar Cita</h4>
 					      </div>
 					      <div class="modal-header">
-						      <form id="formCita">
+						      <form id="formCita" class="form-horizontal" action="serveis.php?tipos=<?php echo $tipos; ?>" method="POST" role="form">
 						      		<div class="form-group col-md-6">
 									    <label>Data:</label>
-									    <input type="date" class="form-control" id="data">
+									    <input type="date" class="form-control" id="data" name="data">
 									</div>
 									<div class="form-group col-md-6">
 									    <label>Hora:</label>
-									    <input type="time" class="form-control" id="hora">
+									    <input type="time" class="form-control" id="hora" name="hora">
 									</div>
 									<div class="form-group col-md-12">
 									    <label>Descripcio:</label>
-									    <textarea class="form-control" id="descripcio" placeholder="Explica breument en que consisteix la teva visita" rows="3"></textarea>
+									    <textarea class="form-control" id="descripcio" name="descripcio" placeholder="Explica breument en que consisteix la teva visita" rows="3"></textarea>
 									</div>
+									<input type="submit" id="solicitar" name="solicitar" value="Solicitar" class="btn btn-primary"></input>
 								</form>
 					      </div>					       
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
-					        <button type="button" id="solicitar" name="solicitar" onclick="enviarCita()" class="btn btn-primary">Solicitar</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>				        
 					      </div>
 					    </div>
 					  </div>
