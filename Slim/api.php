@@ -399,7 +399,7 @@ $app->get('/animalPerdido/:id', function($idanimal) use($db) {
 //obtenim un animal en concret
 $app->get('/animales/:idanimal', function($animalID) use($db) {
 
-            $consulta = $db->prepare("SELECT * from animales JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE id_ANIMALES=:param1");
+            $consulta = $db->prepare("SELECT * from animales WHERE id_ANIMALES=:param1");
 
             $consulta->execute(array(':param1' => $animalID));
  
@@ -480,12 +480,15 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
     $vacunes = $datosform->post('vacunes');
     $estat = "adopcion";
     $adopcio = "SI";
-    $url = "images/nofoto.png";
+    $possibleRuta = penjarFoto();
+
+    $url = $possibleRuta[0];
+    $urlGran = $possibleRuta[1];
     $fecha = time();
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
-    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES) 
-                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url')";
+    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES, urlGran_ANIMALES) 
+                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url', '$urlGran')";
     if ($conn->query($sql) === FALSE) {
         die("Error insertin' record: " . $conn->error);
     }else{
@@ -518,7 +521,6 @@ if ($consulta->rowCount() == 1)
    echo "0";
  
 });
- 
  
 
  
