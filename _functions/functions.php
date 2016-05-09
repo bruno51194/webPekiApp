@@ -93,8 +93,8 @@
 				$img = new abeautifulsite\SimpleImage($file['tmp_name']); 
 				$resultado = array();
 				if (!file_exists($rutes[0])){
-					$img->thumbnail(64, 64, 'center')->save($rutes[0]);
-					$img->thumbnail(400, 400, 'center')->save($rutes[1]);
+					$img->thumbnail(64, 64, 'center')->save($rutes[0], 100);
+					$img->thumbnail(200, 200, 'center')->save($rutes[1], 100);
 					$rutes[0] = substr($rutes[0], 3);
 					$rutes[1] = substr($rutes[1], 3);
 					return $rutes;
@@ -107,8 +107,8 @@
 						$i++;
 					}
 
-					$img->thumbnail(64, 64, 'center')->save($rutes[0]);
-					$img->thumbnail(400, 400, 'center')->save($rutes[1]);
+					$img->thumbnail(64, 64, 'center')->save($rutes[0], 100);
+					$img->thumbnail(200, 200, 'center')->save($rutes[1], 100);
 
 					$rutes[0] = substr($rutes[0], 3);
 					$rutes[1] = substr($rutes[1], 3);
