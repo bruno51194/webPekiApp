@@ -80,7 +80,7 @@
 			//ahora vamos a verificar si el tipo de archivo es un tipo de imagen permitido.
 			//y que el tamano del archivo no exceda los 100kb
 			$permitidos = array("../image/jpg", "../image/jpeg", "image/png");
-			$limite_kb = 6144;
+			$limite_kb = 6291456;
 
 			if (in_array($_FILES['foto']['type'], $permitidos) && $_FILES['foto']['size'] <= $limite_kb * 1024){
 				//esta es la ruta donde copiaremos la imagen
