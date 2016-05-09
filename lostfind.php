@@ -117,13 +117,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Chip:</label>
+                        <label class="col-sm-1 control-label">Xip:</label>
                         <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="chip" name="chip" placeholder="Chip de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Tipo:</label>
+                        <label class="col-sm-1 control-label">Tipus:</label>
                         <div class="col-sm-4 col-sm-offset-1">
                             <select class="form-control" id="tipos" name="tipos">
                                 <option value="gato">Gat</option>
@@ -200,6 +200,12 @@
                             <textarea class="form-control" id="descripcio" name="descripcio" placeholder="Afegeix una descripció de com es l'animal" rows="5"></textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Foto:</label>
+                        <div class="col-sm-4 col-sm-offset-1">
+                            <input type="file" class="form-control" id="foto" name="foto">
+                        </div>
+                    </div>
                 <div class="form-group">
                     <div class="col-md-1 centrar-text marge-abaix">
                         <button class="btn btn-default" id="enviar-animal" type="submit">Afegir Animal</button>
@@ -247,7 +253,6 @@
         var div_afegir = $("#div-afegir");
         var div_afegir2 = $("#div-afegir2");
         var form = $("#form-animalPerdut");
-        var form2 = $("#form-animalPerdut");
         var obert = false;
         var obert2 = false;
 
@@ -262,33 +267,34 @@
         });
 
         $("#afegir-animal-trobat").click(function(){
-            if(obert){
+            if(obert2){
                 div_afegir2.attr('style', 'display:none');
-                obert = false;
+                obert2 = false;
             }else{
                 div_afegir2.removeAttr('style');
-                obert = true;
+                obert2 = true;
             }   
 
-            $.ajax({
-
-            })
         });
         
         
-        $("#enviar-animal").click(function(){
+
+        form.submit(function(){
+            var formData = new FormData(form.get(0));
             $.ajax({
               url: "Slim/api.php/insertarAnimalPerdut",
               type: "POST",
-              data: form.serialize(),
+              data: formData,
+              contentType: false,
+              processData: false,
               success: function(responseText){
                           var responseTextarray = responseText.split(" ");
 
-                          if(responseTextarray[0] == "1"){
-                            
+                          if(responseTextarray[0] == "1" && responseTextarray[1] == "1"){
+                           div_afegir.hide();
                           }
-                          else if(responseTextarray[0] == "0"){
-                            
+                          else if(responseTextarray[0] == "0" || responseTextarray[1] == "0"){
+                            div_afegir.append('<div class="alert alert-danger">Error al registrar l\'animal, refresca i torna a probar. Si el problema persisteix <a href="contacte.php">contacta</a></div>');
                           }
                           else{
                               alert(responseText);
@@ -298,7 +304,7 @@
             return false;
 
             
-        })
+        });
         </script>
         <ul class="icons">
             <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
