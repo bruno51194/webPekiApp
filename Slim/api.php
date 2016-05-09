@@ -442,8 +442,8 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $fecha = time();
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
-    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES, urlGran_ANIMALES) 
-                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url', '$urlGran')";
+    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES, urlGran_ANIMALES, descripcion_ANIMALES) 
+                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url', '$urlGran', $descripcio)";
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
@@ -454,8 +454,8 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $result = $conn->query($sql3);
     $idusuario = $result->fetch_assoc();
 
-    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,descripcion_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE) 
-                    VALUES('$ciutat','$direccio','$recompensa','$descripcio'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", $fecha)";
+    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE) 
+                    VALUES('$ciutat','$direccio','$recompensa'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", $fecha)";
     if ($conn->query($sql2) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
@@ -487,8 +487,8 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
     $fecha = time();
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
-    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES, urlGran_ANIMALES) 
-                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url', '$urlGran')";
+    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES, urlGran_ANIMALES, descripcion_ANIMALES) 
+                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url', '$urlGran', '$descripcio')";
     if ($conn->query($sql) === FALSE) {
         die("Error insertin' record: " . $conn->error);
     }else{
@@ -521,6 +521,7 @@ if ($consulta->rowCount() == 1)
    echo "0";
  
 });
+ 
  
 
  
