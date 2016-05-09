@@ -44,13 +44,10 @@ define('BD_PASSWORD', '69edfef4');
 $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=utf8', BD_USUARIO, BD_PASSWORD);
  
 ////////////////////////////////////////////
-/////////////////// GETS ///////////////////
+//////////////// USUARIOS //////////////////
 ////////////////////////////////////////////
- 
-$app->get('/', function() {
-            echo "hola api";
-        });
- 
+
+
 //obtenim tots els usuaris
 $app->get('/usuarios', function() use($db) {
 
@@ -60,110 +57,27 @@ $app->get('/usuarios', function() use($db) {
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             
             echo json_encode($resultados);
-        });
+});
 
-//obtenim tots els animals perduts
-$app->get('/perdidos', function() use($db) {
-
-            $consulta = $db->prepare("select * from pierde");
-            $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
-            echo json_encode($resultados);
-        });
-
-//obtenim tots els animals
-$app->get('/animales', function() use($db) {
-
-            $consulta = $db->prepare("select * from animales INNER JOIN perdidos ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN adopta ON id_ANIMALES = ANIMALES_id_ANIMALES");
-            $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
-            return $resultados;
-        });
-//obtenim tots els animals PERDUTS
-$app->get('/animalesPerdidos', function() use($db) {
-
-            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES");
-            $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
-            echo json_encode($resultados);
-            return $resultados;
-        });
-
-//obtenim tots els animals PERDUTS d'un USUARI
-$app->get('/animalesPerdidos/:tokenusuario', function($tokenusuario) use($db) {
-            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
-            $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $tokenusuario . "'";
-            $result = $conn->query($sql);
-
-            $idusuario = $result->fetch_assoc();
-            
-            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE USUARIOS_id_USUARIOS = " . $idusuario['id_USUARIOS']);
-            $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
-            echo json_encode($resultados);
-            return $resultados;
-        });
-//Obtenim UN animal PERDUT segons ID
-$app->get('/animalPerdido/:id', function($idanimal) use($db) {
-            
-            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE id_ANIMALES = " . $idanimal);
-            $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
-            echo json_encode($resultados);
-            return $resultados;
-        });
 //obtenim un susuario en concret
 $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
-
             $consulta = $db->prepare("SELECT * from usuarios where id_USUARIOS=:param1");
-
             $consulta->execute(array(':param1' => $usuarioID));
  
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
  
             echo json_encode($resultados);
             return $resultados;
-        });
-//obtenim les direccions dels animals perduts
- $app->get('/direcciones', function() use($db) {
- 
-             $consulta = $db->prepare("select direccion_PIERDE, ciudad_PIERDE from pierde");
-             $consulta->execute();
-            
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-             echo json_encode($resultados);
-             return json_encode($resultados);
- 
-        });
+});
 
-  //Agafem TOTS els animals en adopcio
- $app->get('/animalesAdopcion', function() use($db) {
-
-            $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI'");
-            $consulta->execute();
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode($resultados);
-            return $resultados;
-        });
-//agafem tots els usuaris per token
 $app->get('/usuariosToken/:tokenusuario', function($usuarioToken) use($db) {
-
             $consulta = $db->prepare("SELECT * from usuarios where token_USUARIOS=:param1");
  
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($resultados);
             return $resultados;
-        });
+});
+
 //comprobem si existeix un correu
 $app->post('/usuarios/existe', function() use($db, $app) {
             $app->request();
@@ -193,7 +107,8 @@ $app->post('/usuarios/existe', function() use($db, $app) {
                 echo 0;
             }
         });
-//obtenim una contrasenya per correu
+
+        //obtenim una contrasenya per correu
 $app->get('/usuarios/password/:correu', function($email) use($db) {
 
             $consulta = $db->prepare("SELECT password_USUARIOS from usuarios where email_USUARIOSl=:param1");
@@ -207,33 +122,8 @@ $app->get('/usuarios/password/:correu', function($email) use($db) {
         });
 
 
-//obtenim els professionals segons el servei
-$app->get('/profesionales/:tipus', function($tipus) use($db) {
 
-            $consulta = $db->prepare("SELECT * FROM servicios WHERE tipus_SERVICIOS=:param1 AND  activo_SERVICIOS = 1");
-
-            $consulta->execute(array(':param1' => $tipus));
- 
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-        
-            echo json_encode($resultados);
-            return $resultados;
-        });
-
-
-
-//obtenim un animal en concret
-$app->get('/animales/:idanimal', function($animalID) use($db) {
-
-            $consulta = $db->prepare("select * from animales INNER JOIN perdidos ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN adopta ON id_ANIMALES = ANIMALES_id_ANIMALES where id_ANIMALES=:param1");
-
-            $consulta->execute(array(':param1' => $animalID));
- 
-            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
-        
-            echo json_encode($resultados);
-        });
-//obtenim l'EMAIL del USUARI que ha perdut un ANIMAL
+//obtenim l'EMAIL del USUARI que ha perdut un ANIMAL i enviem email
 $app->get('/animales/animalesPerdidos/email/:idanimal', function($animalID) use($db) {
 
     require '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
@@ -329,6 +219,61 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
     
 });
 
+// Actualización de datos de usuario (PUT)
+$app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
+    // Para acceder a los datos recibidos del formulario
+    $datosform=$app->request;
+ 
+    // Los datos serán accesibles de esta forma:
+    // $datosform->post('apellidos')
+ 
+    // Preparamos la consulta de update.
+    $consulta=$db->prepare("UPDATE usuarios set nombre=:nombre, apellido=:apellido, password=:password 
+                            where nombre=:nombre");
+ 
+    $estado=$consulta->execute(
+            array(
+                ':nombre'=> $datosform->post('nombre'),
+                ':apellido'=> $datosform->post('apellido'),
+                ':password'=> $datosform->post('password')
+                )
+            );
+ 
+    // Si se han modificado datos...
+    if ($consulta->rowCount()==1)
+      echo json_encode(array('estado'=>true,'mensaje'=>'Datos actualizados correctamente.'));
+    else
+      echo json_encode(array('estado'=>false,'mensaje'=>'Error al actualizar datos, datos 
+                        no modificados o registro no encontrado.'));
+});
+
+$app->post('/usuarios/actualizarFoto', function(){
+    actualitzarFoto("usuarios", "url_USUARIOS");
+});
+
+
+////////////////////////////////////////////
+//////////////// SERVICIOS /////////////////
+////////////////////////////////////////////
+
+
+//obtenim els professionals segons el servei
+$app->get('/profesionales/:tipus', function($tipus) use($db) {
+
+            $consulta = $db->prepare("SELECT * FROM servicios WHERE tipus_SERVICIOS=:param1 AND  activo_SERVICIOS = 1");
+
+            $consulta->execute(array(':param1' => $tipus));
+ 
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        
+            echo json_encode($resultados);
+            return $resultados;
+        });
+ 
+$app->get('/', function() {
+            echo "hola api";
+        });
+
 //Afegir un servei
 $app->post('/afegirServei',function() use($db,$app) {
 
@@ -351,6 +296,117 @@ $app->post('/afegirServei',function() use($db,$app) {
         echo "1" . " ";
     }
 });
+
+////////////////////////////////////////////
+//////////////// ANIMALES //////////////////
+////////////////////////////////////////////
+
+
+//obtenim tots els animals perduts
+$app->get('/perdidos', function() use($db) {
+
+            $consulta = $db->prepare("select * from pierde");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+        });
+
+//obtenim tots els animals
+$app->get('/animales', function() use($db) {
+
+            $consulta = $db->prepare("select * from animales INNER JOIN perdidos ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN adopta ON id_ANIMALES = ANIMALES_id_ANIMALES");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            return $resultados;
+        });
+//obtenim tots els animals PERDUTS
+$app->get('/animalesPerdidos', function() use($db) {
+
+            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
+
+//obtenim tots els animals PERDUTS d'un USUARI
+$app->get('/animalesPerdidos/:tokenusuario', function($tokenusuario) use($db) {
+            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+            $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $tokenusuario . "'";
+            $result = $conn->query($sql);
+
+            $idusuario = $result->fetch_assoc();
+            
+            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE USUARIOS_id_USUARIOS = " . $idusuario['id_USUARIOS']);
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
+//Obtenim UN animal PERDUT segons ID
+$app->get('/animalPerdido/:id', function($idanimal) use($db) {
+            
+            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE id_ANIMALES = " . $idanimal);
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
+
+//obtenim les direccions dels animals perduts
+ $app->get('/direcciones', function() use($db) {
+ 
+             $consulta = $db->prepare("select direccion_PIERDE, ciudad_PIERDE from pierde");
+             $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+             echo json_encode($resultados);
+             return json_encode($resultados);
+ 
+        });
+
+  //Agafem TOTS els animals en adopcio
+ $app->get('/animalesAdopcion', function() use($db) {
+
+            $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI'");
+            $consulta->execute();
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($resultados);
+            return $resultados;
+        });
+  $app->get('/animalesAdopcion/:id', function($id) use($db) {
+
+            $consulta = $db->prepare("SELECT * from adopta WHERE ANIMALES_id_ANIMALES =" . $id);
+            $consulta->execute();
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($resultados);
+            return $resultados;
+        });
+
+//obtenim un animal en concret
+$app->get('/animales/:idanimal', function($animalID) use($db) {
+
+            $consulta = $db->prepare("SELECT * from animales JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE id_ANIMALES=:param1");
+
+            $consulta->execute(array(':param1' => $animalID));
+ 
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        
+            echo json_encode($resultados);
+        });
+
+
+
 
 
 
@@ -375,12 +431,21 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $descripcio = $datosform->post('descripcio');
     $estat = "perdido";
     $adopcio = "NO";
-    $url = "images/nofoto.png";
+    $possibleRuta = penjarFoto();
+    if($possibleRuta == 2){
+        die('2');
+    }else if($possibleRuta == 0){
+        $url = "images/nofoto.png";
+        $urlGran = "images/nofoto_grande.png";
+    }else{
+        $url = $possibleRuta;
+        $urlGran = $possibleRuta . "_grande";
+    }
     $fecha = time();
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
-    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES) 
-                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url')";
+    $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES, urlGran_ANIMALES) 
+                    VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url', '$urlGran')";
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
@@ -424,7 +489,7 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
     $sql = "INSERT INTO animales(nombre_ANIMALES,chip_ANIMALES,tipo_ANIMALES,estado_ANIMALES,adopcion_ANIMALES,sexo_ANIMALES,medida_ANIMALES,raza_ANIMALES,edad_ANIMALES,color_ANIMALES,vacunes_ANIMALES,url_ANIMALES) 
                     VALUES('$nom','$chip','$tipus','$estat','$adopcio','$sexe','$tamany','$raça','$edat','$color','$vacunes', '$url')";
     if ($conn->query($sql) === FALSE) {
-        echo "Error insertin' record: " . $conn->error;
+        die("Error insertin' record: " . $conn->error);
     }else{
         echo "1" . " ";
         $idanimal = mysqli_insert_id($conn);
@@ -457,33 +522,7 @@ if ($consulta->rowCount() == 1)
 });
  
  
-// Actualización de datos de usuario (PUT)
-$app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
-    // Para acceder a los datos recibidos del formulario
-    $datosform=$app->request;
- 
-    // Los datos serán accesibles de esta forma:
-    // $datosform->post('apellidos')
- 
-    // Preparamos la consulta de update.
-    $consulta=$db->prepare("UPDATE usuarios set nombre=:nombre, apellido=:apellido, password=:password 
-                            where nombre=:nombre");
- 
-    $estado=$consulta->execute(
-            array(
-                ':nombre'=> $datosform->post('nombre'),
-                ':apellido'=> $datosform->post('apellido'),
-                ':password'=> $datosform->post('password')
-                )
-            );
- 
-    // Si se han modificado datos...
-    if ($consulta->rowCount()==1)
-      echo json_encode(array('estado'=>true,'mensaje'=>'Datos actualizados correctamente.'));
-    else
-      echo json_encode(array('estado'=>false,'mensaje'=>'Error al actualizar datos, datos 
-                        no modificados o registro no encontrado.'));
-});
+
  
 $app->post('/animales/actualizarFoto', function() use($app){
     $datosform=$app->request;
@@ -494,9 +533,7 @@ $app->post('/animales/actualizarFoto', function() use($app){
 });
     
 
-$app->post('/usuarios/actualizarFoto', function(){
-    actualitzarFoto("usuarios", "url_USUARIOS");
-});
+
     
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////

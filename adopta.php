@@ -52,7 +52,7 @@
 
   			$limit= 'LIMIT '. (($pagina-1) * $resultats_per_pagina) . ',' . $resultats_per_pagina;
 
-			var_dump($animalsAdopcio = animals($limit));
+			$animalsAdopcio = animals($limit);
 
 
 			

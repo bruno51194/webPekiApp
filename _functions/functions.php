@@ -64,7 +64,7 @@
 	 
 	    return $_SERVER['REMOTE_ADDR'];
 	}
-	function actualitzarFoto($taula, $columna, $foto){
+	function penjarFoto(){
 		//conexion a la base de datos
 		$conn = conexion();
 		
@@ -85,29 +85,24 @@
 				//esta es la ruta donde copiaremos la imagen
 				//recuerden que deben crear un directorio con este mismo nombre
 				//en el mismo lugar donde se encuentra el archivo subir.php
-				$ruta = "images/" . $_FILES['foto']['name'];
-				$img = new _functions\SimpleImage($_FILES['foto']['name']); 
+				$file = $_FILES['foto'];
+				$ruta = "images/" . $file['name'];
+				$img = new _functions\SimpleImage($file['tmp_name']); 
 				$img->thumbnail(64, 64, 'center')->save();
 				//comprobamos si este archivo existe para no volverlo a copiar.
 				//pero si quieren pueden obviar esto si no es necesario.
 				//o pueden darle otro nombre para que no sobreescriba el actual.
+				$resultado = array();
 
 				if (!file_exists($ruta)){
 					//aqui movemos el archivo desde la ruta temporal a nuestra ruta
 					//usamos la variable $resultado para almacenar el resultado del proceso de mover el archivo
 					//almacenara true o false
-					$resultado = array();
+					
 					$resultado[0] = @move_uploaded_file($img, $ruta);
-					$resultado[1] = @move_uploaded_file($_FILES['foto']['tmp_name'], $ruta);
+					$resultado[1] = @move_uploaded_file($file['tmp_name'], $ruta . "_grande");
 					if ($resultado[0] && $resultado[1]){
-						$sql = "UPDATE $taula SET $columna=$ruta";
-						if ($conn->query($sql) === FALSE){
-							//No s'ha penjat
-							echo 0;
-						}else{
-							//S'ha penjat
-							echo 1;
-						}
+						echo $ruta;
 						
 					} else {
 						//No s'ha penjat
@@ -120,15 +115,10 @@
 						$ruta = $ruta . $i;
 						$i++;
 					}
-					$resultado = @move_uploaded_file($_FILES["foto"]["tmp_name"], $ruta);
+					$resultado[0] = @move_uploaded_file($img, $ruta);
+					$resultado[1] = @move_uploaded_file($file["tmp_name"], $ruta . "_grande");
 					if ($resultado){
-						if ($conn->query($sql) === FALSE){
-							//No s'ha penjat
-							echo 0;
-						}else{
-							//S'ha penjat
-							echo 1;
-						}
+						echo $ruta;
 					} else {
 						//No s'ha penjat
 						echo 0;

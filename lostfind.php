@@ -117,17 +117,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Chip:</label>
+                        <label class="col-sm-1 control-label">Xip:</label>
                         <div class="col-sm-4 col-sm-offset-1">
                             <input class="form-control" id="chip" name="chip" placeholder="Chip de l'animal" type="text">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Tipo:</label>
+                        <label class="col-sm-1 control-label">Tipus:</label>
                         <div class="col-sm-4 col-sm-offset-1">
                             <select class="form-control" id="tipos" name="tipos">
-                                <option value="perro">Gat</option>
-                                <option value="gato">Gos</option>
+                                <option value="gato">Gat</option>
+                                <option value="perro">Gos</option>
                                 <option value="especial">Altres</option>
                             </select>
                         </div>
@@ -198,6 +198,12 @@
                         <label class="col-sm-1 control-label">Descripció:</label>
                         <div class="col-sm-4 col-sm-offset-1">
                             <textarea class="form-control" id="descripcio" name="descripcio" placeholder="Afegeix una descripció de com es l'animal" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Foto:</label>
+                        <div class="col-sm-4 col-sm-offset-1">
+                            <input type="file" class="form-control" id="foto" name="foto">
                         </div>
                     </div>
                 <div class="form-group">
@@ -272,11 +278,15 @@
         });
         
         
-        $("#enviar-animal").click(function(){
+
+        form.submit(function(){
+            var formData = new FormData($("#form-animalPerdut"));
             $.ajax({
               url: "Slim/api.php/insertarAnimalPerdut",
               type: "POST",
-              data: form.serialize(),
+              data: formData,
+              contentType: false,
+              processData: false,
               success: function(responseText){
                           var responseTextarray = responseText.split(" ");
 
