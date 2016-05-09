@@ -72,8 +72,11 @@ $app->get('/usuarios/:idusuario', function($usuarioID) use($db) {
 
 $app->get('/usuariosToken/:tokenusuario', function($usuarioToken) use($db) {
             $consulta = $db->prepare("SELECT * from usuarios where token_USUARIOS=:param1");
- 
+            $consulta->bindParam("param1", $usuarioToken);
+            $consulta->execute();
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+
             echo json_encode($resultados);
             return $resultados;
 });
@@ -432,15 +435,10 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $estat = "perdido";
     $adopcio = "NO";
     var_dump($possibleRuta = penjarFoto());
-    if($possibleRuta[0] == 2){
-        die('2');
-    }else if($possibleRuta[0] == 0){
-        $url = "images/nofoto.png";
-        $urlGran = "images/nofoto_grande.png";
-    }else{
-        $url = $possibleRuta[0];
-        $urlGran = $possibleRuta[1];
-    }
+
+    $url = $possibleRuta[0];
+    $urlGran = $possibleRuta[1];
+    
     $fecha = time();
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);

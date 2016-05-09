@@ -79,7 +79,7 @@
 
 			//ahora vamos a verificar si el tipo de archivo es un tipo de imagen permitido.
 			//y que el tamano del archivo no exceda los 100kb
-			$permitidos = array("../image/jpg", "../image/jpeg", "image/png");
+			$permitidos = array("image/jpg", "image/jpeg", "image/png");
 			$limite_kb = 6291456;
 
 			if (in_array($_FILES['foto']['type'], $permitidos) && $_FILES['foto']['size'] <= $limite_kb * 1024){
@@ -88,55 +88,35 @@
 				//en el mismo lugar donde se encuentra el archivo subir.php
 				$file = $_FILES['foto'];
 				$carpeta = "images/";
-				$rutes = array("images/" . $file['name'], "images/grande_" . $file['name']);
+				$rutes = array("../images/uploads/" . $file['name'], "../images/uploads/grande_" . $file['name']);
 
 				$img = new abeautifulsite\SimpleImage($file['tmp_name']); 
-				$img->thumbnail(64, 64, 'center')->save($file['name']);
-				//comprobamos si este archivo existe para no volverlo a copiar.
-				//pero si quieren pueden obviar esto si no es necesario.
-				//o pueden darle otro nombre para que no sobreescriba el actual.
 				$resultado = array();
-				if (!is_writable($carpeta)) {
-
-				        echo '<div>Debug: is not writable', "<div />\n";
-
-				}
 				if (!file_exists($rutes[0])){
-					//aqui movemos el archivo desde la ruta temporal a nuestra ruta
-					//usamos la variable $resultado para almacenar el resultado del proceso de mover el archivo
-					//almacenara true o false
-					
-					$resultado[0] = @move_uploaded_file($file['tmp_name'], $rutes[0]);
-					$resultado[1] = @move_uploaded_file($file['tmp_name'], $rutes[1]);
-
-					var_dump($resultado);
-					if ($resultado[0] && $resultado[1]){
-						return $rutes;
-						
-					} else {
-						//No s'ha penjat
-						return array(0,0);
-					}
+					$img->thumbnail(64, 64, 'center')->save($rutes[0]);
+					$img->thumbnail(400, 400, 'center')->save($rutes[1]);
+					$rutes[0] = substr($rutes[0], 3);
+					$rutes[1] = substr($rutes[1], 3);
+					return $rutes;
 				} else {
 					//L'arxiu ja existeix a la carpeta
-					$i = 2;
+					$i = 0;
 					while (file_exists($rutes[0])){
-						$rutes[0] = "images/" . $i . $file['name'];
-						$rutes[1] = "images/grande_" . $i . $file['name'];
+						$rutes[0] = "../images/uploads/" . $i . $file['name'];
+						$rutes[1] = "../images/uploads/grande_" . $i . $file['name'];
 						$i++;
 					}
-					$resultado[0] = @move_uploaded_file($file["tmp_name"], $rutes[0]);
-					$resultado[1] = @move_uploaded_file($file["tmp_name"], $rutes[1]);
-					if ($resultado){
-						return $ruta;
-					} else {
-						//No s'ha penjat
-						return array(0,0);
-					}
+
+					$img->thumbnail(64, 64, 'center')->save($rutes[0]);
+					$img->thumbnail(400, 400, 'center')->save($rutes[1]);
+
+					$rutes[0] = substr($rutes[0], 3);
+					$rutes[1] = substr($rutes[1], 3);
+					return $rutes;
+
 				}
 			} else {
-				//Arxiu no permès
-				return array(2,2);
+				return array("images/nofoto.png","images/nofoto_grande.png");
 			}
 		}
 	}	
