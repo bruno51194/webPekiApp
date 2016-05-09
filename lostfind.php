@@ -126,8 +126,8 @@
                         <label class="col-sm-1 control-label">Tipo:</label>
                         <div class="col-sm-4 col-sm-offset-1">
                             <select class="form-control" id="tipos" name="tipos">
-                                <option value="perro">Gat</option>
-                                <option value="gato">Gos</option>
+                                <option value="gato">Gat</option>
+                                <option value="perro">Gos</option>
                                 <option value="especial">Altres</option>
                             </select>
                         </div>
