@@ -315,7 +315,8 @@ $app->get('/serveisUsuari/:tokenusuario', function($tokenusuario) use($db) {
             $result = $conn->query($sql2);
             $parametres = $result->fetch_assoc();
             
-            return json_encode($parametres);
+            echo json_encode($parametres);
+            return $parametres;
 
         });
 //obtenim tots CITES d'un SERVEI d'una EMPRESA
@@ -326,7 +327,8 @@ $app->get('/citesServei/:idservei', function($idservei) use($db) {
             $result = $conn->query($sql);
             $parametres = $result->fetch_assoc();
 
-            return json_encode($parametres);
+            echo json_encode($parametres);
+            return $parametres;
         });
 
 ////////////////////////////////////////////
@@ -483,8 +485,8 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $result = $conn->query($sql3);
     $idusuario = $result->fetch_assoc();
 
-    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE, descripcion_PIERDE) 
-                    VALUES('$ciutat','$direccio','$recompensa'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", $fecha, '_')";
+    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE) 
+                    VALUES('$ciutat','$direccio','$recompensa'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", '$fecha')";
     if ($conn->query($sql2) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
