@@ -104,7 +104,7 @@
 
 				            <div class="col-sm-6 col-md-4">
 				              <div class="thumbnail">
-				                <img src="img/educacio_canina.jpg" alt="...">
+				                <img src="<?php echo $animal['urlGran_ANIMALES']; ?>" alt="...">
 				                <div class="caption centrar-text">
 				                  <h3><?php echo $animal['nombre_ANIMALES']; ?></h3>
 				                  <p class="text-normal"><strong>Edat:</strong> <?php echo $animal['edad_ANIMALES']; ?></p>

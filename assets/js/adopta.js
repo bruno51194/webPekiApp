@@ -16,10 +16,13 @@ $(document).ready(function() {
     });
 
     formulari.submit(function(){
+      var formData = new FormData(formulari.get(0));
         $.ajax({
           url: "Slim/api.php/insertarAnimalAdopcio",
           type: "POST",
-          data: formulari.serialize(),
+          data: formData,
+          contentType: false,
+          processData: false,
           success: function(responseText){
                   var responseTextarray = responseText.split(" ");
 

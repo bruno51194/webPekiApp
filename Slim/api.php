@@ -479,8 +479,8 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $result = $conn->query($sql3);
     $idusuario = $result->fetch_assoc();
 
-    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE) 
-                    VALUES('$ciutat','$direccio','$recompensa'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", '$fecha')";
+    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE, descripcion_PIERDE) 
+                    VALUES('$ciutat','$direccio','$recompensa'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", $fecha, '_')";
     if ($conn->query($sql2) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
@@ -503,8 +503,8 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
     $edat = $datosform->post('edat');
     $color = $datosform->post('color');
     $vacunes = $datosform->post('vacunes');
-    $estat = "adopcion";
     $descripcio = $datosform->post('descripcio');
+    $estat = "adopcion";
     $adopcio = "SI";
     $possibleRuta = penjarFoto();
 
@@ -558,7 +558,7 @@ $app->post('/animales/eliminar', function() use($app, $db){
     $consulta = $db->prepare("UPDATE animales SET estado_ANIMALES = 'encontrado' WHERE id_ANIMALES = :param1");
     $consulta->bindParam("param1", $id);
     $consulta->execute();
-    
+
 
     if ($consulta->rowCount()==1)
       echo 1;

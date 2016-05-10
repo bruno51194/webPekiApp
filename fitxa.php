@@ -45,7 +45,7 @@
 					          	<p><b>Vacunes:</b> <?php echo $animal['vacunes_ANIMALES']; ?></p>
 					        </div>
 					        <div class="col-md-7">
-								<p style="text-align: justify"><b>Descripció:</b> <br><?php echo $animal['descripcion_PIERDE']; ?></p>				          	
+								<p style="text-align: justify"><b>Descripció:</b> <br><?php echo $animal['descripcion_ANIMALES']; ?></p>				          	
 							</div>
 				        </div>
 				        <div class="row">
