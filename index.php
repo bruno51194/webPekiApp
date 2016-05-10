@@ -134,7 +134,7 @@
 						</div>
 						<div class="6u 12u(narrower)">
 							<section class="box special">
-								<span class="image featured"><img src="images/adoptals.jpg" alt="adopta'ls" /></span>
+								<span class="image featured"><img src="images/adopta.jpg" alt="adopta'ls" /></span>
 								<h3>Adopta'ls</h3>
 								<p>Tant si vols donar en adopció com si vols adoptar algun animal, entra aqui per poder ajudar als animals sense llar i ajudar en la seva reincerció.</p>
 								<ul class="actions">
@@ -147,24 +147,6 @@
 
 				</section>
 
-			<!-- CTA -->
-				<section id="cta">
-
-					<h2>Subscriu-te</h2>
-					<p>Subscriu-te al nostre butlletí per poder rebre totes les novetats de la nostra web!</p>
-
-					<form>
-						<div class="row uniform 50%">
-							<div class="8u 12u(mobilep)">
-								<input type="email" name="email" id="email" placeholder="Email" value="<?php if(isset($_COOKIE['email'])) echo $_COOKIE['email'];?>"/>
-							</div>
-							<div class="4u 12u(mobilep)">
-								<input type="submit" value="Subscripció" class="fit" />
-							</div>
-						</div>
-					</form>
-
-				</section>
 
 			<!-- Footer -->
 				<footer id="footer">

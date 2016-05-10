@@ -16,12 +16,13 @@
 				<li><a href="serveis.php?tipos=Guarderies Canines">Guarderies canines</a></li>
 			</ul>
 		</li>
+
 		<li <?php switch ($actiu) { case 5: echo 'class="actiu"'; break; }?>><a href="contacte.php">Contacte</a></li>
 
 		<?php if(!isset($_COOKIE['id'])): ?>
 			<li><a class="button" href="login.php">Accedeix</a></li>
 		<?php else: ?>
-			<li <?php switch ($actiu) { case 6: echo 'class="actiu"'; break; }?>><a href="miCuenta.php">La meva conta</a></li>
+			<li <?php switch ($actiu) { case 6: echo 'class="actiu"'; break; }?>><a href="miCuenta.php">El meu compte</a></li>
 		<?php endif; ?>
 	</ul>
 </nav>

@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<?php 
-			$titol = "Lost&Find Mi cuenta";
-			$actiu = 0;
+			$titol = "Pekiapp - Perfil d'usuari";
+			$actiu = 6;
 			include 'head.php';
 		?>
 		<link rel="stylesheet" href="assets/css/custom.css" />
@@ -24,6 +24,7 @@
 				        <div class="menuConfiguracio col-md-4">
 				        	<ul class="nav nav-pills nav-stacked">
 				                <li role="presentation"><a href="#" id="btn_perfil">Perfil</a></li>
+				                <li role="presentation"><a href="#" id="btn_contrasenya">Contrasenya</a></li>
 
 				                <?php 
 								if(isset($_COOKIE['tipo'])):
@@ -46,7 +47,7 @@
 			        
 						<section id="perfil" class="col-md-8">
 					      <h3>El meu perfil</h3>
-					      <form>
+					      <form id="formPerfil">
 					      		<div class="form-group col-md-3">
 									<label>Nom:</label>
 									<input type="text" class="form-control" id="nom_nou" name="nom_nou">
@@ -57,7 +58,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<label>Correu electrònic:</label>
-									<input type="text" class="form-control" id="correu_nou" name="correu_nou">
+									<input type="text" class="form-control" id="correu_nou" name="correu_nou" disabled>
 								</div>
 								<div class="form-group col-md-4">
 									<label>Població:</label>
@@ -72,7 +73,39 @@
 									<input type="text" class="form-control" id="telefon_nou" name="telefon_nou">
 								</div>
 								
-								<button type="button" id="enviar" class="button">Actualitzar</button>
+								<button type="button" id="btn_actualitzarPerfil" class="button">Actualitzar</button>
+					      </form>
+					    </section>
+					    <section id="contrasenya" class="col-md-8">
+					      <h3>Canviar contrasenya</h3>
+					      <form>
+					      		<div class="form-group">
+					      			<div class="col-md-12">
+										<label>Antiga contrasenya:</label>
+									</div>
+									<div class="col-md-4">
+										<input type="password" class="form-control" id="contrasenya_antiga" name="contrasenya_antiga">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<label>Nova contrasenya:</label>
+									</div>
+									<div class="col-md-4">
+										<input type="password" class="form-control" id="contrasenya_nova" name="contrasenya_nova">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<label>Repetir nova contrasenya:</label>
+									</div>
+									<div class="form-group col-md-4">
+										<input type="password" class="form-control" id="repetir_contrasenya_nova" name="repetir_contrasenya_nova">
+									</div>
+								</div>
+								<div class="col-md-12">					
+									<button type="button" class="button">Actualitzar</button>
+								</div>
 					      </form>
 					    </section>
 					    <section id="animals" class="col-md-8">
@@ -84,15 +117,19 @@
 				                    <th><strong>Nom</strong></th>
 				                    <th><strong>Tipus</strong></th>
 				                    <th><strong>Sexe</strong></th>
-				                    <th><strong>Actualitzar foto</strong></th>
 				                </tr>
 				            </table>
 				        </section>
 
 				        <section id="serveis" class="col-md-8">
 				        	<h3>Els meus serveis</h3>
-				        	<div id="div_serveis"></div>
-				        
+				        	<table class="table table-striped" id="taula_serveis">
+				                <tr>
+				                    <th><strong>Dia</strong></th>
+				                    <th><strong>Hora</strong></th>
+				                    <th><strong>Descripció</strong></th>
+				                </tr>
+				            </table>
 				        </section>
 				        <section id="adopcions" class="col-md-8">
 				        	<h3>Les meves peticions d'adopció</h3>	

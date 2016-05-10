@@ -223,35 +223,41 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
 });
 
 // Actualización de datos de usuario (PUT)
-$app->put('/usuarios/:nombre',function($nombre) use($db,$app) {
+$app->post('/usuarios/actualizar/:id',function($id) use($db,$app) {
     // Para acceder a los datos recibidos del formulario
     $datosform=$app->request;
  
     // Los datos serán accesibles de esta forma:
     // $datosform->post('apellidos')
- 
+     $consulta=$db->prepare("UPDATE usuarios set nombre_USUARIOS=:nombre, apellido_USUARIOS=:apellido, poblacion_USUARIOS=:poblacion, CP_USUARIOS=:cp, telefono_USUARIOS=:telf
+                            where token_USUARIOS=:id");
     // Preparamos la consulta de update.
-    $consulta=$db->prepare("UPDATE usuarios set nombre=:nombre, apellido=:apellido, password=:password 
-                            where nombre=:nombre");
- 
-    $estado=$consulta->execute(
-            array(
-                ':nombre'=> $datosform->post('nombre'),
-                ':apellido'=> $datosform->post('apellido'),
-                ':password'=> $datosform->post('password')
-                )
-            );
- 
-    // Si se han modificado datos...
-    if ($consulta->rowCount()==1)
-      echo json_encode(array('estado'=>true,'mensaje'=>'Datos actualizados correctamente.'));
-    else
-      echo json_encode(array('estado'=>false,'mensaje'=>'Error al actualizar datos, datos 
-                        no modificados o registro no encontrado.'));
+    
+                if($datosform->post('nom_nou')!="" && $datosform->post('cognom_nou')!="" && $datosform->post('telefon_nou')!="" && $datosform->post('cp_nou')!="" && $datosform->post('poblacio_nou')!=""){
+                    $estado=$consulta->execute(
+                        array(
+                            ':nombre'=> $datosform->post('nom_nou'),
+                            ':apellido'=> $datosform->post('cognom_nou'),
+                            ':poblacion'=> $datosform->post('poblacio_nou'),
+                            ':cp'=> $datosform->post('cp_nou'),
+                            ':telf'=> $datosform->post('telefon_nou'),
+                            ':id'=> $id,
+                            )
+                        );
+
+
+                    echo $consulta->rowCount();
+                }else{
+                    //HI HA CAMPS SENSE COMPLETAR
+                    echo "2";
+                }
+
 });
 
-$app->post('/usuarios/actualizarFoto', function(){
-    actualitzarFoto("usuarios", "url_USUARIOS");
+$app->post('/usuarios/actualizarContrasenya', function() use($app){
+    $datosform = $app->request;
+
+
 });
 
 
@@ -291,11 +297,7 @@ $app->post('/afegirServei',function() use($db,$app) {
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
 
-    $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $_COOKIE['id'] . "'";
-    $result = $conn->query($sql);
-    $idusuario = $result->fetch_assoc();
-
-    $sql = "INSERT INTO servicios(nombre_SERVICIOS,ciudad_SERVICIOS,direccion_SERVICIOS,horario_SERVICIOS,descripcion_SERVICIOS,tipus_SERVICIOS,idusuario_SERVICIOS) VALUES ('$nom','$ciutat','$direccio','$horari','$descripcio','$tipus', '" . $idusuario['id_USUARIOS'] . "')";
+    $sql = "INSERT INTO servicios(nombre_SERVICIOS,ciudad_SERVICIOS,direccion_SERVICIOS,horario_SERVICIOS,descripcion_SERVICIOS,tipus_SERVICIOS) VALUES ('$nom','$ciutat','$direccio','$horari','$descripcio','$tipus')";
 
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
@@ -304,32 +306,24 @@ $app->post('/afegirServei',function() use($db,$app) {
     }
 });
 
-//obtenim tots SERVEIS d'un USUARI empresa
-$app->get('/serveisUsuari/:tokenusuario', function($tokenusuario) use($db) {
+//obtenim tots lesCITES d'un USUARI empresa
+$app->get('/cites/:tokenusuario', function($tokenusuario) use($db) {
             $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
             $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $tokenusuario . "'";
             $result = $conn->query($sql);
+
             $idusuario = $result->fetch_assoc();
-
-            $sql2 = "SELECT id_SERVICIOS, nombre_SERVICIOS, tipus_SERVICIOS FROM servicios WHERE idusuario_SERVICIOS = '" . $idusuario['id_USUARIOS'] . "'";
-            $result = $conn->query($sql2);
-            $parametres = $result->fetch_assoc();
             
-            echo json_encode($parametres);
-            return $parametres;
-
+            $consulta = $db->prepare("SELECT * from citas WHERE fk_usuario_CITAS = " . $idusuario['id_USUARIOS']);
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
         });
-//obtenim tots CITES d'un SERVEI d'una EMPRESA
-$app->get('/citesServei/:idservei', function($idservei) use($db) {
 
-            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
-            $sql = "SELECT * FROM citas INNER JOIN usuarios ON id_USUARIOS = fk_usuario_CITAS WHERE id_SERVICIOS = '" . $idservei . "'";
-            $result = $conn->query($sql);
-            $parametres = $result->fetch_assoc();
 
-            echo json_encode($parametres);
-            return $parametres;
-        });
 
 ////////////////////////////////////////////
 //////////////// ANIMALES //////////////////
@@ -485,8 +479,8 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $result = $conn->query($sql3);
     $idusuario = $result->fetch_assoc();
 
-    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE) 
-                    VALUES('$ciutat','$direccio','$recompensa'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", '$fecha')";
+    $sql2 = "INSERT INTO pierde(ciudad_PIERDE,direccion_PIERDE,recompensa_PIERDE,USUARIOS_id_USUARIOS,ANIMALES_id_ANIMALES, fecha_PIERDE, descripcion_PIERDE) 
+                    VALUES('$ciutat','$direccio','$recompensa'," . $idusuario['id_USUARIOS'] . "," . $idanimal . ", $fecha, '_')";
     if ($conn->query($sql2) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
@@ -494,8 +488,6 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     }
 
 });
-
-
 
 // Insertar animal en adopcio
 $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
@@ -541,7 +533,6 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
     }
 
 });
-
 // DELETE un usuari per el seu id
 $app->delete('/usuarios/:id',function($id) use($db)
 {
@@ -558,8 +549,6 @@ if ($consulta->rowCount() == 1)
  
  
 
- 
-
 //posar un animal en TROBAT
 $app->post('/animales/eliminar', function() use($app, $db){
     $datosform=$app->request;
@@ -568,6 +557,7 @@ $app->post('/animales/eliminar', function() use($app, $db){
     $consulta = $db->prepare("UPDATE animales SET estado_ANIMALES = 'encontrado' WHERE id_ANIMALES = :param1");
     $consulta->bindParam("param1", $id);
     $consulta->execute();
+    
 
     if ($consulta->rowCount()==1)
       echo 1;

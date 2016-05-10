@@ -34,7 +34,7 @@
 			}
 
   			$pagina = (isset($_GET['page']) ? $_GET['page'] : 1);
-			$resultats_per_pagina= 12;
+			$resultats_per_pagina= 9;
 			var_dump($maxAnimals = countAnimals());
 
 			$ultima_pagina= ceil($maxAnimals / $resultats_per_pagina);
@@ -131,18 +131,18 @@
 					            <li class="active"><span>1</span></li> 
 						        <?php
 						            for($i= $pagina+1; $i<= $ultima_pagina ; $i++)
-						            	echo '<li><span><a href="adopta.php?page=' . $i . '">'.$i.'</a></span></li>';
+						            	echo '<li><a href="adopta.php?page=' . $i . '"><span>'.$i.'</span></a></li>';
 	                
 						            if($ultima_pagina > $pagina )
 						            {      
-						                echo '<li><span><a href="adopta.php?page=' . $nextpage . '" >Següent &raquo;</a></span></li>';
+						                echo '<li><a href="adopta.php?page=' . $nextpage . '" ><span>Següent &raquo;</span></a></li>';
 						            }else{
 						                echo '<li class="disabled"><span>Següent &raquo;</span></li>';
 									}
 	        
 						        else:
 					        	?>
-	            				<li><span><a href="adopta.php?page=<?php echo $prevpage;?>">&laquo; Anterior</a></span></li>
+	            				<li><a href="adopta.php?page=<?php echo $prevpage;?>"><span>&laquo; Anterior</span></a></li>
 					            <?php 
 					            for($i= 1; $i<= $ultima_pagina ; $i++)
 					             {
@@ -152,13 +152,13 @@
 					                }
 					                else
 					                {
-					                   echo '<li><span><a href="adopta.php?page=' . $i . '" >'. $i . '</span></a></li>';
+					                   echo '<li><a href="adopta.php?page=' . $i . '" ><span>'. $i . '</span></a></li>';
 					                }
 					            }
 	    
 								if($ultima_pagina > $pagina )
 					            {      
-					                echo '<li><span><a href="adopta.php?page=' . $nextpage . '" >Següent &raquo;</a></span></li>';
+					                echo '<li><a href="adopta.php?page=' . $nextpage . '" ><span>Següent &raquo;</span></a></li>';
 					            }else{
 					                echo '<li class="disabled"><span>Següent &raquo;</span></li>';
 								}     
