@@ -45,8 +45,8 @@
 					          	<p><b>Vacunes:</b> <?php echo $animal['vacunes_ANIMALES']; ?></p>
 					        </div>
 					        <div class="col-md-7">
-				          	<p style="text-align: justify"><b>Historia:</b> <br>El van abandonar. <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at justo eget metus dictum aliquam. Nam gravida ac ipsum in blandit. Donec ut enim metus. Cras a mi neque. Ut eget turpis finibus, imperdiet arcu sit amet, laoreet ante. Cras fringilla tellus in nisi mollis convallis. Nunc quis hendrerit libero, in dictum diam. Aliquam sit amet nisl enim. Sed convallis est nec lorem elementum consectetur. Donec eleifend, nunc ut mollis vulputate, tortor metus vehicula massa, vitae tincidunt diam nulla eget nisl. Nam iaculis enim sem, eget interdum nulla vulputate vel. Nulla mollis facilisis mi. Nulla non arcu id eros dignissim eleifend. Morbi vel tellus augue. Mauris ultricies ipsum metus, tincidunt vestibulum erat congue ut.</p>
-				          	</div>
+								<p style="text-align: justify"><b>Descripció:</b> <br><?php echo $animal['descripcion_PIERDE']; ?></p>				          	
+							</div>
 				        </div>
 				        <div class="row">
 				        	<div class="text-center marge-dalt">

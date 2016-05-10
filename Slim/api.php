@@ -300,6 +300,23 @@ $app->post('/afegirServei',function() use($db,$app) {
     }
 });
 
+//obtenim tots lesCITES d'un USUARI empresa
+$app->get('/cites/:tokenusuario', function($tokenusuario) use($db) {
+            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+            $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $tokenusuario . "'";
+            $result = $conn->query($sql);
+
+            $idusuario = $result->fetch_assoc();
+            
+            $consulta = $db->prepare("SELECT * from citas WHERE fk_usuario_CITAS = " . $idusuario['id_USUARIOS']);
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
+
 ////////////////////////////////////////////
 //////////////// ANIMALES //////////////////
 ////////////////////////////////////////////

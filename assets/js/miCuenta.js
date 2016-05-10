@@ -91,6 +91,20 @@ $( document ).ready(function() {
 
     });
 
+    var taula_serveis = $("#taula_serveis");
+
+    $.getJSON("Slim/api.php/cites/" + getCookie("id"), 
+      function(datos){
+        if (datos == ""){
+            seccioAnimals.html('<h3>Solicituds</h3><div class="alert alert-success" role="alert">No tens cap solicitud de cita.</div>');
+        }else{
+          $.each(datos, function(i, campos){
+            taula_serveis.append('<tr><td>' + campos.dia_CITAS + '</td><td>' + campos.hora_CITAS + '</td><td>' + campos.descripcion_CITAS  + '</td></tr>');
+          });
+        }
+
+    });
+
 
     function submitForms(form){
         form.submit(function(){
