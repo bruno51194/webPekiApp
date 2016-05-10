@@ -248,6 +248,12 @@
 								                        </div>
 								                    </div>
 								                    <div class="form-group">
+								                        <label class="col-sm-1 control-label">Descripció:</label>
+								                        <div class="col-sm-4 col-sm-offset-1">
+								                            <textarea class="form-control" id="descripcio" name="descripcio" placeholder="Afegeix una descripció de com es l'animal" rows="5"></textarea>
+								                        </div>
+								                    </div>
+								                    <div class="form-group">
 								                        <label class="col-sm-1 control-label">Foto:</label>
 								                        <div class="col-sm-4 col-sm-offset-1">
 								                            <input type="file" class="form-control" id="foto" name="foto">

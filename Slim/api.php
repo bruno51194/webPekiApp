@@ -504,6 +504,7 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
     $color = $datosform->post('color');
     $vacunes = $datosform->post('vacunes');
     $estat = "adopcion";
+    $descripcio = $datosform->post('descripcio');
     $adopcio = "SI";
     $possibleRuta = penjarFoto();
 
