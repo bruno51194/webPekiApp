@@ -247,6 +247,12 @@
 								                            <input class="form-control" id="vacunes" name="vacunes" placeholder="Introdueix les vacunes de l'animal" type="text">
 								                        </div>
 								                    </div>
+								                    <div class="form-group">
+								                        <label class="col-sm-1 control-label">Foto:</label>
+								                        <div class="col-sm-4 col-sm-offset-1">
+								                            <input type="file" class="form-control" id="foto" name="foto">
+								                        </div>
+								                    </div>
 								                    
 								                <div class="form-group">
 								                    <div class="centrar-text marge-abaix">
