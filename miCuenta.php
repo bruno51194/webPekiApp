@@ -123,12 +123,9 @@
 
 				        <section id="serveis" class="col-md-8">
 				        	<h3>Els meus serveis</h3>
+				        	<div id="div_serveis"></div>
 				        	<table class="table table-striped" id="taula_serveis">
-				                <tr>
-				                    <th><strong>Dia</strong></th>
-				                    <th><strong>Hora</strong></th>
-				                    <th><strong>Descripció</strong></th>
-				                </tr>
+
 				            </table>
 				        </section>
 				        <section id="adopcions" class="col-md-8">

@@ -118,20 +118,24 @@ $( document ).ready(function() {
     }
 
 
-    var taula_serveis = $("#taula_serveis");
-    function CitasServicios(){
-      $.getJSON("Slim/api.php/cites/" + getCookie("id"), 
-        function(datos){
-          if (datos == ""){
-              seccioAnimals.html('<h3>Solicituds</h3><div class="alert alert-success" role="alert">No tens cap solicitud de cita.</div>');
-          }else{
-            $.each(datos, function(i, campos){
-              taula_serveis.append('<tr><td>' + campos.dia_CITAS + '</td><td>' + campos.hora_CITAS + '</td><td>' + campos.descripcion_CITAS  + '</td></tr>');
+    var div_serveis = $("#div_serveis");
+    function CitasServicios(){    
+        $.getJSON("Slim/api.php/serveisUsuari/" + getCookie("id"), 
+            function(datos){
+              $.each(datos, function(i, servicio){
+              div_serveis.append('<h3>' + servicio.tipus_SERVICIOS + '</h3><br><h4>' + servicio.nombre_SERVICIOS + '</h4><br>');
+              div_serveis.append('<table class="table table-striped" id="taula_serveis_' + servicio.id_SERVICIOS + '"><tr><th><strong>Dia</strong></th><th><strong>Hora</strong></th><th><strong>Descripció</strong></th></tr></table>')
+              var taula_serveis = $("#taula_serveis_" + servicio.id_SERVICIOS);
+              $.getJSON("Slim/api.php/citesServei/" + servicio.id_SERVICIOS, function(cites){
+                $.each(cites, function(i, cita){
+                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td></tr>');
+                });
+              });
             });
-          }
-
-      });
+         });
     }
+
+
 
 
 
