@@ -490,8 +490,11 @@ $app->post('/animales/adoptar', function() use($db, $app) {
 // Insertar animal perdut
 $app->post('/insertarAnimalPerdut',function() use($db,$app) {
 
+
+
     $app->request();
     $datosform=$app->request();
+    $id = (!isset($_COOKIE['id']) ? $datosform->post('id') : $_COOKIE['id']);
     $nom= $datosform->post('nom');
     $chip= $datosform->post('chip');
     $tipus= $datosform->post('tipos');
@@ -523,7 +526,7 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
         echo "1" . " ";
         $idanimal = mysqli_insert_id($conn);
     }
-    $sql3 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $_COOKIE['id'] . "'";
+    $sql3 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $id . "'";
     $result = $conn->query($sql3);
     $idusuario = $result->fetch_assoc();
 
@@ -542,6 +545,7 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
 
     $app->request();
     $datosform=$app->request();
+    $id = (!isset($_COOKIE['id']) ? $datosform->post('id') : $_COOKIE['id']);
     $nom= $datosform->post('nom');
     $chip= $datosform->post('chip');
     $tipus= $datosform->post('tipos');
@@ -569,7 +573,7 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
         echo "1" . " ";
         $idanimal = mysqli_insert_id($conn);
     }
-    $sql3 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $_COOKIE['id'] . "'";
+    $sql3 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $id . "'";
     $result = $conn->query($sql3);
     $idusuario = $result->fetch_assoc();
 
