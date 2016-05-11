@@ -55,13 +55,13 @@
 							<input type="text" class="form-control" id="reg_telf" name="reg_tel" placeholder="Telèfon">
 						</div>
 						<div class="form-group">
-                        <label>Que ets?</label>
-                        <select class="form-control" id="tipo" name="tipo">
-                            <option value="normal">Usuari</option>
-                            <option value="empresa">Empresa</option>
-                            <option value="protectora">Protectora</option>
-                        </select>
-                    </div>				
+							<label>Que ets?</label><br>
+	                        <select class="select-style" id="tipo" name="tipo">
+	                            <option value="normal">Usuari</option>
+	                            <option value="empresa">Empresa</option>
+	                            <option value="protectora">Protectora</option>
+	                        </select>
+	                    </div>				
 						<div class="form-group login-group-checkbox">
 							<input type="checkbox" class="" id="reg_agree" name="reg_agree">
 							<label for="reg_agree">Estic d'acord amb els <a href="#">termes i condicions</a>.</label>

@@ -53,7 +53,11 @@
 				        		<?php if($animal['adopcion_ANIMALES'] == "NO") : ?>
 				        		<button class="button btn-afegir" id="btn_animal_trobat" value="<?php echo $animal['id_ANIMALES']; ?>">L'he vist!</button>
 				        		<?php else : ?>
-				        		<button class="button btn-afegir" id="btn_animal_adoptar">Adopta</button>
+				        		<form id="form_adoptar">
+				        		<input type="hidden" name="token_usuario" value="<?php echo $_COOKIE['id']; ?>">
+				        		<input type="hidden" name="id_animal" value="<?php echo $_GET['animal']; ?>">
+				        		<button type="submit" class="button btn-afegir" id="btn_animal_adoptar">Adopta</button>
+				        		</form>
 			        			<?php endif; ?>
 				        	</div>
 				        </div>

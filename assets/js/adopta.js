@@ -28,6 +28,7 @@ $(document).ready(function() {
 
                   if(responseTextarray[0] == "1" && responseTextarray[1] == "1"){
                     div_afegir.hide();
+                    formulari.trigger("reset");
                   }
                   else if(responseTextarray[0] == "0" || responseTextarray[1] == "0"){
                     div_afegir.append('<div class="alert alert-danger">Error al registrar l\'animal, refresca i torna a probar. Si el problema persisteix <a href="contacte.php">contacta</a></div>');

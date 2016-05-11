@@ -14,7 +14,7 @@
 
 			function animals($limit){
 				$conn=conexion();
-				$resultado = $conn->query("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI' " . $limit);
+				$resultado = $conn->query("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI' AND estado_ANIMALES = 'adopcion' " . $limit);
 				if ($resultado->fetch_assoc()) {
 					return $resultado;
 				}else{
@@ -35,7 +35,7 @@
 
   			$pagina = (isset($_GET['page']) ? $_GET['page'] : 1);
 			$resultats_per_pagina= 9;
-			var_dump($maxAnimals = countAnimals());
+			$maxAnimals = countAnimals();
 
 			$ultima_pagina= ceil($maxAnimals / $resultats_per_pagina);
   			$pagina=(int)$pagina;

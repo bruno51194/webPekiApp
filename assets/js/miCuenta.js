@@ -135,6 +135,16 @@ $( document ).ready(function() {
          });
     }
 
+    var div_adopcions = $("#div_adopcions");
+    function SolicitudsAdopcio(){
+      $.getJSON("Slim/api.php/protectora/solicitudesAnimales/" + getCookie("id"),
+        function(datos){
+          $.each(datos, function(i, solicitud){
+            div_adopcions.append('<div class="panel panel-default"><div class="panel-heading"><b>Nom usuari:</b> ' + solicitud.nombre_USUARIOS +'</div><div class="panel-body"><b>Nom animal:</b> ' + solicitud.nombre_ANIMALES +'</div></div>');
+          });
+        });
+    }
+
 
 
 
@@ -180,7 +190,7 @@ $( document ).ready(function() {
             break;
         case "protectora":
             DadesPerfil();
-
+            SolicitudsAdopcio();
             break;
     } 
 });

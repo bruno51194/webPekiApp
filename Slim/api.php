@@ -184,7 +184,7 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
     $CP = $datosform->post('reg_cp');
     $direccio = $datosform->post('reg_addr');
     $telf = $datosform->post('reg_tel');
-    $tipo = "normal";
+    $tipo = $datosform->post('tipo');
     
 
     $consulta=$db->prepare("INSERT INTO usuarios(password_USUARIOS,email_USUARIOSl,direccion_USUARIOS,poblacion_USUARIOS,CP_USUARIOS,telefono_USUARIOS,tipo_USUARIOS, nombre_USUARIOS,apellido_USUARIOS) 
@@ -209,7 +209,7 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
 
                     $resultado = $consulta->execute();
 
-                    echo $resultado;
+                    echo ($resultado ? "1" : var_dump($consulta->errorInfo()));
                 }else{
                     //HI HA CAMPS SENSE COMPLETAR
                     echo "4";
@@ -369,6 +369,7 @@ $app->get('/animales', function() use($db) {
             
             return $resultados;
         });
+
 //obtenim tots els animals PERDUTS
 $app->get('/animalesPerdidos', function() use($db) {
 
@@ -424,7 +425,7 @@ $app->get('/animalPerdido/:id', function($idanimal) use($db) {
   //Agafem TOTS els animals en adopcio
  $app->get('/animalesAdopcion', function() use($db) {
 
-            $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI'");
+            $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where estado_ANIMALES='adopcion'");
             $consulta->execute();
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($resultados);
@@ -451,6 +452,35 @@ $app->get('/animales/:idanimal', function($animalID) use($db) {
             echo json_encode($resultados);
         });
 
+//peticio dadopcio danimal per un USUARI
+$app->post('/animales/adoptar', function() use($db, $app) {
+
+            $datosform = $app->request;
+            $animalID = $datosform->post('id_animal');
+            $token = $datosform->post('token_usuario');
+
+            $consulta = $db->prepare("UPDATE animales SET estado_ANIMALES = 'adoptado' WHERE id_ANIMALES=:param1");
+
+            $consulta->execute(array(':param1' => $animalID));
+ 
+            $resultados = $consulta->rowCount();
+        
+            $text = $resultados . " ";
+
+            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+            $sql = "UPDATE adopta SET tokenAdopta_ADOPTA='$token' WHERE ANIMALES_id_ANIMALES='$animalID'";
+            $resultado= $conn->query($sql);
+                if ($resultado === FALSE) {
+                    $resultados = "Error updating record: " . $conn->error;
+                }else{
+                    $resultados = "1";
+                }
+
+            $text .= $resultados;
+
+            echo $text; 
+
+        });
 
 
 
@@ -583,6 +613,23 @@ $app->post('/animales/eliminar', function() use($app, $db){
     else
       echo 0;
 });
+
+//Agafem TOTS els animals en adopcio
+$app->get('/protectora/solicitudesAnimales/:idprotectora', function($id) use($db) {
+
+        //$consulta = $db->prepare("SELECT * from adopta, animales, usuarios WHERE id_ANIMALES = ANIMALES_id_ANIMALES AND USUARIOS_id_USUARIOS = id_USUARIOS AND estado_ANIMALES='adoptado' AND tokenAdopta_ADOPTA IS NOT NULL");
+        $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+        $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $id . "'";
+        $result = $conn->query($sql);
+
+        $idusuario = $result->fetch_assoc();
+
+        $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN usuarios ON tokenAdopta_ADOPTA = token_USUARIOS WHERE estado_ANIMALES='adoptado' AND USUARIOS_id_USUARIOS = " . $idusuario['id_USUARIOS']);
+        $consulta->execute();
+        $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($resultados);
+        return $resultados;
+    });
     
 
 

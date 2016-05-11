@@ -27,8 +27,8 @@
 
 					<div class="resum">
 					<h2>Pekiapp</h2>
-					<p>Mantindrà organitzada tota la informació que li donis sobre la teva mascota i hi podràs accedir des de qualsevol lloc.
-					<br>En el cas de pérdua de la teva mascota Pekiapp ofereix un serivei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota, també facilitara la reincerció de mascotes amb el nostre servei d'adopció.</p>
+					<p>Permet accedir a qualsevol tipus de servei relacionat amb el món de les mascotes.
+					<br>En el cas de pèrdua de la teva mascota Pekiapp ofereix un servei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota. També facilitarà l'adopció d'animals que estàn en protectores.</p>
 					</div>
 					<?php if (!isset($_COOKIE['id'])) :?>
 						<ul class="actions">

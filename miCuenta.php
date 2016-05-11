@@ -124,12 +124,10 @@
 				        <section id="serveis" class="col-md-8">
 				        	<h3>Els meus serveis</h3>
 				        	<div id="div_serveis"></div>
-				        	<table class="table table-striped" id="taula_serveis">
-
-				            </table>
 				        </section>
 				        <section id="adopcions" class="col-md-8">
-				        	<h3>Les meves peticions d'adopció</h3>	
+				        	<h3>Les meves peticions d'adopció</h3>
+				        	<div id="div_adopcions"></div>
 				        </section>
 
 				</div>

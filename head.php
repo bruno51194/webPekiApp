@@ -1,6 +1,6 @@
 <title><?php echo $titol; ?></title>
 <meta charset="utf-8" />
-<link rel="icon" type="image/png" href="/scripts/webPekiApp/favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 <script src="assets/js/jquery.min.js" type="text/javascript"></script>

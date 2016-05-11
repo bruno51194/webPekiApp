@@ -47,8 +47,8 @@
 		return $valor;
 	}
 	function validar_email ($email){
-		$regex = "^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$";
-		if (@eregi($regex, $email)){ 
+		$regex = "^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$^";
+		if (preg_match($regex, $email)){ 
 	        return true; 
 	    } 
 	    else { 
