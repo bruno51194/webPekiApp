@@ -15,7 +15,7 @@
 			
 			$especie = (isset($_GET['especie']) ? $_GET['especie'] : "");
 			$tamany = (isset($_GET['tamany']) ? $_GET['tamany'] : "");
-			$sexe = (isset($_GET['sexe']) ? $_GET['sexe'] : "");
+			$sexe = (isset($_GET['genere']) ? $_GET['genere'] : "");
 
 			$filtre = ($sexe == "" ? "" : " AND sexo_ANIMALES ='$sexe'");
 			$filtre .= ($tamany == "" ? "" : " AND medida_ANIMALES ='$tamany'");
@@ -61,7 +61,6 @@
 			}
 
   			$limit= ' LIMIT '. (($pagina-1) * $resultats_per_pagina) . ',' . $resultats_per_pagina;
-echo "SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI' AND estado_ANIMALES = 'adopcion'" . $filtre . $limit;
 			$animalsAdopcio = animals($limit, $filtre);
 
 
@@ -112,10 +111,10 @@ echo "SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIM
 
 							  	<h2>Sexe</h2>
 								  <label for="mascle">
-								    <input type="radio" name="sexe" id="mascle" value="mascle"/>
+								    <input type="radio" name="genere" id="mascle" value="mascle"/>
 								    <i></i> <span>Mascle</span> </label>
 								  <label for="femella">
-								    <input type="radio" name="sexe" id="femella" value="femella"/>
+								    <input type="radio" name="genere" id="femella" value="femella"/>
 								    <i></i> <span>Femella</span> </label>
 							    <button type="submit" class="button">Filtrar</button>
 							    <button class="button" id="netejar_filtre">Netejar</button>
@@ -223,8 +222,8 @@ echo "SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIM
 								                        <label class="col-sm-1 control-label">Tipo:</label>
 								                        <div class="col-sm-4 col-sm-offset-1">
 								                            <select class="form-control" id="tipos" name="tipos">
-								                                <option value="perro">Gat</option>
-								                                <option value="gato">Gos</option>
+								                                <option value="gato">Gat</option>
+								                                <option value="perro">Gos</option>
 								                                <option value="especial">Altres</option>
 								                            </select>
 								                        </div>
