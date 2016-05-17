@@ -56,7 +56,13 @@
 				        		<form id="form_adoptar">
 				        		<input type="hidden" name="token_usuario" value="<?php echo $_COOKIE['id']; ?>">
 				        		<input type="hidden" name="id_animal" value="<?php echo $_GET['animal']; ?>">
+				        		<?php if(isset($_COOKIE['tipo']) && $_COOKIE['tipo'] == "normal"): ?>
 				        		<button type="submit" class="button btn-afegir" id="btn_animal_adoptar">Adopta</button>
+				        		<?php elseif(!isset($_COOKIE['id'])): ?>
+			        			<button type="submit" class="button btn-afegir" disabled>Adopta</button>
+				        		<p>(Has de <a href="login.php">iniciar sessió</a> o <a href="registre.php">registrar-te</a>)</p>
+				        		<?php endif; //si el tipus no es normal, o no està loggat, no surtirà cap botó ?>
+
 				        		</form>
 			        			<?php endif; ?>
 				        	</div>

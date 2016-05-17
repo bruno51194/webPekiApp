@@ -22,7 +22,8 @@
 		<?php if(!isset($_COOKIE['id'])): ?>
 			<li><a class="button" href="login.php">Accedeix</a></li>
 		<?php else: ?>
-			<li <?php switch ($actiu) { case 6: echo 'class="actiu"'; break; }?>><a href="miCuenta.php">El meu compte</a></li>
+			<li <?php switch ($actiu) { case 6: echo 'class="actiu"'; break; }?>><a href="miCuenta.php">El meu compte <span class="badge" id="notificacions"></span></a></li>
 		<?php endif; ?>
 	</ul>
 </nav>
+<script src="assets/js/notificacions.js"></script>

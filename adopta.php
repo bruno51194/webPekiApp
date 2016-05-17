@@ -12,9 +12,19 @@
 			include 'head.php';
 			include '_functions/functions.php';
 
-			function animals($limit){
+			
+			$especie = (isset($_GET['especie']) ? $_GET['especie'] : "");
+			$tamany = (isset($_GET['tamany']) ? $_GET['tamany'] : "");
+			$sexe = (isset($_GET['sexe']) ? $_GET['sexe'] : "");
+
+			$filtre = ($sexe == "" ? "" : " AND sexo_ANIMALES ='$sexe'");
+			$filtre .= ($tamany == "" ? "" : " AND medida_ANIMALES ='$tamany'");
+			$filtre .= ($especie == "" ? "" : " AND tipo_ANIMALES ='$especie'");
+
+
+			function animals($limit, $filtre){
 				$conn=conexion();
-				$resultado = $conn->query("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI' AND estado_ANIMALES = 'adopcion' " . $limit);
+				$resultado = $conn->query("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI' AND estado_ANIMALES = 'adopcion'" . $filtre . $limit);
 				if ($resultado->fetch_assoc()) {
 					return $resultado;
 				}else{
@@ -50,9 +60,9 @@
 			    $pagina=1;
 			}
 
-  			$limit= 'LIMIT '. (($pagina-1) * $resultats_per_pagina) . ',' . $resultats_per_pagina;
-
-			$animalsAdopcio = animals($limit);
+  			$limit= ' LIMIT '. (($pagina-1) * $resultats_per_pagina) . ',' . $resultats_per_pagina;
+echo "SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES where adopcion_ANIMALES='SI' AND estado_ANIMALES = 'adopcion'" . $filtre . $limit;
+			$animalsAdopcio = animals($limit, $filtre);
 
 
 			
@@ -76,25 +86,40 @@
 			<!-- Main -->
 				<section id="main">
 					 <div class="container">
-						 <div class="col-md-3">
+						 <div id="filtre" class="col-md-3">
 				            <div class="well">
 				            <h3>FILTRE</h3>
-				            <h4>Especie</h4>
-				            <ul class="nav nav-pills nav-stacked">           
-				                <li role="presentation"><a href="#">Gosos</a></li>
-				                <li role="presentation"><a href="#">Gats</a></li>
-			                </ul>
-			                <h4>Tamany</h4>
-			                <ul class="nav nav-pills nav-stacked">
-				                <li role="presentation"><a href="#">Petit</a></li>
-				                <li role="presentation"><a href="#">Mitja</a></li>
-				                <li role="presentation"><a href="#">Gran</a></li>
-			                </ul>
-			                <h4>Sexe</h4>
-			                <ul class="nav nav-pills nav-stacked">
-				                <li role="presentation"><a href="#">Mascle</a></li>
-				                <li role="presentation"><a href="#">Femella</a></li>
-				             </ul>
+				            <form>
+				            	<h2>Especie</h2>
+								  <label for="gosos">
+								    <input type="radio" name="especie" id="gosos" value="perro"/>
+								    <i></i> <span>Gos</span> </label>
+								  <label for="gats">
+								    <input type="radio" name="especie" id="gats" value="gato"/>
+								    <i></i> <span>Gat</span> </label>
+
+			                	<h2>Tamany</h2>
+
+		                		  <label for="petit">
+								    <input type="radio" name="tamany" id="petit" value="petit"/>
+								    <i></i> <span>Petit</span> </label>
+								  <label for="mitja">
+								    <input type="radio" name="tamany" id="mitja" value="mitja"/>
+								    <i></i> <span>Mitjà</span> </label>
+								  <label for="gran">
+								    <input type="radio" name="tamany" id="gran" value="gran"/>
+								    <i></i> <span>Gran</span> </label>
+
+							  	<h2>Sexe</h2>
+								  <label for="mascle">
+								    <input type="radio" name="sexe" id="mascle" value="mascle"/>
+								    <i></i> <span>Mascle</span> </label>
+								  <label for="femella">
+								    <input type="radio" name="sexe" id="femella" value="femella"/>
+								    <i></i> <span>Femella</span> </label>
+							    <button type="submit" class="button">Filtrar</button>
+							    <button class="button" id="netejar_filtre">Netejar</button>
+							</form>
 				            </div>
 				            <img src="images/banner_adopta.png" class="max100" alt="">
 			            </div>

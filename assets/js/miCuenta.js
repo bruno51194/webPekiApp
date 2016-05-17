@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    
+
     function getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -140,13 +140,68 @@ $( document ).ready(function() {
       $.getJSON("Slim/api.php/protectora/solicitudesAnimales/" + getCookie("id"),
         function(datos){
           $.each(datos, function(i, solicitud){
-            div_adopcions.append('<div class="panel panel-default"><div class="panel-heading"><b>Nom usuari:</b> ' + solicitud.nombre_USUARIOS +'</div><div class="panel-body"><b>Nom animal:</b> ' + solicitud.nombre_ANIMALES +'</div></div>');
+            div_adopcions.append('<div class="solicitud"><div class="panel-heading"><table class="no-margin"><tr><td><img src="' + solicitud.url_ANIMALES + '" alt="foto"></td><td><b>Nom:</b> <a href="fitxa.php?animal=' + solicitud.id_ANIMALES + '" target="_blank">' + solicitud.nombre_ANIMALES +'</a></td><td><b>Solicitant:</b> ' + solicitud.nombre_USUARIOS +'</td><td><button class="btn btn-info"  data-toggle="modal" href="#modal_contacte" id="btn_modal_' + solicitud.id_USUARIOS + '">DADES</button></td><td class="alinear-dreta"><button class="btn btn-success" id="acceptar_' + solicitud.id_ANIMALES + '">ACCEPTAR</button>&nbsp;<button class="btn btn-danger" id="cancelar_' + solicitud.id_ANIMALES + '">CANCELAR</button></td></tr></table></div></div>');
+            $("#btn_modal_" + solicitud.id_USUARIOS).click(OmplirDadesModal(solicitud.telefono_USUARIOS, solicitud.email_USUARIOSl, solicitud.poblacion_USUARIOS, solicitud.CP_USUARIOS));
+            AcceptarAdopcio($("#acceptar_" + solicitud.id_ANIMALES), solicitud.token_USUARIOS, solicitud.id_ANIMALES);
+            CancelarAdopcio($("#cancelar_" + solicitud.id_ANIMALES), solicitud.token_USUARIOS, solicitud.id_ANIMALES);
           });
         });
     }
 
+    var lbl_telefon = $("#lbl_telf");
+    var lbl_email = $("#lbl_email"); 
+    var lbl_ciutat = $("#lbl_ciutat");
+    var lbl_cp = $("#lbl_cp");
 
+    function OmplirDadesModal(telf, email, ciutat, cp){
+      lbl_telefon.html(telf);
+      lbl_email.html(email);
+      lbl_ciutat.html(ciutat);
+      lbl_cp.html(cp);
+    }
 
+    function CancelarAdopcio(boton, usuario, animal){
+      boton.click(function(){     
+            $.ajax({
+              url: "Slim/api.php/protectora/solicitudes/cancelar",
+              type: "POST",
+              data: {
+                token_usuario: usuario,
+                id_animal: animal
+              },
+              success: function(responseText){
+                  var responseTextarray = responseText.split(" ");
+
+                  if(responseTextarray[0] == "1"){
+                    location.reload();
+                  }else{
+                      alert(responseText);
+                  }
+              }
+            });
+      });
+    }
+    function AcceptarAdopcio(boton, usuario, animal){
+      boton.click(function(){
+            $.ajax({
+              url: "Slim/api.php/protectora/solicitudes/aceptar",
+              type: "POST",
+              data: {
+                token_usuario: usuario,
+                id_animal: animal
+              },
+              success: function(responseText){
+                  var responseTextarray = responseText.split(" ");
+
+                  if(responseTextarray[0] == "1"){
+                    location.reload();
+                  }else{
+                      alert(responseText);
+                  }
+              }
+            });
+      });
+    }
 
 
     function submitForms(form){
@@ -175,6 +230,7 @@ $( document ).ready(function() {
     btn_logout.click(function(){
       deleteCookie("id");
       deleteCookie("email");
+      deleteCookie("tipo");
     });
 
 

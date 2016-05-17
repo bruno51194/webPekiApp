@@ -259,7 +259,42 @@ $app->post('/usuarios/actualizarContrasenya', function() use($app){
 
 
 });
+////////////////////////////////////////////
+////////////// NOTIFICACIONS ///////////////
+////////////////////////////////////////////
 
+$app->get('/notificacions/citas/:id', function($token) use($db) {
+
+            $id = getIDusuario($token);
+            if($id != FALSE){
+                $consulta = $db->prepare("SELECT COUNT(*) FROM citas WHERE estado_CITAS = 'indeterminat' AND  USUARIOS_id_USUARIOS = :param1");
+
+                $consulta->execute(array(':param1' => $id));
+     
+                $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+                print_r($resultados[0]['COUNT(*)']);
+                //return $resultados;
+            }
+            return 0;
+
+        });
+
+$app->get('/notificacions/adopcions/:id', function($token) use($db) {
+
+            $id = getIDusuario($token);
+            if($id != FALSE){
+                $consulta = $db->prepare("SELECT * FROM animales INNER JOIN adopta ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE estado_ADOPTA = 'indeterminat' AND  USUARIOS_id_USUARIOS = :param1 AND estado_ANIMALES = 'adoptado'");
+
+                $consulta->execute(array(':param1' => $id));
+     
+                $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+                print_r(count($resultados));
+                //return $resultados;
+            }
+            return 0;
+        });
 
 ////////////////////////////////////////////
 //////////////// SERVICIOS /////////////////
@@ -373,7 +408,7 @@ $app->get('/animales', function() use($db) {
 //obtenim tots els animals PERDUTS
 $app->get('/animalesPerdidos', function() use($db) {
 
-            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE estado_ANIMALES = 'perdido'");
+            $consulta = $db->prepare("SELECT * from animales INNER JOIN pierde ON id_ANIMALES = ANIMALES_id_ANIMALES WHERE estado_ANIMALES = 'perdido' ORDER BY id_ANIMALES DESC");
             $consulta->execute();
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -628,13 +663,59 @@ $app->get('/protectora/solicitudesAnimales/:idprotectora', function($id) use($db
 
         $idusuario = $result->fetch_assoc();
 
-        $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN usuarios ON tokenAdopta_ADOPTA = token_USUARIOS WHERE estado_ANIMALES='adoptado' AND USUARIOS_id_USUARIOS = " . $idusuario['id_USUARIOS']);
+        $consulta = $db->prepare("SELECT * from adopta INNER JOIN animales ON id_ANIMALES = ANIMALES_id_ANIMALES INNER JOIN usuarios ON tokenAdopta_ADOPTA = token_USUARIOS WHERE estado_ANIMALES='adoptado' AND USUARIOS_id_USUARIOS = '" . $idusuario['id_USUARIOS'] . "' AND estado_ADOPTA = 'indeterminat'");
         $consulta->execute();
         $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($resultados);
         return $resultados;
     });
     
+    //Acceptar adopció
+$app->post('/protectora/solicitudes/aceptar', function() use($db, $app) {
+
+    $datosform = $app->request;
+    $token = $datosform->post('token_usuario');
+    $id_animal = $datosform->post('id_animal');
+
+    $id_usuario = getIDusuario($token);
+    if($id_usuario != FALSE){
+        $consulta = $db->prepare("UPDATE adopta SET estado_ADOPTA = 'aceptada' WHERE ANIMALES_id_ANIMALES =" . $id_animal);
+        $consulta->execute();
+        if ($consulta->rowCount()==1)
+          echo 1;
+        else
+          echo 0;     
+        
+    }else{
+      echo 0;  
+    }
+    
+
+    });
+
+//cancelar adopció
+$app->post('/protectora/solicitudes/cancelar', function() use($db, $app) {
+
+    $datosform = $app->request;
+    $token = $datosform->post('token_usuario');
+    $id_animal = $datosform->post('id_animal');
+
+    $id_usuario = getIDusuario($token);
+    if($id_usuario != FALSE){
+        $consulta = $db->prepare("UPDATE adopta SET estado_ADOPTA = 'cancelada' WHERE ANIMALES_id_ANIMALES =" . $id_animal);
+        $consulta->execute();
+        if ($consulta->rowCount()==1)
+          echo 1;
+        else
+          echo 0;     
+        
+    }else{
+        echo 0;
+    }
+
+
+    });
+
 
 
     

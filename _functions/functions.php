@@ -10,6 +10,15 @@
 			return $conn;
 		}	
 	}
+	function getIDusuario($token){
+		$conn = conexion();
+		$resultado = $conn->query("SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '$token'");
+		if ($id = $resultado->fetch_assoc()) {
+			return $id['id_USUARIOS'];
+		}else{
+			return false;
+		}
+	}
 	function email_existeix($email){
 		$conn=conexion();
 		$resultado = $conn->query("SELECT email_USUARIOSl FROM usuarios WHERE email_USUARIOSl = '" . $email . "'");

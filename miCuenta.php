@@ -127,8 +127,26 @@
 				        </section>
 				        <section id="adopcions" class="col-md-8">
 				        	<h3>Les meves peticions d'adopció</h3>
-				        	<div id="div_adopcions"></div>
+				        	<div id="div_adopcions" class="col-md-12"></div>
 				        </section>
+
+				        <!-- MODAL DE INFO DE CONTACTE ADOPCIÓ -->
+						<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal_contacte">
+						  <div class="modal-dialog modal-sm">
+						  	<div class="modal-content">
+						      <div class="modal-header">
+							      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							      <h4 class="modal-title" id="myModalLabel">Informació de contacte</h4>
+						      </div>
+						      <div class="modal-body">
+							      <p><b>Telèfon:</b> <label id="lbl_telf"></label></p>
+							      <p><b>Email:</b> <label id="lbl_email"></label></p>
+							      <p><b>Ciutat:</b> <label id="lbl_ciutat"></label></p>
+							      <p><b>Codi Postal:</b> <label id="lbl_cp"></label></p>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 
 				</div>
 				</section>
@@ -159,6 +177,7 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 			<script src="assets/js/miCuenta.js"></script>
 
 	</body>

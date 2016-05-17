@@ -366,3 +366,146 @@ a{
   vertical-align: middle;
 }
 
+.solicitud{
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid gray;
+}
+.no-margin{
+	margin:0px;
+}
+.float-right{
+	float:right;
+}
+.no-float{
+	float: none;
+}
+.solicitud table tbody tr:nth-child(2n + 1) {
+    background-color: transparent;
+}
+.solicitud table tbody tr {
+	border: 0;
+}
+.alinear-dreta{
+	text-align: right;
+}
+.modal-open {
+    overflow-y: scroll;
+}
+.badge {
+	background-color: #DA7722;
+	padding: 10px 13px;
+}
+#header nav > ul > li .badge:hover{
+	background-color: #DA7722;
+}
+
+
+::-moz-selection {
+ background: white;
+}
+
+::selection { background: white; }
+ @-webkit-keyframes 
+icon-beat {  0% {
+ -webkit-transform: scale(2);
+ -ms-transform: scale(2);
+ transform: scale(2);
+}
+ 100% {
+ -webkit-transform: scale(1);
+ -ms-transform: scale(1);
+ transform: scale(1);
+}
+}
+ @keyframes 
+icon-beat {  0% {
+ -webkit-transform: scale(2);
+ -ms-transform: scale(2);
+ transform: scale(2);
+}
+ 100% {
+ -webkit-transform: scale(1);
+ -ms-transform: scale(1);
+ transform: scale(1);
+}
+}
+
+
+#filtre {
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  font: normal 200 14px/1.5rem "Roboto", "Helvetica Neue", sans-serif;
+  color: #666;
+}
+
+#filtre h2 {
+  font-size: 1rem;
+  color: #444;
+  margin: 0;
+}
+
+#filtre h2 small {
+ font-size: .8rem;
+  color: #a2a2a2;
+  display: block;
+  font-weight: normal;
+}
+
+#filtre label {
+  display: block;
+  position: relative;
+  padding: 0.5rem 1rem;
+  line-height: 28px;
+  font-weight: normal;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+#filtre label i {
+  display: inline-block;
+  height: 25px;
+  position: relative;
+  top: 6px;
+  font-style: normal;
+  color: #ccc;
+}
+
+#filtre label span {
+  display: inline-block;
+  margin-left: 5px;
+  line-height: 25px;
+  color: gray;
+}
+
+#filtre input[type="radio"] { display: none; }
+
+#filtre input[type="radio"] + i:before{
+  font-family: 'FontAwesome';
+  font-size: 28px;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+}
+
+#filtre input[type="radio"]:checked + i{
+  position: relative;
+  -webkit-animation: icon-beat 0.1s ease;
+  animation: icon-beat 0.1s ease;
+}
+
+#filtre input[type="radio"]:checked + i + span
+{
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
+#filtre input[type="radio"] + i:before { content: "\f10c"; }
+
+#filtre input[type="radio"]:checked + i:before { content: "\f111"; }
+
+#filtre input[type="radio"]:checked + i + span,
+#filtre input[type="radio"]:checked + i:before { color: #ED9A0A; }
+
+

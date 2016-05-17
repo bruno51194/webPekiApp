@@ -100,8 +100,9 @@
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhzbq-PRPtTR-tkVSAKZmsTM-wYAm-vBY&callback=initMap">
     </script>
-
+    
     <div class="container">
+    <?php if(isset($_COOKIE['tipo']) && $_COOKIE['tipo'] == "normal"): ?>
         <div class="marge-dalt marge-abaixPlus centrar-text">
             <button class="btn btn-afegir" id="afegir-animal-perdut">AFEGIR ANIMAL PERDUT</button>
         </div>
@@ -207,14 +208,22 @@
                         </div>
                     </div>
                 <div class="form-group">
-                    <div class="col-md-1 centrar-text marge-abaix">
+                    <?php if(isset($_COOKIE['id'])): ?>
+                    <div class="col-md-1 centrar-text marge-abaix">                   
                         <button class="btn btn-default" id="enviar-animal" type="submit">Afegir Animal</button>
+                    <?php else: ?>
+                    <div class="col-md-1"><button class="btn btn-default" type="submit" disabled>Afegir Animal</button> </div>
+
+                    <div class="col-md-4 centrar-text marge-abaix">  
+                    <p>(Has de <a href="login.php">iniciar sessió</a> o <a href="registre.php">registrar-te</a>)</p>
+                    <?php endif; ?>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="marge-abaix centrar-text">
-            <button class="btn btn-afegir" id="afegir-animal-trobat">AFEGIR ANIMAL TROBAT</button>
+        <?php endif; //si el tipus es usuari normal ?>
+        <div class="marge-dalt marge-abaix centrar-text">
+            <button class="btn btn-afegir" id="afegir-animal-trobat">LLISTA D'ANIMALS PERDUTS</button>
         </div>
         <div class="col-md-12" id="div-afegir2" style="display:none">
             <table class="table table-striped" id="taula_animals">
@@ -233,6 +242,7 @@
             </table>
         </div>
         </div>
+    
     </div>
 
     <footer id="footer">

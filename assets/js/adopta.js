@@ -41,4 +41,12 @@ $(document).ready(function() {
         return false;        
     });
 
+    var resetFiltre = $("#netejar_filtre");
+
+    resetFiltre.click(function(){
+      $('input[name=especie]').attr('checked',false);
+      $('input[name=tamany]').attr('checked',false);
+      $('input[name=sexe]').attr('checked',false);
+    });
+
 });
