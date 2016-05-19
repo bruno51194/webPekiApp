@@ -51,49 +51,58 @@
         curl_close($ch);
     }
 
-    $idUsuari = $_COOKIE['id'];
+
 
     ?>  
 
     <!-- Google Maps -->
     <div id="map"></div>
     <script type="text/javascript">
-        //Marcador
-        var marker;
-        //Animacio de la marca quan la cliquem
-        var direcciones = [];
+
         $(document).ready(function() {
-          $.getJSON('http://pekiapp.azurewebsites.net/Slim/api.php/direcciones',
+          $.getJSON('http://pekiapp.azurewebsites.net/Slim/api.php/animalesPerdidos',
               function(datos) {
                 $.each(datos, function(i, field){
-                    direcciones[i] = field.ciudad_PIERDE + "," + field.direccion_PIERDE;
-                    $.each(direcciones, function(i, direccion){
+                    direccion = field.ciudad_PIERDE + "," + field.direccion_PIERDE;
+
                         $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + direccion,
                             function(resultado) {
                                 $.each(resultado.results, function(i, geometria){
                                     //localització marcador  
                                     var imgRoja = new google.maps.MarkerImage("images/googleMapsIcons/pets_rojo.png");                                 
-                                    marker = new google.maps.Marker({
+                                    var marker = new google.maps.Marker({
                                         position: {lat: geometria.geometry.location.lat, lng: geometria.geometry.location.lng},
                                         map: map,
                                         draggable: false,
                                         animation: google.maps.Animation.DROP,
                                         icon: imgRoja
                                     });
+                                    var infowindow = new google.maps.InfoWindow();
+                                    makeInfoWindowEvent(infowindow, marker, field.nombre_ANIMALES, field.url_ANIMALES, field.id_ANIMALES, field.sexo_ANIMALES);
+
+
                                 });
                         });
-                    });                    
+                   
                 });
             });            
         });
 
 
         var map;
+
         function initMap() {
             //Mapa
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 41.5231301, lng: 2.4042101},
                 zoom: 12
+            });
+            
+        }
+        function makeInfoWindowEvent(infowindow, marker, nombre, url, id, sexe) {
+            google.maps.event.addListener(marker, 'click', function() {
+               infowindow.setContent('<div style="font-size: 8pt; font-family: verdana"><img src="' + url + '" alt="foto"><br>' + nombre + '<br>' + sexe + '<br><a class="btn btn-info" href="fitxa.php?animal=' + id + '">Fitxa</a>');
+               infowindow.open(map,marker);
             });
         }
     </script>
