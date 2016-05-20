@@ -67,6 +67,17 @@ $app->get('/horesDisponibles/:idServei/:dia', function($idServei,$dia) use($db) 
     echo $horesDisponibles;
 });
 
+$app->get('/calendariHores/:idServei/:dia', function($idServei,$dia) use($db) {
+
+    $consulta = $db->prepare("SELECT horaMatiMin_SERVICIOS, horaMatiMax_SERVICIOS, horaTardaMin_SERVICIOS, horaTardaMax_SERVICIOS FROM servicios WHERE id_SERVICIOS = :idServei");
+    $consulta->execute(array(':idServei' => $idServei));
+    $hores = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    $horesDisponibles = convertirHores($hores);
+    
+    echo $horesDisponibles;
+});
+
 $app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
