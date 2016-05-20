@@ -46,9 +46,25 @@
 					    </div>
 					  </div>
 					  <div class="form-group">
-					  <label class="col-md-2 col-md-offset-2 control-label">Horari:</label>
+					  <label class="col-md-2 col-md-offset-2 control-label">Horari de matins:</label>
 					    <div class="col-md-4">
-					      <textarea class="form-control" id="horari" name="horari" rows="2" placeholder="Afegeix l'horari d'apertura i de tancament"></textarea>
+					    	<div class="col-md-6">
+					    		<input type="time" id="min-mati" class="form-control" name="min-mati"></input>
+					    	</div>
+					     	<div class="col-md-6">
+					     		<input type="time" id="max-mati" class="form-control" name="max-mati"></input>
+					     	</div>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					  <label class="col-md-2 col-md-offset-2 control-label">Horari de tardes:</label>
+					    <div class="col-md-4">
+					    	<div class="col-md-6">
+					    		<input type="time" id="min-tarda" class="form-control" name="min-tarda"></input>
+					    	</div>
+					     	<div class="col-md-6">
+					     		<input type="time" id="max-tarda" class="form-control" name="max-tarda"></input>
+					     	</div>
 					    </div>
 					  </div>
 					  <div class="form-group">
