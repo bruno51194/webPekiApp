@@ -128,7 +128,7 @@ $app->post('/usuarios/actualizarContrasenya',function($id) use($db,$app) {
     $datosform=$app->request;
     $antiga = $datosform->post('contrasenya_antiga');
     $nova = $datosform->post('contrasenya_nova');
-    $id = (isset($datosform->post('id_usuario')) ? $datosform->post('id_usuario') : $_COOKIE['id']));
+    $id = ($datosform->post('id_usuario') == "" ? $datosform->post('id_usuario') : $_COOKIE['id']);
     $id = getIDusuario($id);
 
     $conn = conexion();
@@ -153,7 +153,7 @@ $app->post('/usuarios/actualizarContrasenya',function($id) use($db,$app) {
     }else{
         echo 0;
     }
-
+});
 
 //obtenim tots els usuaris
 $app->get('/usuarios', function() use($db) {
