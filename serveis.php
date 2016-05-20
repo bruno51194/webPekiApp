@@ -116,7 +116,7 @@
 						      <form id="formCita" class="form-horizontal" action="serveis.php?tipos=<?php echo $tipos; ?>" method="POST" role="form">
 						      		<div class="form-group col-md-6">
 									    <label>Data:</label>
-									    <input type="date" class="form-control" id="data" name="data">
+									    <input type="date" class="form-control" id="data" name="data" onchange="hores(data.value)">
 									</div>
 									<div class="form-group col-md-6">
 										<label>Hora:</label>
