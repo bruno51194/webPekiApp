@@ -38,6 +38,41 @@ function funcioCita(id){
 
 }
 
+function hores(dia){
+
+	 function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length,c.length);
+            }
+        }
+        return "";
+    }
+
+	//Peticio a hores perdudes per si hi ha alguna que esta ocupada i despres carregarles a les hores.
+	var horari = $("#horari");
+
+	$.get('Slim/api.php/horesDisponibles/' + getCookie('idServei') + '/' + dia,
+		      function(datos) {
+		        var arrayHores = datos.split(',');
+		        horari.html('');
+		        $.each(arrayHores, function(i, hora){
+		        	if(hora == ""){
+						horari.append('<option value="default" selected="selected">Hores disponibles</option>');
+		        	}else{
+		        		horari.append('<option value="' + hora +'">' + hora + '</option>');
+		        	}
+		        	
+		        });
+       		});
+}
+
 function enviarCita(){
 
 	var formCita = $("#formCita");
