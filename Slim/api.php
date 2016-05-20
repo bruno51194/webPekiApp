@@ -53,7 +53,7 @@ $app->get('/horesDisponibles/:idServei/:dia', function($idServei,$dia) use($db) 
     $consulta->execute(array(':idServei' => $idServei));
     $hores = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
-    $horesDisponibles = convertirHores($hores);
+    $horesDisponibles = convertirHores($hores[0]);
 
     $consulta1 = $db->prepare("SELECT * FROM horesperdudes WHERE pk_idServei = :idServei AND dia_HORESPERDUDES = :dia");
     $consulta1->execute(array(':idServei' => $idServei , ':dia' => $dia));

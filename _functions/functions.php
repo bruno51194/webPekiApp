@@ -2,10 +2,10 @@
 	
 	function convertirHores($hores){
 
-		$matiMin = $hores[0]["horaMatiMin_SERVICIOS"];
-		$matiMax = $hores[0]["horaMatiMax_SERVICIOS"];
-		$tardaMin = $hores[0]["horaTardaMin_SERVICIOS"];
-		$tardaMax = $hores[0]["horaTardaMax_SERVICIOS"];
+		$matiMin = $hores["horaMatiMin_SERVICIOS"];
+		$matiMax = $hores["horaMatiMax_SERVICIOS"];
+		$tardaMin = $hores["horaTardaMin_SERVICIOS"];
+		$tardaMax = $hores["horaTardaMax_SERVICIOS"];
 
 		//Obtenim la hora minima mati
 		$horaMinima = ($char = substr($matiMin, -2, -1) == '3' ? (intval($matiMin) + 0.5) : intval($matiMin));
