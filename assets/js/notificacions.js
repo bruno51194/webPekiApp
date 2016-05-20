@@ -40,7 +40,6 @@ $( document ).ready(function() {
 				var responseArray = response.split(' ');
 				if(is_int(responseArray[0]) && responseArray[0] > 0)
 					$("#notificacions").html(responseArray[0]);
-
 			}
 		});
     }

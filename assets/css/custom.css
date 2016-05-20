@@ -508,4 +508,27 @@ icon-beat {  0% {
 #filtre input[type="radio"]:checked + i + span,
 #filtre input[type="radio"]:checked + i:before { color: #ED9A0A; }
 
+.pointer{
+	cursor: pointer;
+}
+
+.demo-card-header-pic .card-header {
+    height: 40vw;
+    background-size: cover;
+    background-position: center;
+}
+.card1 {
+  background: #fff;
+  margin: 8px;
+  position: relative;
+  border-radius: 2px;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.cardheader-centre{
+    text-align:center;
+    display:block;
+}
+
 

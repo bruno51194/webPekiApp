@@ -1,4 +1,4 @@
-<h1><a href="index.php">Pekiapp</a> by Lost&Find</h1>
+<h1 style="vertical-align: middle"><a href="index.php" style="vertical-align: middle"><span><img src="favicon.png" alt="logo"></span>PekiApp</a></h1>
 <nav id="nav">
 	<ul>
 
@@ -12,8 +12,8 @@
 				<li><a href="serveis.php?tipos=Passejadors">Passejadors</a></li>
 				<li><a href="serveis.php?tipos=Veterinaris">Veterinaris</a></li>
 				<li><a href="serveis.php?tipos=Clubs Esportius">Clubs esportius</a></li>
-				<li><a href="serveis.php?tipos=Educadors Canins">Educadors canins</a></li>
-				<li><a href="serveis.php?tipos=Guarderies Canines">Guarderies canines</a></li>
+				<li><a href="serveis.php?tipos=Educadors">Educadors</a></li>
+				<li><a href="serveis.php?tipos=Residencies">Residencies</a></li>
 			</ul>
 		</li>
 

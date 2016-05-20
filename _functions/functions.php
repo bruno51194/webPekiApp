@@ -1,5 +1,41 @@
 <?php
 	
+	function convertirHores($hores){
+
+		$matiMin = $hores[0]["horaMatiMin_SERVICIOS"];
+		$matiMax = $hores[0]["horaMatiMax_SERVICIOS"];
+		$tardaMin = $hores[0]["horaTardaMin_SERVICIOS"];
+		$tardaMax = $hores[0]["horaTardaMax_SERVICIOS"];
+
+		//Obtenim la hora minima mati
+		$horaMinima = ($char = substr($matiMin, -2, -1) == '3' ? (intval($matiMin) + 0.5) : intval($matiMin));
+		//Obtenim la hora maxima mati
+		$horaMaxima = ($char = substr($matiMax, -2, -1) == '3' ? (intval($matiMax) + 0.5) : intval($matiMax));
+
+		//Obtenim la hora minima tarda
+		$horaMinimaTarda = ($char = substr($tardaMin, -2, -1) == '3' ? (intval($tardaMin) + 0.5) : intval($tardaMin));
+		//Obtenim la hora maxima tarda
+		$horaMaximaTarda = ($char = substr($tardaMax, -2, -1) == '3' ? (intval($tardaMax) + 0.5) : intval($tardaMax));
+
+		$hor="";
+		for ($i=$horaMinima; $i <= $horaMaxima; $i += 0.5) { 
+			if ($i - intval($i . "") == 0) {
+			 	$hor = $hor . intval($i) . ":00,";
+			 }	else{
+			 	$hor = $hor . intval($i) . ":30,";
+			 } 
+		}
+
+		for ($i=$horaMinimaTarda; $i <= $horaMaximaTarda; $i += 0.5) { 
+			if ($i - intval($i . "") == 0) {
+			 	$hor = $hor . intval($i) . ":00,";
+			 }	else{
+			 	$hor = $hor . intval($i) . ":30,";
+			 } 
+		}
+
+		return $hor;
+	}
 
 	function conexion (){
 		$conn = new mysqli('eu-cdbr-azure-north-d.cloudapp.net', 'b509fbe59f7e43', '69edfef4', 'pekiappbbdd');
@@ -81,17 +117,14 @@
    		
    		//var_dump($_FILES);
 		//comprobamos si ha ocurrido un error.
-		if(isset($_FILES['foto']))
-		if ($_FILES['foto']['error'] > 0){
-			echo "ha ocurrido un error";
-		} else {
+
 
 			//ahora vamos a verificar si el tipo de archivo es un tipo de imagen permitido.
 			//y que el tamano del archivo no exceda los 100kb
 			$permitidos = array("image/jpg", "image/jpeg", "image/png");
 			$limite_kb = 6291456;
 
-			if (in_array($_FILES['foto']['type'], $permitidos) && $_FILES['foto']['size'] <= $limite_kb * 1024){
+			if (isset($_FILES['foto']) && in_array($_FILES['foto']['type'], $permitidos) && $_FILES['foto']['size'] <= $limite_kb * 1024){
 				//esta es la ruta donde copiaremos la imagen
 				//recuerden que deben crear un directorio con este mismo nombre
 				//en el mismo lugar donde se encuentra el archivo subir.php
@@ -129,7 +162,7 @@
 			} else {
 				return array("images/nofoto.png","images/nofoto_grande.png");
 			}
-		}
+		
 	}	
 
 ?>

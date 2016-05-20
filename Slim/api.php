@@ -47,6 +47,44 @@ $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=u
 //////////////// USUARIOS //////////////////
 ////////////////////////////////////////////
 
+$app->get('/horesDisponibles/:idServei/:dia', function($idServei,$dia) use($db) {
+
+    $consulta = $db->prepare("SELECT horaMatiMin_SERVICIOS, horaMatiMax_SERVICIOS, horaTardaMin_SERVICIOS, horaTardaMax_SERVICIOS FROM servicios WHERE id_SERVICIOS = :idServei");
+    $consulta->execute(array(':idServei' => $idServei));
+    $hores = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    $horesDisponibles = convertirHores($hores);
+
+    $consulta1 = $db->prepare("SELECT * FROM horesperdudes WHERE pk_idServei = :idServei AND dia_HORESPERDUDES = :dia");
+    $consulta1->execute(array(':idServei' => $idServei , ':dia' => $dia));
+    
+    $resultados = $consulta1->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($resultados as $hora) {
+        $horesDisponibles = str_ireplace($hora['hora_HORESPERDUDES'] . ",", "", $horesDisponibles);
+    }
+    
+    echo $horesDisponibles;
+});
+
+$app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
+
+    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+
+    $datosform = $app->request;
+    $idServei = $datosform->post('idServei');
+    $dia = $datosform->post('dia');
+    $hora = $datosform->post('hora');
+
+    $sql = "INSERT INTO horesperdudes(pk_idServei,dia_HORESPERDUDES,hora_HORESPERDUDES)
+        VALUES ('$idServei','$dia','$hora')";
+   if ($conn->query($sql) === FALSE) {
+        echo "Error insertin' record: " . $conn->error;
+    }else{
+        echo "1" . " ";
+    }        
+});
+
 
 //obtenim tots els usuaris
 $app->get('/usuarios', function() use($db) {
@@ -86,7 +124,7 @@ $app->post('/usuarios/existe', function() use($db, $app) {
             $app->request();
             $datosform=$app->request();
             $email= $datosform->post('lg_username');
-            $pass= $datosform->post('lg_password');
+            $pass= hash('sha256', $datosform->post('lg_password'));
             $consulta = $db->prepare("SELECT id_USUARIOS from usuarios where email_USUARIOSl=:param1 AND password_USUARIOS=:param2");
             $consulta->bindParam("param1", $email);
             $consulta->bindParam("param2", $pass);
@@ -178,7 +216,7 @@ $app->post('/insertarUsuarios',function() use($db,$app) {
     $datosform=$app->request();
     $nom= $datosform->post('reg_name');
     $cognom= $datosform->post('reg_surname');
-    $pass= $datosform->post('reg_password');
+    $pass= hash('sha256', $datosform->post('reg_password'));
     $email = $datosform->post('reg_email');
     $poblacio = $datosform->post('reg_pob');
     $CP = $datosform->post('reg_cp');
@@ -267,13 +305,13 @@ $app->get('/notificacions/citas/:id', function($token) use($db) {
 
             $id = getIDusuario($token);
             if($id != FALSE){
-                $consulta = $db->prepare("SELECT COUNT(*) FROM citas WHERE estado_CITAS = 'indeterminat' AND  USUARIOS_id_USUARIOS = :param1");
+                $consulta = $db->prepare("SELECT * FROM citas WHERE estado_CITAS = 'indeterminat' AND  fk_servicio_CITAS IN (SELECT id_SERVICIOS FROM servicios WHERE idusuario_SERVICIOS = :param1)");
 
                 $consulta->execute(array(':param1' => $id));
      
                 $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             
-                print_r($resultados[0]['COUNT(*)']);
+                print_r(count($resultados));
                 //return $resultados;
             }
             return 0;
@@ -326,9 +364,12 @@ $app->post('/afegirServei',function() use($db,$app) {
     $nom= $datosform->post('nom');
     $ciutat= $datosform->post('ciutat');
     $direccio= $datosform->post('direccio');
-    $horari= $datosform->post('horari');
     $descripcio= $datosform->post('descripcio');
     $tipus= $datosform->post('tipus');
+    $horaMatiMin = $datosform->post('min-mati');
+    $horaMatiMax = $datosform->post('max-mati');
+    $horaTardaMin = $datosform->post('min-tarda');
+    $horaTardaMax = $datosform->post('max-tarda');
     $tokenusuario = $_COOKIE['id'];
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
@@ -337,7 +378,7 @@ $app->post('/afegirServei',function() use($db,$app) {
     $result = $conn->query($sql1);
     $idusuario = $result->fetch_assoc();
 
-    $sql = "INSERT INTO servicios(nombre_SERVICIOS,ciudad_SERVICIOS,direccion_SERVICIOS,horario_SERVICIOS,descripcion_SERVICIOS,tipus_SERVICIOS,idusuario_SERVICIOS) VALUES ('$nom','$ciutat','$direccio','$horari','$descripcio','$tipus','" . $idusuario['id_USUARIOS'] ."')";
+    $sql = "INSERT INTO servicios(nombre_SERVICIOS,ciudad_SERVICIOS,direccion_SERVICIOS,horaMatiMin_SERVICIOS,horaMatiMax_SERVICIOS,horaTardaMin_SERVICIOS,horaTardaMax_SERVICIOS,descripcion_SERVICIOS,tipus_SERVICIOS,idusuario_SERVICIOS) VALUES ('$nom','$ciutat','$direccio','$horaMatiMin','$horaMatiMax','$horaTardaMin','$horaTardaMax','$descripcio','$tipus','" . $idusuario['id_USUARIOS'] ."')";
 
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
@@ -530,19 +571,19 @@ $app->post('/insertarAnimalPerdut',function() use($db,$app) {
     $app->request();
     $datosform=$app->request();
     $id = (!isset($_COOKIE['id']) ? $datosform->post('id') : $_COOKIE['id']);
-    $nom= $datosform->post('nom');
-    $chip= $datosform->post('chip');
-    $tipus= $datosform->post('tipos');
-    $sexe = $datosform->post('sexe');
-    $tamany = $datosform->post('tamany');
-    $raça = $datosform->post('rasa');
-    $edat = $datosform->post('edat');
-    $color = $datosform->post('color');
-    $vacunes = $datosform->post('vacunes');
-    $ciutat = $datosform->post('ciutat');
-    $direccio = $datosform->post('direccio');
-    $recompensa = $datosform->post('recompensa');
-    $descripcio = $datosform->post('descripcio');
+    $nom= addslashes($datosform->post('nom'));
+    $chip= addslashes($datosform->post('chip'));
+    $tipus= addslashes($datosform->post('tipos'));
+    $sexe = addslashes($datosform->post('sexe'));
+    $tamany = addslashes($datosform->post('tamany'));
+    $raça = addslashes($datosform->post('rasa'));
+    $edat = addslashes($datosform->post('edat'));
+    $color = addslashes($datosform->post('color'));
+    $vacunes = addslashes($datosform->post('vacunes'));
+    $ciutat = addslashes($datosform->post('ciutat'));
+    $direccio = addslashes($datosform->post('direccio'));
+    $recompensa = addslashes($datosform->post('recompensa'));
+    $descripcio = addslashes($datosform->post('descripcio'));
     $estat = "perdido";
     $adopcio = "NO";
     $possibleRuta = penjarFoto();
@@ -581,16 +622,16 @@ $app->post('/insertarAnimalAdopcio',function() use($db,$app) {
     $app->request();
     $datosform=$app->request();
     $id = (!isset($_COOKIE['id']) ? $datosform->post('id') : $_COOKIE['id']);
-    $nom= $datosform->post('nom');
-    $chip= $datosform->post('chip');
-    $tipus= $datosform->post('tipos');
-    $sexe = $datosform->post('sexe');
-    $tamany = $datosform->post('tamany');
-    $raça = $datosform->post('rasa');
-    $edat = $datosform->post('edat');
-    $color = $datosform->post('color');
-    $vacunes = $datosform->post('vacunes');
-    $descripcio = $datosform->post('descripcio');
+    $nom= addslashes($datosform->post('nom'));
+    $chip= addslashes($datosform->post('chip'));
+    $tipus= addslashes($datosform->post('tipos'));
+    $sexe = addslashes($datosform->post('sexe'));
+    $tamany = addslashes($datosform->post('tamany'));
+    $raça = addslashes($datosform->post('rasa'));
+    $edat = addslashes($datosform->post('edat'));
+    $color = addslashes($datosform->post('color'));
+    $vacunes = addslashes($datosform->post('vacunes'));
+    $descripcio = addslashes($datosform->post('descripcio'));
     $estat = "adopcion";
     $adopcio = "SI";
     $possibleRuta = penjarFoto();

@@ -21,22 +21,23 @@
 				        <div class="centrar-text">
 				        	<h2>Àrea de configuració</h2>
 				        </div>		         
-				        <div class="menuConfiguracio col-md-4">
+				        <div class="col-md-3">
+				        <div class="well">
 				        	<ul class="nav nav-pills nav-stacked">
-				                <li role="presentation"><a href="#" id="btn_perfil">Perfil</a></li>
-				                <li role="presentation"><a href="#" id="btn_contrasenya">Contrasenya</a></li>
+				                <li role="presentation"><a class="pointer" id="btn_perfil">Perfil</a></li>
+				                <li role="presentation"><a class="pointer" id="btn_contrasenya">Contrasenya</a></li>
 
 				                <?php 
 								if(isset($_COOKIE['tipo'])):
 				                switch ($_COOKIE['tipo']) {
 				                	case 'normal': ?>
-										<li role="presentation"><a href="#" id="btn_animals">Animals perduts</a></li>
+										<li role="presentation"><a class="pointer" id="btn_animals">Animals perduts</a></li>
 				                	<?php break;
 				                	case 'empresa': ?>
-				                		<li role="presentation"><a href="#" id="btn_serveis">Serveis</a></li>
+				                		<li role="presentation"><a class="pointer" id="btn_serveis">Serveis</a></li>
 				                	<?php break;
 				                	case 'protectora': ?>
-				                		<li role="presentation"><a href="#" id="btn_adopcions">Adopcions</a></li>	
+				                		<li role="presentation"><a class="pointer" id="btn_adopcions">Adopcions</a></li>	
 				            	<?php 
 				            			break;
 				                	}
@@ -44,8 +45,9 @@
 				                <li role="presentation"><a href="index.php" id="btn_logout">Tancar Sessió</a></li>
 			              	</ul>
 				        </div>
+				        </div>
 			        
-						<section id="perfil" class="col-md-8">
+						<section id="perfil" class="col-md-9">
 					      <h3>El meu perfil</h3>
 					      <form id="formPerfil">
 					      		<div class="form-group col-md-3">

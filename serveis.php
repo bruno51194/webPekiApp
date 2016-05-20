@@ -20,7 +20,7 @@
 				define('BD_PASSWORD', '69edfef4'); 
 			
 				$dia = $_POST['data'];
-			    $hora = $_POST['hora'];
+			    $hora = $_POST['horari'];
 			    $descripcio = $_POST['descripcio'];
 
 			    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
@@ -78,13 +78,13 @@
 									echo "</header>";
 									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
 									break;
-								case 'Educadors Canins':
-									echo "<p>Els millors professionals en el sector de l'educació canina</p>";
+								case 'Educadors':
+									echo "<p>Els millors professionals en el sector de l'educació animal</p>";
 									echo "</header>";
 									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
 									break;
-								case 'Guarderies Canines':
-									echo "<p>Deixa els teus animals a les nostres guarderies amb la máxima tranquilitat</p>";
+								case 'Residencies':
+									echo "<p>Deixa els teus animals a les nostres residencies d'animals amb la máxima tranquilitat</p>";
 									echo "</header>";
 									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
 									break;
@@ -119,8 +119,8 @@
 									    <input type="date" class="form-control" id="data" name="data">
 									</div>
 									<div class="form-group col-md-6">
-									    <label>Hora:</label>
-									    <input type="time" class="form-control" id="hora" name="hora">
+										<label>Hora:</label>
+										<select id="horari" name="horari"></select>	
 									</div>
 									<div class="form-group col-md-12">
 									    <label>Descripcio:</label>

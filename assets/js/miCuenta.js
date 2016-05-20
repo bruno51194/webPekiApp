@@ -118,17 +118,18 @@ $( document ).ready(function() {
     }
 
 
-    var div_serveis = $("#div_serveis");
+   var div_serveis = $("#div_serveis");
     function CitasServicios(){    
         $.getJSON("Slim/api.php/serveisUsuari/" + getCookie("id"), 
             function(datos){
               $.each(datos, function(i, servicio){
               div_serveis.append('<h3>' + servicio.tipus_SERVICIOS + '</h3><strong><h4>' + servicio.nombre_SERVICIOS + '</h4></strong>');
-              div_serveis.append('<table class="table table-striped" id="taula_serveis_' + servicio.id_SERVICIOS + '"><tr><th><strong>Dia</strong></th><th><strong>Hora</strong></th><th><strong>Descripció</strong></th></tr></table>')
+              div_serveis.append('<table class="table table-striped" id="taula_serveis_' + servicio.id_SERVICIOS + '"><tr><th><strong>Dia</strong></th><th><strong>Hora</strong></th><th><strong>Descripció</strong></th><th></th></tr></table>');
               var taula_serveis = $("#taula_serveis_" + servicio.id_SERVICIOS);
               $.getJSON("Slim/api.php/citesServei/" + servicio.id_SERVICIOS, function(cites){
                 $.each(cites, function(i, cita){
-                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td></tr>');
+                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td><td>' + '<button class="btn btn-success" id="' + servicio.id_SERVICIOS + i + '">ACCEPTAR</button></td></tr>');
+                  horaReservada($("#" + servicio.id_SERVICIOS + i), servicio.id_SERVICIOS, cita.dia_CITAS, cita.hora_CITAS);
                 });
               });
             });
@@ -146,6 +147,29 @@ $( document ).ready(function() {
             CancelarAdopcio($("#cancelar_" + solicitud.id_ANIMALES), solicitud.token_USUARIOS, solicitud.id_ANIMALES);
           });
         });
+    }
+
+    function horaReservada(boton,idServei,dia,hora){
+
+      boton.click(function(){
+          $.ajax({
+              url: "Slim/api.php/serveis/solicitudes/aceptar",
+              type: "POST",
+              data: {
+                idServei: idServei,
+                dia: dia,
+                hora: hora
+              },
+              success: function(responseText){
+                  var responseTextarray = responseText.split(" ");
+                  if(responseTextarray[0] == "1"){
+                    alert(responseText);
+                  }else{
+                      alert(responseText);
+                  }
+              }
+            });
+      });
     }
 
     var lbl_telefon = $("#lbl_telf");

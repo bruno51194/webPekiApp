@@ -10,7 +10,6 @@
             include 'head.php';
             include '_functions/functions.php';
         ?>
-        <link rel="stylesheet" href="assets/css/custom.css" />
   </head>
   <body>
 
@@ -58,37 +57,6 @@
     <!-- Google Maps -->
     <div id="map"></div>
     <script type="text/javascript">
-
-        $(document).ready(function() {
-          $.getJSON('http://pekiapp.azurewebsites.net/Slim/api.php/animalesPerdidos',
-              function(datos) {
-                $.each(datos, function(i, field){
-                    direccion = field.ciudad_PIERDE + "," + field.direccion_PIERDE;
-
-                        $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + direccion,
-                            function(resultado) {
-                                $.each(resultado.results, function(i, geometria){
-                                    //localització marcador  
-                                    var imgRoja = new google.maps.MarkerImage("images/googleMapsIcons/pets_rojo.png");                                 
-                                    var marker = new google.maps.Marker({
-                                        position: {lat: geometria.geometry.location.lat, lng: geometria.geometry.location.lng},
-                                        map: map,
-                                        draggable: false,
-                                        animation: google.maps.Animation.DROP,
-                                        icon: imgRoja
-                                    });
-                                    var infowindow = new google.maps.InfoWindow();
-                                    makeInfoWindowEvent(infowindow, marker, field.nombre_ANIMALES, field.url_ANIMALES, field.id_ANIMALES, field.sexo_ANIMALES);
-
-
-                                });
-                        });
-                   
-                });
-            });            
-        });
-
-
         var map;
 
         function initMap() {
@@ -98,12 +66,6 @@
                 zoom: 12
             });
             
-        }
-        function makeInfoWindowEvent(infowindow, marker, nombre, url, id, sexe) {
-            google.maps.event.addListener(marker, 'click', function() {
-               infowindow.setContent('<div style="font-size: 8pt; font-family: verdana"><img src="' + url + '" alt="foto"><br>' + nombre + '<br>' + sexe + '<br><a class="btn btn-info" href="fitxa.php?animal=' + id + '">Fitxa</a>');
-               infowindow.open(map,marker);
-            });
         }
     </script>
     <script async defer
@@ -255,77 +217,6 @@
     </div>
 
     <footer id="footer">
-        <script type="text/javascript">
-        var taula_animals = $("#taula_animals");
-
-        $.getJSON("Slim/api.php/animalesPerdidos", function(datos){
-            if (datos == ""){
-                taula_animals.html('<h3>Els meus animals perduts</h3><div class="alert alert-warning" role="alert">No hi ha animals perduts.</div>');
-            }else{
-                $.each(datos, function(i, campos){
-                    taula_animals.append("<tr><td>" + '<img src="' + campos.url_ANIMALES + '" alt="fotoanimal">' +"</td><td>" + campos.nombre_ANIMALES + "</td><td>" + campos.tipo_ANIMALES + "</td><td>" + campos.sexo_ANIMALES + "</td><td>" + campos.medida_ANIMALES + "</td><td>" + campos.raza_ANIMALES + "</td><td>" + campos.edad_ANIMALES + "</td><td>" + campos.color_ANIMALES + "</td><td>" + campos.vacunes_ANIMALES + "</td><td><a href='fitxa.php?animal=" + campos.id_ANIMALES + "' class='btn btn-info'>Més info</a></tr>");
-                });
-            }
-        });
-
-
-        var div_afegir = $("#div-afegir");
-        var div_afegir2 = $("#div-afegir2");
-        var form = $("#form-animalPerdut");
-        var obert = false;
-        var obert2 = false;
-
-        $("#afegir-animal-perdut").click(function(){
-            if(obert){
-                div_afegir.attr('style', 'display:none');
-                obert = false;
-            }else{
-                div_afegir.removeAttr('style');
-                obert = true;
-            }   
-        });
-
-        $("#afegir-animal-trobat").click(function(){
-            if(obert2){
-                div_afegir2.attr('style', 'display:none');
-                obert2 = false;
-            }else{
-                div_afegir2.removeAttr('style');
-                obert2 = true;
-            }   
-
-        });
-        
-        
-
-        form.submit(function(){
-            var formData = new FormData(form.get(0));
-            $.ajax({
-              url: "Slim/api.php/insertarAnimalPerdut",
-              type: "POST",
-              data: formData,
-              contentType: false,
-              processData: false,
-              success: function(responseText){
-                          var responseTextarray = responseText.split(" ");
-
-                          if(responseTextarray[0] == "1" && responseTextarray[1] == "1"){
-                           div_afegir.hide();
-                           form.trigger("reset");
-                          }
-                          else if(responseTextarray[0] == "0" || responseTextarray[1] == "0"){
-                            div_afegir.append('<div class="alert alert-danger">Error al registrar l\'animal, refresca i torna a probar. Si el problema persisteix <a href="contacte.php">contacta</a></div>');
-                          }
-                          else{
-                              alert(responseText);
-                          }
-                  }
-            });
-            return false;
-
-            
-        });
-        </script>
         <ul class="icons">
             <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
             <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
@@ -346,6 +237,7 @@
             <script src="assets/js/util.js"></script>
             <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
             <script src="assets/js/main.js"></script>
+            <script src="assets/js/lostfind.js"></script>
 
     </footer>
   </body>

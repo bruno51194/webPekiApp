@@ -26,9 +26,9 @@
 					<img src="oie_transparent.png" width="200px" height="220px">
 
 					<div class="resum">
-					<h2>Pekiapp</h2>
+					<h2>PekiApp</h2>
 					<p>Permet accedir a qualsevol tipus de servei relacionat amb el món de les mascotes.
-					<br>En el cas de pèrdua de la teva mascota Pekiapp ofereix un servei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota. També facilitarà l'adopció d'animals que estàn en protectores.</p>
+					<br>En el cas de pèrdua de la teva mascota PekiApp ofereix un servei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota. També facilitarà l'adopció d'animals que estàn en protectores i demanar cites<br> a professionals afiliats amb nosaltres. Registra't ja com a compte Personal, Professional o Protectora!</p>
 					</div>
 					<?php if (!isset($_COOKIE['id'])) :?>
 						<ul class="actions">
@@ -102,7 +102,7 @@
 							</section>
 							<section>
 								<img src="images/seveis/guarderia_logo.png" alt="guarderia canina" class="img-circle" width="120px" height="120px">
-								<h3>Guarderies canines</h3>
+								<h3>Residencies</h3>
 								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
 							</section>
 						</div>
@@ -114,7 +114,7 @@
 							</section>
 							<section>
 								<img src="images/seveis/educacio_canina_logo.png" alt="educacio canina" class="img-circle" width="120px" height="120px">
-								<h3>Educadors canins</h3>
+								<h3>Educadors</h3>
 								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
 							</section>
 						</div>
@@ -124,10 +124,10 @@
 						<div class="6u 12u(narrower)">
 							<section class="box special">
 								<span class="image featured"><img src="images/lost&find.jpg" alt="perduts i trobats" /></span>
-								<h3>Lost & Find</h3>
+								<h3>Lost&Find</h3>
 								<p>Ajuda a les persones que han perdut les seves mascotes, si t'has trobat amb alguna mascota sense propietari accedeix aqui per ajudar-la.</p>
 								<ul class="actions">
-									<li><a href="#" class="button special">Entrar</a></li>
+									<li><a href="lostfind.php" class="button special">Entrar</a></li>
 								</ul>
 							</section>
 
@@ -138,7 +138,7 @@
 								<h3>Adopta'ls</h3>
 								<p>Tant si vols donar en adopció com si vols adoptar algun animal, entra aqui per poder ajudar als animals sense llar i ajudar en la seva reincerció.</p>
 								<ul class="actions">
-									<li><a href="#" class="button special">Entrar</a></li>
+									<li><a href="adopta.php" class="button special">Entrar</a></li>
 								</ul>
 							</section>
 
