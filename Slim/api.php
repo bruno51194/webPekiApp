@@ -67,7 +67,7 @@ $app->get('/horesDisponibles/:idServei/:dia', function($idServei,$dia) use($db) 
     echo $horesDisponibles;
 });
 
-$app->get('/calendariHores/:idServei/:dia', function($idServei,$dia) use($db) {
+$app->get('/calendariHores/:idServei', function($idServei) use($db) {
 
     $consulta = $db->prepare("SELECT horaMatiMin_SERVICIOS, horaMatiMax_SERVICIOS, horaTardaMin_SERVICIOS, horaTardaMax_SERVICIOS FROM servicios WHERE id_SERVICIOS = :idServei");
     $consulta->execute(array(':idServei' => $idServei));
