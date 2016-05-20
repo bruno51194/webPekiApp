@@ -26,4 +26,5 @@
 		<?php endif; ?>
 	</ul>
 </nav>
+
 <script src="assets/js/notificacions.js"></script>

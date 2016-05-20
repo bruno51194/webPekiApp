@@ -126,10 +126,11 @@ $( document ).ready(function() {
               div_serveis.append('<h3>' + servicio.tipus_SERVICIOS + '</h3><strong><h4>' + servicio.nombre_SERVICIOS + '</h4></strong>');
               div_serveis.append('<table class="table table-striped" id="taula_serveis_' + servicio.id_SERVICIOS + '"><tr><th><strong>Dia</strong></th><th><strong>Hora</strong></th><th><strong>Descripció</strong></th><th></th></tr></table>');
               var taula_serveis = $("#taula_serveis_" + servicio.id_SERVICIOS);
-              $.getJSON("Slim/api.php/citesServei/" + servicio.id_SERVICIOS, function(cites){
+              $.getJSON("Slim/api.php/citesServei/" + servicio.id_SERVICIOS, function(cites){ 
                 $.each(cites, function(i, cita){
-                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td><td>' + '<button class="btn btn-success" id="' + servicio.id_SERVICIOS + i + '">ACCEPTAR</button></td></tr>');
-                  horaReservada($("#" + servicio.id_SERVICIOS + i), servicio.id_SERVICIOS, cita.dia_CITAS, cita.hora_CITAS);
+                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td><td>' + '<button class="btn btn-success" id="' + servicio.id_SERVICIOS + i + '">ACCEPTAR</button>' + '<button class="btn btn-danger" id="' + servicio.id_SERVICIOS + cita.id_CITAS +  '">CANCELAR</button></td></tr>' );
+                  horaReservada($("#" + servicio.id_SERVICIOS + i), servicio.id_SERVICIOS, cita.dia_CITAS, cita.hora_CITAS, cita.id_CITAS);
+                  horaCancelada($("#" + servicio.id_SERVICIOS + cita.id_CITAS), cita.id_CITAS);
                 });
               });
             });
@@ -149,7 +150,9 @@ $( document ).ready(function() {
         });
     }
 
-    function horaReservada(boton,idServei,dia,hora){
+    function horaReservada(boton,idServei,dia,hora,idCita){
+
+      var notificacioOK = $("#notificacioOK");
 
       boton.click(function(){
           $.ajax({
@@ -158,14 +161,36 @@ $( document ).ready(function() {
               data: {
                 idServei: idServei,
                 dia: dia,
-                hora: hora
+                hora: hora,
+                idCita: idCita
+              },
+              success: function(responseText){
+                  var responseTextarray = responseText.split(" ");
+                  if(responseTextarray[0] == "11"){
+                    location.reload();          
+                  }else{
+                    alert(responseText);
+                  }
+              }
+            });
+      });
+    }
+
+    function horaCancelada(boton,idCita){
+
+      boton.click(function(){
+          $.ajax({
+              url: "Slim/api.php/serveis/solicitudes/cancelar",
+              type: "POST",
+              data: {
+                idCita: idCita
               },
               success: function(responseText){
                   var responseTextarray = responseText.split(" ");
                   if(responseTextarray[0] == "1"){
-                    alert(responseText);
+                     location.reload(); 
                   }else{
-                      alert(responseText);
+                    alert(responseText);
                   }
               }
             });

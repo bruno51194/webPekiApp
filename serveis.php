@@ -47,12 +47,14 @@
 			<!-- Header -->
 				<header id="header">
 					<?php include 'topmenu.php'; ?>
+
 				</header>
 
 				<?php $tipos = $_GET["tipos"]; ?>
 
 			<!-- Main -->
 				<section id="main" class="container">
+
 					<div class="centrar-text">
 					<header>
 						<h2><?php echo $tipos ?></h2>				

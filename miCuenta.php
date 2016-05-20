@@ -17,6 +17,7 @@
 
 			<!-- Main -->
 				<section id="main" class="container">
+
 			        <div class="container">
 				        <div class="centrar-text">
 				        	<h2>Àrea de configuració</h2>

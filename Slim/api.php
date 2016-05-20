@@ -75,15 +75,73 @@ $app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
     $idServei = $datosform->post('idServei');
     $dia = $datosform->post('dia');
     $hora = $datosform->post('hora');
+    $idCita = $datosform->post('idCita');
 
     $sql = "INSERT INTO horesperdudes(pk_idServei,dia_HORESPERDUDES,hora_HORESPERDUDES)
         VALUES ('$idServei','$dia','$hora')";
-   if ($conn->query($sql) === FALSE) {
+    if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
-        echo "1" . " ";
-    }        
+        echo "1";
+    } 
+
+    $sql1 = "UPDATE citas SET estado_CITAS = 'aceptada' WHERE id_CITAS = '$idCita'";
+    $resultado= $conn->query($sql1);
+    if ($resultado === FALSE) {
+        echo "Error updating record: " . $conn->error;
+    }else{
+       echo "1";
+    }       
+
 });
+
+$app->post('/serveis/solicitudes/cancelar',function() use($db,$app) {
+
+    $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+
+    $datosform = $app->request;
+    $idCita = $datosform->post('idCita');
+
+    $sql1 = "UPDATE citas SET estado_CITAS = 'cancelada' WHERE id_CITAS = '$idCita'";
+    $resultado= $conn->query($sql1);
+    if ($resultado === FALSE) {
+        echo "Error updating record: " . $conn->error;
+    }else{
+       echo "1" . $idCita;
+    }       
+
+});
+
+$app->post('/usuarios/actualizarContrasenya',function($id) use($db,$app) {
+    // Para acceder a los datos recibidos del formulario
+    $datosform=$app->request;
+    $antiga = $datosform->post('contrasenya_antiga');
+    $nova = $datosform->post('contrasenya_nova');
+    $id = (isset($datosform->post('id_usuario')) ? $datosform->post('id_usuario') : $_COOKIE['id']));
+    $id = getIDusuario($id);
+
+    $conn = conexion();
+    $resultado = $conn->query("SELECT * FROM usuarios WHERE id_USUARIOS = '$id' AND password_USUARIOS = $antiga");
+    if($resultado->fetch_assoc()){
+        $consulta=$db->prepare("UPDATE usuarios set password_USUARIOS=:pass where id_USUARIOS=:id");
+        if(strlen($nova) > 5){
+            $nova = hash("sha256", $nova);
+            $estado=$consulta->execute(
+                array(
+                    ':pass'=> $nova,
+                    ':id'=> $id,
+                    )
+                );
+
+
+            echo $consulta->rowCount();
+        }else{
+            //MIDA DE CONTRASENYA INCORRECTE
+            echo "2";
+        }
+    }else{
+        echo 0;
+    }
 
 
 //obtenim tots els usuaris
@@ -408,7 +466,7 @@ $app->get('/serveisUsuari/:tokenusuario', function($tokenusuario) use($db) {
 $app->get('/citesServei/:idservei', function($idservei) use($db) {
             $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
             
-            $consulta = $db->prepare("SELECT * FROM citas INNER JOIN usuarios ON id_USUARIOS = fk_usuario_CITAS WHERE fk_servicio_CITAS = '" . $idservei . "'");
+            $consulta = $db->prepare("SELECT * FROM citas INNER JOIN usuarios ON id_USUARIOS = fk_usuario_CITAS WHERE fk_servicio_CITAS = '$idservei' AND estado_CITAS = 'indeterminat'");
             $consulta->execute();
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
