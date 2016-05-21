@@ -86,36 +86,36 @@
 							<section>
 								<img src="images/seveis/perruqueria_logo.png" alt="perruqueria canina" class="img-circle" width="120px" height="120px">
 								<h3>Perruqueries</h3>
-								<p>Coneix les millors perruqueries que tens al voltant per portar a les teves mascotes.</p>
+								<p>Coneix les millors perruqueries que tens al voltant per portar a les teves mascotes</p>
 							</section>
 							<section>
 								<img src="images/seveis/paseador_logo.png" alt="passejadors canins" class="img-circle" width="120px" height="120px">
 								<h3>Passejadors</h3>
-								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+								<p>Troba als millors passejadors per deixar als teus animals</p>
 							</section>
 						</div>
 						<div class="features-row">
 							<section>
 								<img src="images/seveis/veterinari_logo.png" alt="veterinaris canins" class="img-circle" width="120px" height="120px">
 								<h3>Veterinaris</h3>
-								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+								<p>Els millors profesionals licenciats en veterinaria</p>
 							</section>
 							<section>
 								<img src="images/seveis/guarderia_logo.png" alt="guarderia canina" class="img-circle" width="120px" height="120px">
 								<h3>Residencies</h3>
-								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+								<p>Deixa els teus animals a les nostres residencies d'animals amb la máxima tranquilitat</p>
 							</section>
 						</div>
 						<div class="features-row">
 							<section>
 								<img src="images/seveis/club_esportiu_logo.png" alt="club esportiu caní" class="img-circle" width="120px" height="120px">
 								<h3>Clubs esportius</h3>
-								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+								<p>Porta les teves mascotes als clubs esportius més selectes</p>
 							</section>
 							<section>
 								<img src="images/seveis/educacio_canina_logo.png" alt="educacio canina" class="img-circle" width="120px" height="120px">
 								<h3>Educadors</h3>
-								<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+								<p>Els millors professionals en el sector de l'educació animal</p>
 							</section>
 						</div>
 					</section>

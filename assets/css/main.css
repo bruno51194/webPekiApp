@@ -2075,7 +2075,7 @@
 	input[type="password"],
 	input[type="email"],
 	select {
-		
+		background-color: white;
 	}
 
 	textarea {
@@ -2123,7 +2123,7 @@
 			input[type="radio"] + label:before {
 				background: #f8f8f8;
 				border-radius: 6px;
-				border: solid 1px #e5e5e5;
+				border: solid 1px #ccc;
 				content: '';
 				display: inline-block;
 				height: 1.8em;
