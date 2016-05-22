@@ -160,16 +160,17 @@ $app->post('/insertarCita',function() use($db,$app) {
  
      $app->request();
      $datosform=$app->request();
+     $id = (!isset($_COOKIE['id']) ? $datosform->post('id') : $_COOKIE['id']);
      $dia = $datosform->post('data');
      $hora = $datosform->post('horari');
      $descripcio = $datosform->post('descripcio');
  
      $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
  
-     $sql1 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $_COOKIE['id'] . "'";
+     $sql1 = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $id . "'";
      $result = $conn->query($sql1);
      $idusuario = $result->fetch_assoc();
-     $idServei = $_COOKIE['idServei'];
+     $idServei = (!isset($_COOKIE['idServei']) ? $datosform->post('idServei') : $_COOKIE['idServei']);
  
      $sql2 = "INSERT INTO citas(fk_usuario_CITAS, fk_servicio_CITAS,dia_CITAS,hora_CITAS, descripcion_CITAS) 
                      VALUES(" . $idusuario['id_USUARIOS'] . "," . $idServei . ", '$dia','$hora','$descripcio')";
