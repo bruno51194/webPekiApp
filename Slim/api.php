@@ -83,13 +83,23 @@ $app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
 
     $datosform = $app->request;
+    $idUsuario = $datosform->post('idUsuario');
     $idServei = $datosform->post('idServei');
     $dia = $datosform->post('dia');
     $hora = $datosform->post('hora');
     $idCita = $datosform->post('idCita');
 
-    $sql = "INSERT INTO horesperdudes(pk_idServei,dia_HORESPERDUDES,hora_HORESPERDUDES)
-        VALUES ('$idServei','$dia','$hora')";
+    $sql3 = "SELECT nombre_USUARIOS FROM usuarios WHERE id_USUARIOS = '$idUsuario'";
+    $result = $conn->query($sql3);
+    $nomUsuari = $result->fetch_assoc();
+    if ($result === FALSE) {
+        echo "Error select: " . $conn->error;
+    }else{
+       echo "1";
+    }
+
+    $sql = "INSERT INTO horesperdudes(pk_idServei,dia_HORESPERDUDES,hora_HORESPERDUDES,nom_HORESPERDUDES)
+        VALUES ('$idServei','$dia','$hora','$nomUsuari[nombre_USUARIOS]')";
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
@@ -118,7 +128,7 @@ $app->post('/serveis/solicitudes/cancelar',function() use($db,$app) {
     if ($resultado === FALSE) {
         echo "Error updating record: " . $conn->error;
     }else{
-       echo "1" . $idCita;
+       echo "1";
     }       
 
 });

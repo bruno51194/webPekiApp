@@ -128,8 +128,8 @@ $( document ).ready(function() {
               var taula_serveis = $("#taula_serveis_" + servicio.id_SERVICIOS);
               $.getJSON("Slim/api.php/citesServei/" + servicio.id_SERVICIOS, function(cites){ 
                 $.each(cites, function(i, cita){
-                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td><td>' + '<button class="btn btn-success" id="' + servicio.id_SERVICIOS + i + '">ACCEPTAR</button>' + '<button class="btn btn-danger" id="' + servicio.id_SERVICIOS + cita.id_CITAS +  '">CANCELAR</button></td></tr>' );
-                  horaReservada($("#" + servicio.id_SERVICIOS + i), servicio.id_SERVICIOS, cita.dia_CITAS, cita.hora_CITAS, cita.id_CITAS);
+                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td><td>' + '<button class="btn btn-success" id="' + servicio.id_SERVICIOS + i + '">ACCEPTAR</button>' + " " + '<button class="btn btn-danger" id="' + servicio.id_SERVICIOS + cita.id_CITAS +  '">CANCELAR</button></td></tr>' );
+                  horaReservada($("#" + servicio.id_SERVICIOS + i), servicio.id_SERVICIOS, cita.dia_CITAS, cita.hora_CITAS, cita.id_CITAS, cita.fk_usuario_CITAS);
                   horaCancelada($("#" + servicio.id_SERVICIOS + cita.id_CITAS), cita.id_CITAS);
                 });
               });
@@ -150,7 +150,7 @@ $( document ).ready(function() {
         });
     }
 
-    function horaReservada(boton,idServei,dia,hora,idCita){
+    function horaReservada(boton,idServei,dia,hora,idCita,idUsuario){
 
       var notificacioOK = $("#notificacioOK");
 
@@ -162,11 +162,12 @@ $( document ).ready(function() {
                 idServei: idServei,
                 dia: dia,
                 hora: hora,
-                idCita: idCita
+                idCita: idCita,
+                idUsuario: idUsuario 
               },
               success: function(responseText){
                   var responseTextarray = responseText.split(" ");
-                  if(responseTextarray[0] == "11"){
+                  if(responseTextarray[0] == "111"){
                     location.reload();          
                   }else{
                     alert(responseText);
