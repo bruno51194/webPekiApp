@@ -63,7 +63,7 @@
 								case 'Perruqueries':
 									echo "<p>Les millors perruqueries per portar a les teves mascotes.</p>";
 									echo "</header>";
-									echo "<span class='image featured'><img src='images/seveis/perruqueries-servei.jpg' alt='' /></span>";
+									echo "<span class='image featured'><img src='images/seveis/perruqueria-servei.jpg' alt='' /></span>";
 									break;
 								case 'Passejadors':
 									echo "<p>Troba als millors passejadors per deixar als teus animals.</p>";
