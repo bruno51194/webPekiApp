@@ -203,49 +203,49 @@
                     else
                         $class="";
                 ?>
-                <td class="<?php echo $class; ?>" id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "") echo nomCita($id_servei, $dia[1], $hora); ?></td>
+                <td id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "") echo nomCita($id_servei, $dia[1], $hora); ?></td>
                 <?php
                     if (!in_array($hora, $lliures[2]))
                         $class="success";
                     else
                         $class="";
                 ?>
-                <td class="<?php echo $class; ?>" id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[2], $hora); ?></td>
+                <td id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[2], $hora); ?></td>
                 <?php
                     if (!in_array($hora, $lliures[3]))
                         $class="success";
                     else
                         $class="";
                 ?>
-                <td class="<?php echo $class; ?>" id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[3], $hora); ?></td>
+                <td id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[3], $hora); ?></td>
                 <?php
                     if (!in_array($hora, $lliures[4]))
                         $class="success";
                     else
                         $class="";
                 ?>
-                <td class="<?php echo $class; ?>" id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[4], $hora); ?></td>
+                <td id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[4], $hora); ?></td>
                 <?php
                     if (!in_array($hora, $lliures[5]))
                         $class="success";
                     else
                         $class="";
                 ?>
-                <td class="<?php echo $class; ?>" id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[5], $hora); ?></td>
+                <td id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[5], $hora); ?></td>
                 <?php
                     if (!in_array($hora, $lliures[6]))
                         $class="success";
                     else
                         $class="";
                 ?>
-                <td class="<?php echo $class; ?>" id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[6], $hora); ?></td>
+                <td id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[6], $hora); ?></td>
                 <?php
                     if (!in_array($hora, $lliures[7]))
                         $class="success";
                     else
                         $class="";
                 ?>
-                <td class="<?php echo $class; ?>" id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[7], $hora); ?></td>
+                <td id='<?php if($class != ""){ echo "ocupada" . $j; $j++; }?>'><?php if($class != "")  echo nomCita($id_servei, $dia[7], $hora); ?></td>
             </tr>
 
             <?php endforeach; ?>
@@ -264,6 +264,7 @@
             function peticioNom(id, dia, hora){
                 $.get("Slim/api.php/hores/nomHoresOcupades/" + id + "/" + dia + "/" + hora, function(response){
                     $("td#ocupada" + cont).html(response);
+                    $("td#ocupada" + cont).addClass("success");
                     cont++;
                     if (cont<=contador){
                         peticioNom(horesOcupades[cont].id, horesOcupades[cont].dia, horesOcupades[cont].hora);

@@ -165,7 +165,7 @@ $( document ).ready(function() {
               seccioAnimals.html('<h3>Les meves cites sol·licitades</h3><div class="alert alert-success" role="alert">No tens cap cita acceptada.</div>');
           }else{
             $.each(datos, function(i, campos){
-              div_cites.append('<div class="panel panel-default"> <div class="panel-body"> <div class="col-md-3"><strong>Dia:</strong> ' + campos.dia_CITAS + "</div><div class='col-md-2'><strong>Hora:</strong> " + ' ' + campos.hora_CITAS + "</div><div class='col-md-6'><strong>Descripció:</strong> " +' ' + campos.descripcion_CITAS  + '</div>' + " <span class='glyphicon glyphicon-ok' aria-hidden='true'></span>" + '</div></div>');
+              div_cites.append('<div class="panel panel-default"> <div class="panel-body"> <div class="col-md-3"><strong>Dia:</strong> ' + campos.dia_CITAS + "</div><div class='col-md-2'><strong>Hora:</strong> " + ' ' + campos.hora_CITAS + "</div><div class='col-md-6'><strong>Servei:</strong> " +' ' + campos.nombre_SERVICIOS  + '</div>'+ (campos.estado_CITAS == 'aceptada' ? "<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>" : "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>") + '</div></div>');
             });
           }
 
@@ -178,15 +178,19 @@ $( document ).ready(function() {
         $.getJSON("Slim/api.php/serveisUsuari/" + getCookie("id"), 
             function(datos){
               $.each(datos, function(i, servicio){
-              div_serveis.append('<h3>' + servicio.tipus_SERVICIOS + '</h3><strong><h4>' + servicio.nombre_SERVICIOS + '</h4></strong>' + '<a href="calendari.php?idServei=' + servicio.id_SERVICIOS + '">CALENDARI</a>');
-              div_serveis.append('<table class="table table-striped" id="taula_serveis_' + servicio.id_SERVICIOS + '"><tr><th><strong>Dia</strong></th><th><strong>Hora</strong></th><th><strong>Descripció</strong></th><th></th></tr></table>');
+              div_serveis.append('<h3>' + servicio.tipus_SERVICIOS + '</h3><strong><h4>' + servicio.nombre_SERVICIOS + '</h4></strong>' + '<a href="calendari.php?idServei=' + servicio.id_SERVICIOS + '" class="btn btn-primary marge-abaixPlus"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> &nbsp; CALENDARI</a>');
+              div_serveis.append('<table class="table table-striped" id="taula_serveis_' + servicio.id_SERVICIOS + '"><tr><th><strong>Dia</strong></th><th><strong>Hora</strong></th><th><strong>Descripció</strong></th><th></th><th></th></tr></table>');
               var taula_serveis = $("#taula_serveis_" + servicio.id_SERVICIOS);
               $.getJSON("Slim/api.php/citesServei/" + servicio.id_SERVICIOS, function(cites){ 
+                if (cites != "")
                 $.each(cites, function(i, cita){
-                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td><td>' + '<button class="btn btn-success" id="' + servicio.id_SERVICIOS + i + '">ACCEPTAR</button>' + " " + '<button class="btn btn-danger" id="' + servicio.id_SERVICIOS + cita.id_CITAS +  '">CANCELAR</button></td></tr>' );
+                  taula_serveis.append('<tr><td>' + cita.dia_CITAS + '</td><td>' + cita.hora_CITAS + '</td><td>' + cita.descripcion_CITAS  + '</td><td><button class="btn btn-info" data-toggle="modal" href="#modal_contacte" id="btn_modal_' + cita.id_USUARIOS + '">INFO</button></td><td>' + '<button class="btn btn-success" id="' + servicio.id_SERVICIOS + i + '">ACCEPTAR</button><button class="btn btn-danger" id="' + servicio.id_SERVICIOS + cita.id_CITAS +  '">CANCELAR</button></td></tr>' );
+                  $("#btn_modal_" + cita.id_USUARIOS).click(OmplirDadesModal(cita.telefono_USUARIOS, cita.email_USUARIOSl, cita.poblacion_USUARIOS, cita.CP_USUARIOS));
                   horaReservada($("#" + servicio.id_SERVICIOS + i), servicio.id_SERVICIOS, cita.dia_CITAS, cita.hora_CITAS, cita.id_CITAS, cita.fk_usuario_CITAS);
                   horaCancelada($("#" + servicio.id_SERVICIOS + cita.id_CITAS), cita.id_CITAS);
                 });
+                else
+                  taula_serveis.html('<div class="alert alert-warning">No tens sol·licituds per aquest servei</div>');
               });
             });
          });
