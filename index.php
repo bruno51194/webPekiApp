@@ -28,7 +28,7 @@
 					<div class="resum">
 					<h2>PekiApp</h2>
 					<p>Permet accedir a qualsevol tipus de servei relacionat amb el món de les mascotes.
-					<br>En el cas de pèrdua de la teva mascota PekiApp ofereix un servei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota. També facilitarà l'adopció d'animals que estàn en protectores i demanar cites<br> a professionals afiliats amb nosaltres. Registra't ja com a compte Personal, Professional o Protectora!</p>
+					<br>En el cas de pèrdua de la teva mascota PekiApp ofereix un servei per posar en contacte la gent que ha perdut la seva mascota <br>amb la gent que hagi trobat alguna mascota. També facilitarà l'adopció d'animals que estan en protectores i demanar cites<br> a professionals afiliats amb nosaltres. Registra't ja com a compte Personal, Professional o Protectora!</p>
 					</div>
 					<?php if (!isset($_COOKIE['id'])) :?>
 						<ul class="actions">

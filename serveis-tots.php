@@ -24,7 +24,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
-                                    <img src="images/seveis/veterinari_logo.png" class="img-cercle" />
+                                    <img src="images/seveis/veterinari-servei.jpg" class="imatge-logo" />
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
-                                    <img src="images/seveis/perruqueria_logo.png" class="img-cercle" />
+                                    <img src="images/seveis/perruqueria-servei.jpg" class="imatge-logo" />
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
-                                    <img src="images/seveis/paseador_logo.png" class="img-cercle" />
+                                    <img src="images/seveis/pasejadors-servei.jpg" class="imatge-logo" />
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
-                                    <img src="images/seveis/educacio_canina_logo.png" class="img-cercle" />
+                                    <img src="images/seveis/ensinistradors-servei.jpg" class="imatge-logo" />
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
-                                    <img src="images/seveis/club_esportiu_logo.png" class="img-cercle" />
+                                    <img src="images/seveis/club-servei.jpg" class="imatge-logo" />
                                 </div>
                             </div>                                        
                         </div>
@@ -98,7 +98,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
-                                    <img src="images/seveis/guarderia_logo.png" class="img-cercle" />
+                                    <img src="images/seveis/guarderia-servei.jpg" class="imatge-logo" />
                                 </div>
                             </div>
                         </div>
