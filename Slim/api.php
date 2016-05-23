@@ -54,7 +54,7 @@ $app->get('/citesAceptades/:tokenusuario', function($tokenusuario) use($db) {
 
             $idusuario = $result->fetch_assoc();
             
-            $consulta = $db->prepare("SELECT * from citas WHERE fk_usuario_CITAS = " . $idusuario['id_USUARIOS'] . " AND estado_CITAS = 'aceptada'");
+            $consulta = $db->prepare("SELECT * from citas INNER JOIN servicios ON id_SERVICIOS = fk_servicio_CITAS WHERE fk_usuario_CITAS = " . $idusuario['id_USUARIOS'] . " AND estado_CITAS IN ('aceptada','cancelada') AND dia_CITAS >= CURDATE()");
             $consulta->execute();
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
