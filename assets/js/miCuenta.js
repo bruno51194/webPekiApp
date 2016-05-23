@@ -178,7 +178,7 @@ $( document ).ready(function() {
         $.getJSON("Slim/api.php/serveisUsuari/" + getCookie("id"), 
             function(datos){
               $.each(datos, function(i, servicio){
-              div_serveis.append('<h3>' + servicio.tipus_SERVICIOS + '</h3><strong><h4>' + servicio.nombre_SERVICIOS + '</h4></strong>' + '<a href="calendari.php?idServei=' + servicio.id_SERVICIOS + '" class="btn btn-primary marge-abaixPlus"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> &nbsp; CALENDARI</a>');
+              div_serveis.append('<h3>' + servicio.tipus_SERVICIOS + '</h3><strong><h4>' + servicio.nombre_SERVICIOS + '</h4></strong>' + '<a href="calendari.php?idServei=' + servicio.id_SERVICIOS + '" class="btn btn-primary marge-abaixPlus"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> &nbsp; AGENDA</a>');
               div_serveis.append('<table class="table table-striped" id="taula_serveis_' + servicio.id_SERVICIOS + '"><tr><th><strong>Dia</strong></th><th><strong>Hora</strong></th><th><strong>Descripció</strong></th><th></th><th></th></tr></table>');
               var taula_serveis = $("#taula_serveis_" + servicio.id_SERVICIOS);
               $.getJSON("Slim/api.php/citesServei/" + servicio.id_SERVICIOS, function(cites){ 
