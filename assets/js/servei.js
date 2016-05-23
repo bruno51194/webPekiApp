@@ -14,6 +14,21 @@ $(document).ready(function() {
 			   return get;
 			}
 
+			 function getCookie(cname) {
+		        var name = cname + "=";
+		        var ca = document.cookie.split(';');
+		        for(var i = 0; i <ca.length; i++) {
+		            var c = ca[i];
+		            while (c.charAt(0)==' ') {
+		                c = c.substring(1);
+		            }
+		            if (c.indexOf(name) == 0) {
+		                return c.substring(name.length,c.length);
+		            }
+		        }
+		        return "";
+		    }
+
 
 			var get = getGET();
 
@@ -23,8 +38,11 @@ $(document).ready(function() {
 			$.getJSON('Slim/api.php/profesionales/' + tipus,
 		      function(datos) {
 		        $.each(datos, function(i, dato){
-		          panell_professionals.append('<div class="panel panel-info"> <div class="panel-heading"> <h3 id="titol" class="panel-title centrar-text"> ' + dato.nombre_SERVICIOS + '</h3> </div> <div class="panel-body"> ' + '<strong>Ciutat:</strong><br> ' + dato.ciudad_SERVICIOS + ' <br><strong>Direcció:</strong><br>' + dato.direccion_SERVICIOS + ' <br><strong>Horari:</strong><br>' + dato.horaMatiMin_SERVICIOS + " - " + dato.horaMatiMax_SERVICIOS + " | " + dato.horaTardaMin_SERVICIOS + " - " + dato.horaTardaMax_SERVICIOS + ' <br><strong>Descripció:</strong><br>' + dato.descripcion_SERVICIOS + '<div class="izquierda"><button onclick="funcioCita(' + dato.id_SERVICIOS + ')" type="button" value=' + dato.id_SERVICIOS + ' data-toggle="modal" data-target="#modalCita" id="cita" name="cita" class="btn btn-primary">Solicitar Cita</button></div></div> </div>');
-		          
+		          if (getCookie("tipo") == "normal" || getCookie("tipo") == "protectora") {
+	          		panell_professionals.append('<div class="panel panel-info"> <div class="panel-heading"> <h3 id="titol" class="panel-title centrar-text"> ' + dato.nombre_SERVICIOS + '</h3> </div> <div class="panel-body"> ' + '<strong>Ciutat:</strong><br> ' + dato.ciudad_SERVICIOS + ' <br><strong>Direcció:</strong><br>' + dato.direccion_SERVICIOS + ' <br><strong>Horari:</strong><br>' + dato.horaMatiMin_SERVICIOS + " - " + dato.horaMatiMax_SERVICIOS + " | " + dato.horaTardaMin_SERVICIOS + " - " + dato.horaTardaMax_SERVICIOS + ' <br><strong>Descripció:</strong><br>' + dato.descripcion_SERVICIOS + '<div class="izquierda"><button onclick="funcioCita(' + dato.id_SERVICIOS + ')" type="button" value=' + dato.id_SERVICIOS + ' data-toggle="modal" data-target="#modalCita" id="cita" name="cita" class="btn btn-primary">Solicitar Cita</button></div></div></div>');
+		          } else{
+	          		panell_professionals.append('<div class="panel panel-info"> <div class="panel-heading"> <h3 id="titol" class="panel-title centrar-text"> ' + dato.nombre_SERVICIOS + '</h3> </div> <div class="panel-body"> ' + '<strong>Ciutat:</strong><br> ' + dato.ciudad_SERVICIOS + ' <br><strong>Direcció:</strong><br>' + dato.direccion_SERVICIOS + ' <br><strong>Horari:</strong><br>' + dato.horaMatiMin_SERVICIOS + " - " + dato.horaMatiMax_SERVICIOS + " | " + dato.horaTardaMin_SERVICIOS + " - " + dato.horaTardaMax_SERVICIOS + ' <br><strong>Descripció:</strong><br>' + dato.descripcion_SERVICIOS);
+		          }
 		        });
 		    });
 

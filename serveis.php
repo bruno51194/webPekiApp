@@ -142,9 +142,15 @@
 
 				<section id="banner_serveis">
 					<div class="centrar-text">
-						<span class='image featured'><a href="afegirServei.php?tipos=<?php echo $tipos ?>"><img src='images/afegeix-servei.png' alt='afegir servei' /></a></span>
-					</div>
-					
+					<?php
+						if ($_COOKIE["tipo"] == "empresa") {
+							$direccio = "afegirServei.php?tipos=" . $tipos;
+						} else {
+							$direccio = "registro.php";
+						}
+					?>
+						<span class='image featured'><a href="<?php echo $direccio ?>"><img src='images/afegeix-servei.png' alt='afegir servei' /></a></span>
+					</div>					
 				</section>
 
 			<!-- Footer -->
