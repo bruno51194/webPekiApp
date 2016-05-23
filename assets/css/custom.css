@@ -513,9 +513,10 @@ icon-beat {  0% {
 }
 
 .demo-card-header-pic .card-header {
-    height: 40vw;
+
     background-size: cover;
     background-position: center;
+
 }
 .card1 {
   background: #fff;
@@ -529,10 +530,16 @@ icon-beat {  0% {
 .cardheader-centre{
     text-align:center;
     display:block;
+    font-size: 33px;
+    padding: 10px 0 0 0;
 }
 
 .imatge-logo{
 	width: 100%;
+}
+
+.card-content{
+	margin-top: 10px;
 }
 
 .iconRed{
@@ -542,6 +549,5 @@ icon-beat {  0% {
 .iconGreen{
 	color: green;
 }
-
 
 

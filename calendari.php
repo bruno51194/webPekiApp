@@ -2,8 +2,8 @@
 <html>
 <head>
     <?php 
-        $titol = "Lost&Find";
-        $actiu = 4;
+        $titol = "Agenda";
+        $actiu = 0;
         include 'head.php';
     ?>
     <style>
@@ -288,9 +288,10 @@
         function peticioNom(id, dia, hora){
             $.getJSON("Slim/api.php/hores/nomHoresOcupades/" + id + "/" + dia + "/" + hora, function(response){
                 if(response != ""){
-                    $("td#ocupada" + cont).html('<button class="btn btn-link" id="btn_info_' + response[0].id_USUARIOS + cont + '" data-toggle="modal" href="#modal_contacte"><span class="glyphicon glyphicon-info-sign"></span></button>&nbsp;&nbsp;' + response[0].nombre_USUARIOS + '<button class="close"><span aria-hidden="true">&times;</span></button>');
+                    $("td#ocupada" + cont).html('<button class="btn btn-link" id="btn_info_' + response[0].id_USUARIOS + cont + '" data-toggle="modal" href="#modal_contacte"><span class="glyphicon glyphicon-info-sign"></span></button>&nbsp;&nbsp;' + response[0].nombre_USUARIOS + '<button class="close" id="btn_eliminar_' + response[0].id_USUARIOS + cont + '"><span aria-hidden="true">&times;</span></button>');
                     $("td#ocupada" + cont).addClass("success");
                     $("#btn_info_" + response[0].id_USUARIOS + "" + cont).click(function(){OmplirDadesModal(response[0].telefono_USUARIOS, response[0].descripcion_CITAS)});
+                    CancelarCita($("#btn_eliminar_" + response[0].id_USUARIOS + "" + cont), response[0].id_CITAS);
                 }
                 cont++;
                 if (cont<=contador){
@@ -309,6 +310,31 @@
         }
 
         peticioNom(horesOcupades[cont].id, horesOcupades[cont].dia, horesOcupades[cont].hora);
+
+        function CancelarCita(boton, idCita){
+        boton.click(function(){
+           var result = window.confirm("Estas segur?");
+            if(result)
+              boton.click(function(){
+                  $.ajax({
+                      url: "Slim/api.php/serveis/solicitudes/cancelar",
+                      type: "POST",
+                      data: {
+                        idCita: idCita
+                      },
+                      success: function(responseText){
+                          var responseTextarray = responseText.split(" ");
+                          if(responseTextarray[0] == "1"){
+                             location.reload(); 
+                          }else{
+                            alert(responseText);
+                          }
+                      }
+                    });
+              });
+            });
+        }
+
 
         
     });

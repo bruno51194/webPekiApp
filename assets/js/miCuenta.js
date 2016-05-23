@@ -240,7 +240,8 @@ $( document ).ready(function() {
     }
 
     function horaCancelada(boton,idCita){
-
+      var result = window.confirm("Estas segur?");
+      if(result)
       boton.click(function(){
           $.ajax({
               url: "Slim/api.php/serveis/solicitudes/cancelar",
@@ -273,6 +274,8 @@ $( document ).ready(function() {
     }
 
     function CancelarAdopcio(boton, usuario, animal){
+      var result = window.confirm("Estas segur?");
+      if(result)
       boton.click(function(){     
             $.ajax({
               url: "Slim/api.php/protectora/solicitudes/cancelar",
@@ -317,6 +320,8 @@ $( document ).ready(function() {
 
 
     function submitForms(form){
+      var result = window.confirm("Estas segur?");
+      if(result)
         form.submit(function(){
             $.ajax({
               url: "Slim/api.php/animales/eliminar",

@@ -13,7 +13,7 @@
 				<li><a href="serveis.php?tipos=Veterinaris">Veterinaris</a></li>
 				<li><a href="serveis.php?tipos=Clubs Esportius">Clubs esportius</a></li>
 				<li><a href="serveis.php?tipos=Educadors">Educadors</a></li>
-				<li><a href="serveis.php?tipos=Residencies">Residencies</a></li>
+				<li><a href="serveis.php?tipos=Residencies">Residències</a></li>
 			</ul>
 		</li>
 
