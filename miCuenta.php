@@ -33,6 +33,7 @@
 				                switch ($_COOKIE['tipo']) {
 				                	case 'normal': ?>
 										<li role="presentation"><a class="pointer" id="btn_animals">Animals perduts</a></li>
+										<li role="presentation"><a class="pointer" id="btn_cites">Cites sol·licitades</a></li>
 				                	<?php break;
 				                	case 'empresa': ?>
 				                		<li role="presentation"><a class="pointer" id="btn_serveis">Serveis</a></li>
@@ -81,7 +82,7 @@
 					    </section>
 					    <section id="contrasenya" class="col-md-8">
 					      <h3>Canviar contrasenya</h3>
-					      <form>
+					      <form id="formContrasenya">
 					      		<div class="form-group">
 					      			<div class="col-md-12">
 										<label>Antiga contrasenya:</label>
@@ -107,13 +108,17 @@
 									</div>
 								</div>
 								<div class="col-md-12">					
-									<button type="button" class="button">Actualitzar</button>
+									<button type="button" class="button" id="btn_actualitzarContrasenya">Actualitzar</button>
 								</div>
+								<div class="col-md-12" id="div-error">					
+
+								</div>
+
 					      </form>
 					    </section>
 					    <section id="animals" class="col-md-8">
 					    	<h3>Els meus animals perduts</h3>	    
-				            <table class="table table-striped" id="taula_animals">
+				            <table class="table" id="taula_animals">
 				                <tr>
 				                	<th></th>
 				                	<th></th>
@@ -122,6 +127,10 @@
 				                    <th><strong>Sexe</strong></th>
 				                </tr>
 				            </table>
+				        </section>
+
+					    <section id="cites" class="col-md-8">
+					    	<h3>Les meves cites sol·licitades</h3>	    
 				        </section>
 
 				        <section id="serveis" class="col-md-8">

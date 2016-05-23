@@ -47,6 +47,23 @@ $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=u
 //////////////// USUARIOS //////////////////
 ////////////////////////////////////////////
 
+$app->get('/citesAceptades/:tokenusuario', function($tokenusuario) use($db) {
+            $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
+            $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $tokenusuario . "'";
+            $result = $conn->query($sql);
+
+            $idusuario = $result->fetch_assoc();
+            
+            $consulta = $db->prepare("SELECT * from citas WHERE fk_usuario_CITAS = " . $idusuario['id_USUARIOS'] . " AND estado_CITAS = 'aceptada'");
+            $consulta->execute();
+            
+            $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode($resultados);
+            return $resultados;
+        });
+
+
 $app->get('/horesDisponibles/:idServei/:dia', function($idServei,$dia) use($db) {
 
     $consulta = $db->prepare("SELECT horaMatiMin_SERVICIOS, horaMatiMax_SERVICIOS, horaTardaMin_SERVICIOS, horaTardaMax_SERVICIOS FROM servicios WHERE id_SERVICIOS = :idServei");
@@ -76,6 +93,16 @@ $app->get('/calendariHores/:idServei', function($idServei) use($db) {
     $horesDisponibles = convertirHores($hores);
     
     echo $horesDisponibles;
+});
+$app->get('/hores/nomHoresOcupades/:id/:dia/:hora', function($id, $dia, $hora) use ($db){
+    $conn = conexion();
+
+    $consulta = $conn->query("SELECT nom_HORESPERDUDES FROM horesperdudes WHERE pk_idServei = '$id' AND dia_HORESPERDUDES = '$dia' AND hora_HORESPERDUDES = '$hora'");
+    
+    if($resultado = $consulta->fetch_assoc())
+        echo $resultado['nom_HORESPERDUDES'];
+    else
+        echo "";
 });
 
 $app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
@@ -133,35 +160,34 @@ $app->post('/serveis/solicitudes/cancelar',function() use($db,$app) {
 
 });
 
-$app->post('/usuarios/actualizarContrasenya',function($id) use($db,$app) {
+$app->post('/usuarios/actualizarContrasenya',function() use($db,$app) {
     // Para acceder a los datos recibidos del formulario
     $datosform=$app->request;
     $antiga = $datosform->post('contrasenya_antiga');
     $nova = $datosform->post('contrasenya_nova');
     $id = ($datosform->post('id_usuario') == "" ? $datosform->post('id_usuario') : $_COOKIE['id']);
     $id = getIDusuario($id);
-
+    $antiga = hash("sha256", $antiga);
     $conn = conexion();
-    $resultado = $conn->query("SELECT * FROM usuarios WHERE id_USUARIOS = '$id' AND password_USUARIOS = $antiga");
+    $resultado = $conn->query("SELECT * FROM usuarios WHERE id_USUARIOS = '$id' AND password_USUARIOS = '$antiga'");
     if($resultado->fetch_assoc()){
-        $consulta=$db->prepare("UPDATE usuarios set password_USUARIOS=:pass where id_USUARIOS=:id");
-        if(strlen($nova) > 5){
+             
+        if(strlen($nova) >= 5){
             $nova = hash("sha256", $nova);
-            $estado=$consulta->execute(
-                array(
-                    ':pass'=> $nova,
-                    ':id'=> $id,
-                    )
-                );
+            $conn = conexion();
+            $consulta = $conn->query("UPDATE usuarios set password_USUARIOS='$nova' where id_USUARIOS='$id'");
+            if($consulta === FALSE){
+                echo 0;
+            }else{
+                echo 1;
+            }
 
-
-            echo $consulta->rowCount();
         }else{
             //MIDA DE CONTRASENYA INCORRECTE
             echo "2";
         }
     }else{
-        echo 0;
+        echo "00";
     }
 });
 
@@ -199,7 +225,7 @@ $app->get('/usuarios', function() use($db) {
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
             
-            echo json_encode($resultados);
+            print_r($resultados);
 });
 
 //obtenim un susuario en concret
@@ -376,32 +402,30 @@ $app->post('/usuarios/actualizar/:id',function($id) use($db,$app) {
                             where token_USUARIOS=:id");
     // Preparamos la consulta de update.
     
-                if($datosform->post('nom_nou')!="" && $datosform->post('cognom_nou')!="" && $datosform->post('telefon_nou')!="" && $datosform->post('cp_nou')!="" && $datosform->post('poblacio_nou')!=""){
-                    $estado=$consulta->execute(
-                        array(
-                            ':nombre'=> $datosform->post('nom_nou'),
-                            ':apellido'=> $datosform->post('cognom_nou'),
-                            ':poblacion'=> $datosform->post('poblacio_nou'),
-                            ':cp'=> $datosform->post('cp_nou'),
-                            ':telf'=> $datosform->post('telefon_nou'),
-                            ':id'=> $id,
-                            )
-                        );
+        if($datosform->post('nom_nou')!="" && $datosform->post('cognom_nou')!="" && $datosform->post('telefon_nou')!="" && $datosform->post('cp_nou')!="" && $datosform->post('poblacio_nou')!=""){
+            $estado=$consulta->execute(
+                array(
+                    ':nombre'=> $datosform->post('nom_nou'),
+                    ':apellido'=> $datosform->post('cognom_nou'),
+                    ':poblacion'=> $datosform->post('poblacio_nou'),
+                    ':cp'=> $datosform->post('cp_nou'),
+                    ':telf'=> $datosform->post('telefon_nou'),
+                    ':id'=> $id,
+                    )
+                );
 
+            if($consulta->rowCount() == 0)
+                var_dump($consulta->errorInfo());
+            echo $consulta->rowCount();
 
-                    echo $consulta->rowCount();
-                }else{
-                    //HI HA CAMPS SENSE COMPLETAR
-                    echo "2";
-                }
-
-});
-
-$app->post('/usuarios/actualizarContrasenya', function() use($app){
-    $datosform = $app->request;
-
+        }else{
+            //HI HA CAMPS SENSE COMPLETAR
+            echo "2";
+        }
 
 });
+
+
 ////////////////////////////////////////////
 ////////////// NOTIFICACIONS ///////////////
 ////////////////////////////////////////////
@@ -848,12 +872,18 @@ $app->post('/protectora/solicitudes/cancelar', function() use($db, $app) {
 
     $id_usuario = getIDusuario($token);
     if($id_usuario != FALSE){
-        $consulta = $db->prepare("UPDATE adopta SET estado_ADOPTA = 'cancelada' WHERE ANIMALES_id_ANIMALES =" . $id_animal);
+        $consulta = $db->prepare("UPDATE adopta SET estado_ADOPTA = 'indeterminat' WHERE ANIMALES_id_ANIMALES =" . $id_animal);
         $consulta->execute();
         if ($consulta->rowCount()==1)
           echo 1;
         else
-          echo 0;     
+          echo 0;
+        $consulta = $db->prepare("UPDATE animales SET estado_ANIMALES = 'adopcion' WHERE id_ANIMALES ='$id_animal'");
+        $consulta->execute();
+        if ($consulta->rowCount()==1)
+          echo 1;
+        else
+          echo 0;       
         
     }else{
         echo 0;

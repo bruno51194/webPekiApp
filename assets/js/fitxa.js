@@ -15,21 +15,20 @@ $(document).ready(function() {
 
 
 	btn_animalTrobat.click(function(){
-		$.ajax({
-			url: "Slim/api.php/animales/animalesPerdidos/email/" + btn_animalTrobat.val(),
-			type: "GET",
-			succes: function(responseText){
-				if(responseText == "1"){
-					alert('enviat');
-				}else{
-					alert(responseText);
-				}
-			}
-		});
-		return false;
+		var bool = true;
+		if (bool) {
+		$("#result_vist").html('<div class="alert alert-success">S\'ha enviat un correu a l\'anunciant amb les teves dades perquè pogueu contactar</div>').fadeIn();
+    	setTimeout(function() {
+          window.location.href= "lostfind.php";
+        }, 4000); 
+    	bool = false;
+		}
+
 	});
 
 	btn_adoptarAnimal.click(function(){
+		var bool = true;
+		if (bool) {
 		$.ajax({
 			url: "Slim/api.php/animales/adoptar",
 			type: "POST",
@@ -37,12 +36,17 @@ $(document).ready(function() {
 			success: function(responseText){
 				responseTextArray = responseText.split(' ');
 				if(responseTextArray[0] == "1" && responseTextArray[1] == "1"){
-					window.location.href= "adopta.php";
+					$("#result_adopta").html('<div class="alert alert-success">S\'ha notificat a la protectora de la teva petició</div>').fadeIn();
+			    	setTimeout(function() {
+			          window.location.href= "adopta.php";
+			        }, 4000); 
 				}else{
 					alert(responseText);
 				}
 			}
 		});
+		bool = false;
 		return false;
-	})
+		}
+	});
 });

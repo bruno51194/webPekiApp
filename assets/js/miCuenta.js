@@ -24,11 +24,13 @@ $( document ).ready(function() {
     var seccioAnimals = $("#animals");
     var seccioServeis = $("#serveis");
     var seccioAdopcions = $("#adopcions");
+    var seccioCites = $("#cites");
     var btn_perfil = $("#btn_perfil");
     var btn_contrasenya = $("#btn_contrasenya");
     var btn_animals = $("#btn_animals");
     var btn_serveis = $("#btn_serveis");
     var btn_adopcions = $("#btn_adopcions");
+    var btn_cites = $("#btn_cites");
 
     function amagarSeccions(){
       seccioAnimals.hide();
@@ -36,6 +38,8 @@ $( document ).ready(function() {
       seccioPerfil.hide();
       seccioServeis.hide();
       seccioAdopcions.hide();
+      seccioCites.hide();
+      $("#error").remove();
     }
 
     amagarSeccions();
@@ -64,6 +68,10 @@ $( document ).ready(function() {
       amagarSeccions();
       mostrarSeccio(seccioAdopcions);
     });
+    btn_cites.click(function(){
+      amagarSeccions();
+      mostrarSeccio(seccioCites);
+    });
 
 
     //DADES PERSONALS
@@ -89,13 +97,44 @@ $( document ).ready(function() {
         data: $("#formPerfil").serialize(),
         success: function(response){
           if(response == "1"){
-            location.reload();
+            $("#formPerfil").append('<div class="alert alert-success">Dades actualitzades correctament!</div>').fadeIn();
+            setTimeout(function() {
+              location.reload();
+            }, 2000); 
+          }else if(response == "2"){
+            $("error").remove();
+            $("#formPerfil").append('<div class="alert alert-danger" id="error">Error en l\'actualització de perfil. Hi ha camps sense completar</div>').fadeIn();
+
           }else{
-            alert(response);
+            $("error").remove();
+            $("#formPerfil").append('<div class="alert alert-danger" id="error">Error en l\'actualització de perfil. Comprova que els tipus de dades siguin correctes</div>').fadeIn();
           }
         }
       });
     });
+
+    $("#btn_actualitzarContrasenya").click(function(){
+      $.ajax({
+        url: "Slim/api.php/usuarios/actualizarContrasenya",
+        type: "POST",
+        data: $("#formContrasenya").serialize(),
+        success: function(response){
+          if(response == "1"){
+            $("#div-error").html('<div class="alert alert-success">Dades actualitzades correctament!</div>').fadeIn();
+            setTimeout(function() {
+              location.reload();
+            }, 2000); 
+          }else if(response == "2"){
+
+            $("#div-error").html('<div class="alert alert-danger" id="error">Error en l\'actualització de contrasenya. La contrasenya no pot tenir menys de 5 caràcters</div>').fadeIn();
+          }else{
+
+            $("#div-error").html('<div class="alert alert-danger" id="error">Error en l\'actualització de contrasenya. Comprova que els tipus de dades siguin correctes</div>').fadeIn();
+          }
+        }
+      });
+    });
+
 
     //ANIMALS PERDUTS
     var taula_animals = $("#taula_animals");
@@ -111,6 +150,22 @@ $( document ).ready(function() {
               taula_animals.append('<tr><td><form id="formAnimal_' + campos.ANIMALES_id_ANIMALES + '"><input name="id_animal" id="id_animal" type="hidden" value="' + campos.ANIMALES_id_ANIMALES + '"><button type="submit" class="btn btn-link eliminar"><span class="glyphicon glyphicon-remove"></span></button></form></td><td><img src="' + campos.url_ANIMALES + '" alt="fotoAnimal"><td>' + campos.nombre_ANIMALES + "</td><td>" + campos.tipo_ANIMALES + "</td><td>" + campos.sexo_ANIMALES + '</td></tr>');
               var form = $("#formAnimal_" + campos.ANIMALES_id_ANIMALES);
               submitForms(form);
+            });
+          }
+
+      });
+    }
+
+    var div_cites = $("#cites");
+
+    function citesAceptades(){
+        $.getJSON("Slim/api.php/citesAceptades/" + getCookie("id"), 
+        function(datos){
+          if (datos == ""){
+              seccioAnimals.html('<h3>Les meves cites sol·licitades</h3><div class="alert alert-success" role="alert">No tens cap cita acceptada.</div>');
+          }else{
+            $.each(datos, function(i, campos){
+              div_cites.append('<div class="panel panel-default"> <div class="panel-body"> <div class="col-md-3"><strong>Dia:</strong> ' + campos.dia_CITAS + "</div><div class='col-md-2'><strong>Hora:</strong> " + ' ' + campos.hora_CITAS + "</div><div class='col-md-6'><strong>Descripció:</strong> " +' ' + campos.descripcion_CITAS  + '</div>' + " <span class='glyphicon glyphicon-ok' aria-hidden='true'></span>" + '</div></div>');
             });
           }
 
@@ -141,12 +196,15 @@ $( document ).ready(function() {
     function SolicitudsAdopcio(){
       $.getJSON("Slim/api.php/protectora/solicitudesAnimales/" + getCookie("id"),
         function(datos){
+          if (datos!="")
           $.each(datos, function(i, solicitud){
             div_adopcions.append('<div class="solicitud"><div class="panel-heading"><table class="no-margin"><tr><td><img src="' + solicitud.url_ANIMALES + '" alt="foto"></td><td><b>Nom:</b> <a href="fitxa.php?animal=' + solicitud.id_ANIMALES + '" target="_blank">' + solicitud.nombre_ANIMALES +'</a></td><td><b>Solicitant:</b> ' + solicitud.nombre_USUARIOS +'</td><td><button class="btn btn-info"  data-toggle="modal" href="#modal_contacte" id="btn_modal_' + solicitud.id_USUARIOS + '">DADES</button></td><td class="alinear-dreta"><button class="btn btn-success" id="acceptar_' + solicitud.id_ANIMALES + '">ACCEPTAR</button>&nbsp;<button class="btn btn-danger" id="cancelar_' + solicitud.id_ANIMALES + '">CANCELAR</button></td></tr></table></div></div>');
             $("#btn_modal_" + solicitud.id_USUARIOS).click(OmplirDadesModal(solicitud.telefono_USUARIOS, solicitud.email_USUARIOSl, solicitud.poblacion_USUARIOS, solicitud.CP_USUARIOS));
             AcceptarAdopcio($("#acceptar_" + solicitud.id_ANIMALES), solicitud.token_USUARIOS, solicitud.id_ANIMALES);
             CancelarAdopcio($("#cancelar_" + solicitud.id_ANIMALES), solicitud.token_USUARIOS, solicitud.id_ANIMALES);
           });
+        else
+           div_adopcions.append('<div class="alert alert-warning">No tens sol·licituds</div>');
         });
     }
 
@@ -222,7 +280,7 @@ $( document ).ready(function() {
               success: function(responseText){
                   var responseTextarray = responseText.split(" ");
 
-                  if(responseTextarray[0] == "1"){
+                  if(responseTextarray[0] == "11"){
                     location.reload();
                   }else{
                       alert(responseText);
@@ -289,6 +347,7 @@ $( document ).ready(function() {
         case "normal":
             DadesPerfil();
             AnimalesPerdidos();
+            citesAceptades();
             break;
         case "empresa":
             DadesPerfil();

@@ -54,7 +54,7 @@
 					          	<div class="col-md-5 col-md-offset-1">
 						          		<p class="no-margin"><b>Nom:</b> <?php echo $animal['nombre_ANIMALES']; ?></p>
 							          	<p class="no-margin"><b>Sexe:</b> <?php echo $animal['sexo_ANIMALES']; ?></p>
-							          	<p class="no-margin"><b>Tamany:</b> <?php echo $tamany; ?></p>
+							          	<p class="no-margin"><b>Mida:</b> <?php echo $tamany; ?></p>
 							          	<p class="no-margin"><b>Raça:</b> <?php echo $animal['raza_ANIMALES']; ?></p>
 							          	<p class="no-margin"><b>Edat:</b> <?php echo $animal['edad_ANIMALES']; ?></p>
 							          	<p class="no-margin"><b>Color:</b> <?php echo $animal['color_ANIMALES']; ?></p>
@@ -73,6 +73,7 @@
 					        	<div class="text-center marge-dalt">
 					        		<?php if($animal['adopcion_ANIMALES'] == "NO") : ?>
 					        		<button class="button btn-afegir" id="btn_animal_trobat" value="<?php echo $animal['id_ANIMALES']; ?>">L'he vist!</button>
+					        		<div id="result_vist"></div>
 					        		<?php else : ?>
 					        		<form id="form_adoptar">
 					        		<input type="hidden" name="token_usuario" value="<?php echo $_COOKIE['id']; ?>">
@@ -85,6 +86,7 @@
 					        		<?php endif; //si el tipus no es normal, o no està loggat, no surtirà cap botó ?>
 
 					        		</form>
+					        		<div id="result_adopta"></div>
 				        			<?php endif; ?>
 					        	</div>
 				      		</div>
