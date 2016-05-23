@@ -141,7 +141,6 @@
 				</section>			
 
 				<section id="banner_serveis">
-					<?php //posar un if per controlar que nomes aparegui al accedir amb un usuari que sigui una empresa ?>
 					<div class="centrar-text">
 						<span class='image featured'><a href="afegirServei.php?tipos=<?php echo $tipos ?>"><img src='images/afegeix-servei.png' alt='afegir servei' /></a></span>
 					</div>
