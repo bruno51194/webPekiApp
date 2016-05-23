@@ -475,7 +475,7 @@ $app->post('/afegirServei',function() use($db,$app) {
     $horaMatiMax = $datosform->post('max-mati');
     $horaTardaMin = $datosform->post('min-tarda');
     $horaTardaMax = $datosform->post('max-tarda');
-    $tokenusuario = $_COOKIE['id'];
+    $tokenusuario = (!isset($_COOKIE['id']) ? $datosform->post('id') : $_COOKIE['id']);
 
     $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
 
