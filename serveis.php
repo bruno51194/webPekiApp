@@ -63,12 +63,12 @@
 								case 'Perruqueries':
 									echo "<p>Les millors perruqueries per portar a les teves mascotes.</p>";
 									echo "</header>";
-									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									echo "<span class='image featured'><img src='images/seveis/perruqueria-servei.jpg' alt='' /></span>";
 									break;
 								case 'Passejadors':
 									echo "<p>Troba als millors passejadors per deixar als teus animals.</p>";
 									echo "</header>";
-									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									echo "<span class='image featured'><img src='images/seveis/pasejadors-servei.jpg' alt='' /></span>";
 									break;
 								case 'Veterinaris':
 									echo "<p>Els millors profesionals licenciats en veterinaria</p>";
@@ -78,17 +78,17 @@
 								case 'Clubs Esportius':
 									echo "<p>Porta les teves mascotes als clubs esportius més selectes</p>";
 									echo "</header>";
-									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									echo "<span class='image featured'><img src='images/seveis/club-servei.jpg' alt='' /></span>";
 									break;
 								case 'Educadors':
 									echo "<p>Els millors professionals en el sector de l'educació animal</p>";
 									echo "</header>";
-									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									echo "<span class='image featured'><img src='images/seveis/ensinistradors-servei.jpg' alt='' /></span>";
 									break;
 								case 'Residencies':
 									echo "<p>Deixa els teus animals a les nostres residencies d'animals amb la máxima tranquilitat</p>";
 									echo "</header>";
-									echo "<span class='image featured'><img src='images/pic01.jpg' alt='' /></span>";
+									echo "<span class='image featured'><img src='images/seveis/guarderia-servei.jpg' alt='' /></span>";
 									break;
 								default:
 									break;
