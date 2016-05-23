@@ -47,6 +47,19 @@ $db = new PDO('mysql:host=' . BD_SERVIDOR . ';dbname=' . BD_NOMBRE . ';charset=u
 //////////////// USUARIOS //////////////////
 ////////////////////////////////////////////
 
+$app->get('/hores/horesOcupades/:id/:dia', function($id, $dia) use ($db){
+    $conn = conexion();
+
+    $consulta = $conn->query("SELECT * FROM horesperdudes INNER JOIN usuarios ON fk_tokenUsuario_HORESPERDUDES = token_USUARIOS INNER JOIN citas ON pk_idServei = fk_servicio_CITAS AND dia_CITAS = dia_HORESPERDUDES AND hora_CITAS = hora_HORESPERDUDES WHERE pk_idServei = '$id' AND dia_HORESPERDUDES = '$dia' AND estado_CITAS='aceptada'");
+    if($consulta)
+        $resultado = $consulta->fetch_all(MYSQLI_ASSOC);
+    else
+        $resultado = "";
+    echo json_encode($resultado);
+    return json_encode($resultado);
+
+});
+
 $app->get('/citesAceptades/:tokenusuario', function($tokenusuario) use($db) {
             $conn = new mysqli(BD_SERVIDOR, BD_USUARIO, BD_PASSWORD, BD_NOMBRE);
             $sql = "SELECT id_USUARIOS FROM usuarios WHERE token_USUARIOS = '" . $tokenusuario . "'";
