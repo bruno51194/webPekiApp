@@ -2547,9 +2547,6 @@
 			border-right: 0;
 		}
 
-			table tbody tr:nth-child(2n + 1) {
-				background-color: #f8f8f8;
-			}
 
 		table td {
 			padding: 0.75em 0.75em;
