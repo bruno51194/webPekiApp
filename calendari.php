@@ -3,7 +3,7 @@
 <head>
     <?php 
         $titol = "Lost&Find";
-        $actiu = 4;
+        $actiu = 0;
         include 'head.php';
     ?>
 </head>
@@ -255,7 +255,9 @@
         <?php endif; ?>
     </div>
     </section>
-
+    <footer id="footer">
+    <?php include 'footer.php'; ?>
+    </footer>
     <script type="text/javascript">
         $(document).ready(function(){
             var contador = parseInt("<?php echo $cont-1; ?>");
