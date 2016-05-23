@@ -54,7 +54,7 @@ $app->get('/citesAceptades/:tokenusuario', function($tokenusuario) use($db) {
 
             $idusuario = $result->fetch_assoc();
             
-            $consulta = $db->prepare("SELECT * from citas INNER JOIN servicios ON id_SERVICIOS = fk_servicio_CITAS WHERE fk_usuario_CITAS = " . $idusuario['id_USUARIOS'] . " AND estado_CITAS IN ('aceptada','cancelada') AND dia_CITAS >= CURDATE()");
+            $consulta = $db->prepare("SELECT * from citas WHERE fk_usuario_CITAS = " . $idusuario['id_USUARIOS'] . " AND estado_CITAS = 'aceptada'");
             $consulta->execute();
             
             $resultados = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -97,12 +97,13 @@ $app->get('/calendariHores/:idServei', function($idServei) use($db) {
 $app->get('/hores/nomHoresOcupades/:id/:dia/:hora', function($id, $dia, $hora) use ($db){
     $conn = conexion();
 
-    $consulta = $conn->query("SELECT nom_HORESPERDUDES FROM horesperdudes WHERE pk_idServei = '$id' AND dia_HORESPERDUDES = '$dia' AND hora_HORESPERDUDES = '$hora'");
-    
-    if($resultado = $consulta->fetch_assoc())
-        echo $resultado['nom_HORESPERDUDES'];
+    $consulta = $conn->query("SELECT * FROM horesperdudes INNER JOIN usuarios ON fk_tokenUsuario_HORESPERDUDES = token_USUARIOS INNER JOIN citas ON pk_idServei = fk_servicio_CITAS AND dia_CITAS = dia_HORESPERDUDES AND hora_CITAS = hora_HORESPERDUDES WHERE pk_idServei = '$id' AND dia_HORESPERDUDES = '$dia' AND hora_HORESPERDUDES = '$hora' AND estado_CITAS='aceptada'");
+    if($consulta)
+        $resultado = $consulta->fetch_all(MYSQLI_ASSOC);
     else
-        echo "";
+        $resultado = "";
+    echo json_encode($resultado);
+
 });
 
 $app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
@@ -116,7 +117,7 @@ $app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
     $hora = $datosform->post('hora');
     $idCita = $datosform->post('idCita');
 
-    $sql3 = "SELECT nombre_USUARIOS FROM usuarios WHERE id_USUARIOS = '$idUsuario'";
+    $sql3 = "SELECT token_USUARIOS FROM usuarios WHERE id_USUARIOS = '$idUsuario'";
     $result = $conn->query($sql3);
     $nomUsuari = $result->fetch_assoc();
     if ($result === FALSE) {
@@ -125,8 +126,8 @@ $app->post('/serveis/solicitudes/aceptar',function() use($db,$app) {
        echo "1";
     }
 
-    $sql = "INSERT INTO horesperdudes(pk_idServei,dia_HORESPERDUDES,hora_HORESPERDUDES,nom_HORESPERDUDES)
-        VALUES ('$idServei','$dia','$hora','$nomUsuari[nombre_USUARIOS]')";
+    $sql = "INSERT INTO horesperdudes(pk_idServei,dia_HORESPERDUDES,hora_HORESPERDUDES,fk_tokenUsuario_HORESPERDUDES)
+        VALUES ('$idServei','$dia','$hora','$nomUsuari[token_USUARIOS]')";
     if ($conn->query($sql) === FALSE) {
         echo "Error insertin' record: " . $conn->error;
     }else{
