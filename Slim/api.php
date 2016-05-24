@@ -427,8 +427,6 @@ $app->post('/usuarios/actualizar/:id',function($id) use($db,$app) {
                     )
                 );
 
-            if($consulta->rowCount() == 0)
-                var_dump($consulta->errorInfo());
             echo $consulta->rowCount();
 
         }else{

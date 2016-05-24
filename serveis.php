@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<?php 
-			$titol = "Serveis";
+			$arraytipos = array("Perruqueries", "Passejadors", "Veterinaris", "Clubs Esportius", "Educadors", "Residències");
+			$titol = (isset($_GET["tipos"]) && in_array($_GET['tipos'], $arraytipos) ? $_GET["tipos"] . " - PekiApp" : "Servei desconegut - PekiApp");
 			$actiu = 4;
 			include 'head.php';
 
@@ -50,7 +51,10 @@
 
 				</header>
 
-				<?php $tipos = $_GET["tipos"]; ?>
+				<?php 
+				
+				$tipos = (isset($_GET["tipos"]) && in_array($_GET['tipos'], $arraytipos) ? $_GET["tipos"] : "<div class='alert alert-danger'>Servei desconegut</div>") ; 
+				?>
 
 			<!-- Main -->
 				<section id="main" class="container">
@@ -85,7 +89,7 @@
 									echo "</header>";
 									echo "<span class='image featured'><img src='images/seveis/ensinistradors-servei.jpg' alt='' /></span>";
 									break;
-								case 'Residencies':
+								case 'Residències':
 									echo "<p>Deixa els teus animals a les nostres residencies d'animals amb la máxima tranquilitat</p>";
 									echo "</header>";
 									echo "<span class='image featured'><img src='images/seveis/guarderia-servei.jpg' alt='' /></span>";
@@ -98,9 +102,9 @@
 				</section>
 
 				<section class="container">
-
+				<?php if (isset($_GET["tipos"]) && in_array($_GET['tipos'], $arraytipos)): ?>
 					<div class="centrar-text"><h2>Llistat de profesionals:</h2></div>
-				
+				<?php endif; ?>
 					<div class="col-md-offset-2 col-md-8">
 						<div id="panell-professionals"></div>
 					</div>

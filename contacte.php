@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<?php 
-			$titol = "Contacte";
+			$titol = "Contacte - PekiApp";
 			$actiu = 5;
 			include 'head.php';
 		?>
@@ -26,7 +26,7 @@
 						<h2>Formulari de contacte</h2>
 					</header>
 					<div class="box">
-						<form method="post" action="#">
+						<div id="form_contacte">
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
 									<input type="text" name="nom" id="nom" value="" placeholder="Nom" />
@@ -48,11 +48,11 @@
 							<div class="row uniform">
 								<div class="12u">
 									<ul class="actions align-center">
-										<li><input type="submit" value="Enviar missatge" /></li>
+										<li><button class="button" id="button_contacte">Enviar missatge</button></li>
 									</ul>
 								</div>
 							</div>
-						</form>
+						</div>
 					</div>
 				</section>
 
@@ -64,6 +64,14 @@
 		</div>
 
 		<!-- Scripts -->
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$("#button_contacte").click(function(){
+						$("#alert").remove();
+						$("#form_contacte").append("<div id='alert' class='alert alert-success marge-dalt'>Missatge enviat!</div>").fadeIn();
+					});
+				});
+			</script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
 			<script src="assets/js/jquery.scrollgress.min.js"></script>

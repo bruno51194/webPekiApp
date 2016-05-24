@@ -2,7 +2,7 @@
 <html>
 <head>
     <?php 
-        $titol = "Lost&Find";
+        $titol = "Serveis - PekiApp";
         $actiu = 4;
         include 'head.php';
     ?>

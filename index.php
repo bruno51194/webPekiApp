@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<?php 
-			$titol = "Pekiapp";
+			$titol = "Inici - PekiApp";
 			$actiu = 1;
 			include 'head.php';
 		?>
@@ -102,7 +102,7 @@
 							</section>
 							<section>
 								<img src="images/seveis/guarderia_logo.png" alt="guarderia canina" class="img-circle" width="120px" height="120px">
-								<h3>Residencies</h3>
+								<h3>Residències</h3>
 								<p>Deixa els teus animals a les nostres residencies d'animals amb la máxima tranquilitat</p>
 							</section>
 						</div>

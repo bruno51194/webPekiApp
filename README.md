@@ -14,16 +14,29 @@ Participants
 Lost&Find està formada per tres alumnes de l'Escola Pia Santa Anna que estan cursant el Grau Superior d'Aplicacions Multiplataforma (GSDAM).
 
 > **Xavi Ortega Cassou**
+>
+> Back-end, Api   
 
-> <a href="https://linkedin.com/in/xavi-ortega-cassou-6a5665119">Connectar a Linkedin</a>
-> <a href="https://github.com/xavi-ortega">Seguir a GitHub</a>
+> <a href="https://linkedin.com/in/xavi-ortega-cassou-6a5665119">Connectar a Linkedin</a>   
+> <a href="https://github.com/xavi-ortega">Seguir a GitHub</a>   
 
 > **Albert Vidal Gatell**
+>
+> App Android   
 
-> <a href="https://linkedin.com/in/albert-vidal-gatell-1719bb108">Connectar a Linkedin</a>
-> <a href="https://github.com/avg199">Seguir a GitHub</a>
+> <a href="https://linkedin.com/in/albert-vidal-gatell-1719bb108">Connectar a Linkedin</a>   
+> <a href="https://github.com/avg199">Seguir a GitHub</a>   
 
 > **Bruno Villanueva Casero**
+>
+> Front-end, Base de dades, Servidor   
 
-> <a href="https://linkedin.com/in/bruno-villanueva-casero-5959aa63">Connectar a Linkedin</a>
+> <a href="https://linkedin.com/in/bruno-villanueva-casero-5959aa63">Connectar a Linkedin</a>   
 > <a href="https://github.com/bruno51194">Seguir a GitHub</a>
+
+Web
+---------------
+<a href="http://pekiapp.azurewebsites.net/" target="_blank">http://pekiapp.azurewebsites.net/</a>
+
+
+
