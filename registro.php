@@ -71,7 +71,7 @@
 					<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
 				</div>
 				<div class="etc-login-form">
-					<p>Ja tens un compte? <a href="#">entra aquí</a></p>
+					<p>Ja tens un compte? <a href="login.php">entra aquí</a></p>
 				</div>
 			</form>
 		</div>

@@ -30,7 +30,7 @@
 				<button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
 			</div>
 			<div class="etc-login-form">
-				<p>No tens compte? <a href="#">crea una.</a></p>
+				<p>No tens compte? <a href="registro.php">crea una.</a></p>
 			</div>
 		</form>
 	</div>
