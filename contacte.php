@@ -69,6 +69,9 @@
 					$("#button_contacte").click(function(){
 						$("#alert").remove();
 						$("#form_contacte").append("<div id='alert' class='alert alert-success marge-dalt'>Missatge enviat!</div>").fadeIn();
+						setTimeout(function(){
+							window.location.href = "index.php";
+						}, 2000);
 					});
 				});
 			</script>
