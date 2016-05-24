@@ -36,7 +36,7 @@ Lost&Find està formada per tres alumnes de l'Escola Pia Santa Anna que estan cu
 
 Web
 ---------------
-<a href="http://pekiapp.azurewebsites.net/adopta.php">http://pekiapp.azurewebsites.net/adopta.php </a>
+<a href="http://pekiapp.azurewebsites.net/" target="_blank">http://pekiapp.azurewebsites.net/</a>
 
 
 
