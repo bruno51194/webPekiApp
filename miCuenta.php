@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<?php 
-			$titol = "Pekiapp - Perfil d'usuari";
+			$titol = "Compte - PekiApp";
 			$actiu = 6;
 			include 'head.php';
 		?>
@@ -130,7 +130,8 @@
 				        </section>
 
 					    <section id="cites" class="col-md-8">
-					    	<h3>Les meves cites sol·licitades</h3>	    
+					    	<h3>Les meves cites sol·licitades</h3>
+					    	<div id="div_cites"></div>	    
 				        </section>
 
 				        <section id="serveis" class="col-md-8">

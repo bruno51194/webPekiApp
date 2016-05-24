@@ -5,7 +5,7 @@
           html, body { height: 100%; margin: 0; padding: 0; }
         </style>
         <?php 
-            $titol = "Lost&Find";
+            $titol = "Lost&Find - PekiApp";
             $actiu = 2;
             include 'head.php';
             include '_functions/functions.php';

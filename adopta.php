@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<?php 
-			$titol = "Adopta";
+			$titol = "Adopta - PekiApp";
 			$actiu = 3;
 			include 'head.php';
 			include '_functions/functions.php';
@@ -97,7 +97,7 @@
 								    <input type="radio" name="especie" id="gats" value="gato"/>
 								    <i></i> <span>Gat</span> </label>
 
-			                	<h2>Tamany</h2>
+			                	<h2>Mida</h2>
 
 		                		  <label for="petit">
 								    <input type="radio" name="tamany" id="petit" value="petit"/>
@@ -133,7 +133,7 @@
 				                  <h3><?php echo $animal['nombre_ANIMALES']; ?></h3>
 				                  <p class="text-normal"><strong>Edat:</strong> <?php echo $animal['edad_ANIMALES']; ?></p>
 				                  <p class="text-normal"><strong>Sexe:</strong> <?php echo $animal['sexo_ANIMALES']; ?></p>
-				                  <p class="text-normal"><strong>Mesura:</strong> <?php echo $animal['medida_ANIMALES']; ?></p>
+				                  <p class="text-normal"><strong>Mida:</strong> <?php echo ($animal['medida_ANIMALES'][0] == 'g' ? "Gran" : ($animal['medida_ANIMALES'][0] == 'm' ? "Mitjà" : "Petit"));; ?></p>
 				                  <p><a href="fitxa.php?animal=<?php echo $animal['id_ANIMALES']; ?>" class="btn btn-warning" role="button">Més informació</a></p>
 				                </div>
 				              </div>

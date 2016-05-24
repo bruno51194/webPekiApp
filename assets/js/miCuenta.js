@@ -156,13 +156,13 @@ $( document ).ready(function() {
       });
     }
 
-    var div_cites = $("#cites");
+    var div_cites = $("#div_cites");
 
     function citesAceptades(){
         $.getJSON("Slim/api.php/citesAceptades/" + getCookie("id"), 
         function(datos){
           if (datos == ""){
-              seccioAnimals.html('<h3>Les meves cites sol·licitades</h3><div class="alert alert-success" role="alert">No tens cap cita acceptada.</div>');
+              seccioCites.html('<h3>Les meves cites sol·licitades</h3><div class="alert alert-success" role="alert">No tens cap cita acceptada.</div>');
           }else{
             $.each(datos, function(i, campos){
               div_cites.append('<div class="panel panel-default"> <div class="panel-body"> <div class="col-md-3"><strong>Dia:</strong> ' + campos.dia_CITAS + "</div><div class='col-md-2'><strong>Hora:</strong> " + ' ' + campos.hora_CITAS + "</div><div class='col-md-6'><strong>Servei:</strong> " +' ' + campos.nombre_SERVICIOS  + '</div>'+ (campos.estado_CITAS == 'aceptada' ? "<span class='glyphicon glyphicon-ok iconGreen' aria-hidden='true'></span>" : "<span class='glyphicon glyphicon-remove iconRed' aria-hidden='true'></span>") + '</div></div>');
@@ -320,9 +320,10 @@ $( document ).ready(function() {
 
 
     function submitForms(form){
-      var result = window.confirm("Estas segur?");
-      if(result)
+      
         form.submit(function(){
+          var result = window.confirm("Estas segur?");
+      if(result)
             $.ajax({
               url: "Slim/api.php/animales/eliminar",
               type: "POST",

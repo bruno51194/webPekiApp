@@ -13,7 +13,7 @@
 		}
 		$animal = animal($_GET['animal']);
 		
-		$titol =  $animal['nombre_ANIMALES'] . " - " . ($animal['adopcion_ANIMALES'] == "NO" ? "Lost&Find" : "Adopta");
+		$titol =  $animal['nombre_ANIMALES'] . " - " . ($animal['adopcion_ANIMALES'] == "NO" ? "Lost&Find" : "Adopta") . " - PekiApp";
 		$actiu = 0;
 		include 'head.php';
         $tamany = ($animal['medida_ANIMALES'][0] == 'g' ? "Gran" : ($animal['medida_ANIMALES'][0] == 'm' ? "Mitjà" : "Petit"));
