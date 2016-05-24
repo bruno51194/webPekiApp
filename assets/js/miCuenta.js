@@ -369,5 +369,5 @@ $( document ).ready(function() {
             DadesPerfil();
             SolicitudsAdopcio();
             break;
-    } 
+    }
 });
