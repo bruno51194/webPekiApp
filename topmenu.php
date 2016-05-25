@@ -13,7 +13,7 @@
 				<li><a href="serveis.php?tipos=Veterinaris">Veterinaris</a></li>
 				<li><a href="serveis.php?tipos=Clubs Esportius">Clubs esportius</a></li>
 				<li><a href="serveis.php?tipos=Educadors">Educadors</a></li>
-				<li><a href="serveis.php?tipos=Residencies">Residències</a></li>
+				<li><a href="serveis.php?tipos=Residències">Residències</a></li>
 			</ul>
 		</li>
 
@@ -22,7 +22,7 @@
 		<?php if(!isset($_COOKIE['id'])): ?>
 			<li><a class="button" href="login.php">Accedeix</a></li>
 		<?php else: ?>
-			<li <?php switch ($actiu) { case 6: echo 'class="actiu"'; break; }?>><a href="miCuenta.php">El meu compte <span class="badge" id="notificacions"></span></a></li>
+			<li <?php switch ($actiu) { case 6: echo 'class="actiu"'; break; }?>><a href="miCuenta.php">El meu compte &nbsp;<span class="badge" id="notificacions"></span></a></li>
 		<?php endif; ?>
 	</ul>
 </nav>

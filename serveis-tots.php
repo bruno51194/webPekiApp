@@ -61,10 +61,10 @@
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="serveis.php?tipos=Educadors Canins">
+                    <a href="serveis.php?tipos=Educadors">
                         <div class="card1">
                             <div class="card-header cardheader-centre">
-                                Educació
+                                Educadors
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
@@ -91,10 +91,10 @@
                     </a>
                 </div>
                 <div class="col-md-6">
-                    <a href="serveis.php?tipos=Guarderies Canines">
+                    <a href="serveis.php?tipos=Residències">
                         <div class="card1">
                             <div class="card-header cardheader-centre">
-                                Residència
+                                Residències
                             </div>
                             <div class="card-content">
                                 <div class="card-content-inner">
