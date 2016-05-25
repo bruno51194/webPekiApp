@@ -315,7 +315,6 @@
         boton.click(function(){
            var result = window.confirm("Estas segur?");
             if(result)
-              boton.click(function(){
                   $.ajax({
                       url: "Slim/api.php/serveis/solicitudes/cancelar",
                       type: "POST",
@@ -331,7 +330,6 @@
                           }
                       }
                     });
-              });
             });
         }
 
