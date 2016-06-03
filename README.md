@@ -36,7 +36,16 @@ Lost&Find està formada per tres alumnes de l'Escola Pia Santa Anna que estan cu
 
 Web
 ---------------
-<a href="http://pekiapp.azurewebsites.net/" target="_blank">http://pekiapp.azurewebsites.net/</a>
+<a href="http://pekiapp.azurewebsites.net/" target="_blank">webPekiApp DEMO</a>
+<a href="https://github.com/bruno51194/webPekiApp" target="_blank">webPekiApp GitHub</a>
 
+App
+---------------
+<a href="https://github.com/avg199/PekiApp" target="_blank">PekiApp GitHub</a>
+
+Lost&Find
+---------------
+<a href="http://lostandfind.azurewebsites.net/" target="_blank">Lost&Find Laravel DEMO</a>
+<a href="https://github.com/xavi-ortega/LostAndFind" target="_blank">Lost&Find Laravel DEMO</a>
 
 
